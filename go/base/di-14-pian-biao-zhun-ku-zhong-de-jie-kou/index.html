@@ -1,0 +1,1668 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第14篇：标准库中的接口, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="一、sort.Interface接口排序操作和字符串格式化一样是很多程序经常使用的操作。尽管一个最短的快排程序只要15行就可以搞定，但是一个健壮的实现需要更多的代码，并且我们不希望每次我们需要的时候都重写或者拷贝这些代码。
+幸运的是，sor">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第14篇：标准库中的接口 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第14篇：标准库中的接口
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Go之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%8E%A5%E5%8F%A3/">
+                                <span class="chip bg-color">接口</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A0%87%E5%87%86%E5%BA%93/">
+                                <span class="chip bg-color">标准库</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Go/" class="post-category">
+                                Go
+                            </a>
+                        
+                            <a href="/categories/Go/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-31
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    35 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、sort-Interface接口"><a href="#一、sort-Interface接口" class="headerlink" title="一、sort.Interface接口"></a>一、sort.Interface接口</h3><p>排序操作和字符串格式化一样是很多程序经常使用的操作。尽管一个最短的快排程序只要15行就可以搞定，但是一个健壮的实现需要更多的代码，并且我们不希望每次我们需要的时候都重写或者拷贝这些代码。</p>
+<p>幸运的是，sort包内置的提供了根据一些排序函数来对任何序列排序的功能。它的设计非常独到。在很多语言中，排序算法都是和序列数据类型关联，同时排序函数和具体类型元素关联。相比之下，Go语言的sort.Sort函数不会对具体的序列和它的元素做任何假设。相反，它使用了一个接口类型sort.Interface来指定通用的排序算法和可能被排序到的序列类型之间的约定。这个接口的实现由序列的具体表示和它希望排序的元素决定，序列的表示经常是一个切片。</p>
+<p>一个内置的排序算法需要知道三个东西：序列的长度，表示两个元素比较的结果，一种交换两个元素的方式；这就是<code>sort.Interface</code>的三个方法：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> sort
+
+<span class="token keyword">type</span> Interface <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>
+    <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// i, j are indices of sequence elements</span>
+    <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了对序列进行排序，我们需要定义一个实现了这三个方法的类型，然后对这个类型的一个实例应用sort.Sort函数。思考对一个字符串切片进行排序，这可能是最简单的例子了。下面是这个新的类型StringSlice和它的Len，Less和Swap方法</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> StringSlice <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p StringSlice<span class="token punctuation">)</span> <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>           <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p StringSlice<span class="token punctuation">)</span> <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> p<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p StringSlice<span class="token punctuation">)</span> <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> p<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> p<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在我们可以通过像下面这样将一个切片转换为一个StringSlice类型来进行排序：</p>
+<pre class="line-numbers language-go"><code class="language-go">sort<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span><span class="token function">StringSlice</span><span class="token punctuation">(</span>names<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个转换得到一个相同长度，容量，和基于names数组的切片值；并且这个切片值的类型有三个排序需要的方法。</p>
+<p>对字符串切片的排序是很常用的需要，所以sort包提供了<code>StringSlice</code>类型，也提供了Strings函数能让上面这些调用简化成sort.Strings(names)。</p>
+<p>这里用到的技术很容易适用到其它排序序列中，例如我们可以忽略大小写或者含有的特殊字符。对于更复杂的排序，我们使用相同的方法，但是会用更复杂的数据结构和更复杂地实现<code>sort.Interface</code>的方法。</p>
+<p>我们会运行上面的例子来对一个表格中的音乐播放列表进行排序。每个track都是单独的一行，每一列都是这个track的属性像艺术家，标题，和运行时间。想象一个图形用户界面来呈现这个表格，并且点击一个属性的顶部会使这个列表按照这个属性进行排序；再一次点击相同属性的顶部会进行逆向排序。让我们看下每个点击会发生什么响应。</p>
+<p>下面的变量tracks包含了一个播放列表。（One of the authors apologizes for the other author’s musical tastes.）每个元素都不是Track本身而是指向它的指针。尽管我们在下面的代码中直接存储Tracks也可以工作，sort函数会交换很多对元素，所以如果每个元素都是指针而不是Track类型会更快，指针是一个机器字码长度而Track类型可能是八个或更多。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Track <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Title  <span class="token builtin">string</span>
+    Artist <span class="token builtin">string</span>
+    Album  <span class="token builtin">string</span>
+    Year   <span class="token builtin">int</span>
+    Length time<span class="token punctuation">.</span>Duration
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> tracks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Track<span class="token punctuation">{</span>
+    <span class="token punctuation">{</span><span class="token string">"Go"</span><span class="token punctuation">,</span> <span class="token string">"Delilah"</span><span class="token punctuation">,</span> <span class="token string">"From the Roots Up"</span><span class="token punctuation">,</span> <span class="token number">2012</span><span class="token punctuation">,</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token string">"3m38s"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token string">"Go"</span><span class="token punctuation">,</span> <span class="token string">"Moby"</span><span class="token punctuation">,</span> <span class="token string">"Moby"</span><span class="token punctuation">,</span> <span class="token number">1992</span><span class="token punctuation">,</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token string">"3m37s"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token string">"Go Ahead"</span><span class="token punctuation">,</span> <span class="token string">"Alicia Keys"</span><span class="token punctuation">,</span> <span class="token string">"As I Am"</span><span class="token punctuation">,</span> <span class="token number">2007</span><span class="token punctuation">,</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token string">"4m36s"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token string">"Ready 2 Go"</span><span class="token punctuation">,</span> <span class="token string">"Martin Solveig"</span><span class="token punctuation">,</span> <span class="token string">"Smash"</span><span class="token punctuation">,</span> <span class="token number">2011</span><span class="token punctuation">,</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token string">"4m24s"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">length</span><span class="token punctuation">(</span>s <span class="token builtin">string</span><span class="token punctuation">)</span> time<span class="token punctuation">.</span>Duration <span class="token punctuation">{</span>
+    d<span class="token punctuation">,</span> err <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">ParseDuration</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> d
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>printTracks</code>函数将播放列表打印成一个表格。一个图形化的展示可能会更好点，但是这个小程序使用<code>text/tabwriter</code>包来生成一个列整齐对齐和隔开的表格，像下面展示的这样。注意到<code>*tabwriter.Writer</code>是满足<code>io.Writer</code>接口的。它会收集每一片写向它的数据；它的Flush方法会格式化整个表格并且将它写向<code>os.Stdout</code>（标准输出）。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">printTracks</span><span class="token punctuation">(</span>tracks <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Track<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> format <span class="token operator">=</span> <span class="token string">"%v\t%v\t%v\t%v\t%v\t\n"</span>
+    tw <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>tabwriter<span class="token punctuation">.</span>Writer<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Stdout<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>tw<span class="token punctuation">,</span> format<span class="token punctuation">,</span> <span class="token string">"Title"</span><span class="token punctuation">,</span> <span class="token string">"Artist"</span><span class="token punctuation">,</span> <span class="token string">"Album"</span><span class="token punctuation">,</span> <span class="token string">"Year"</span><span class="token punctuation">,</span> <span class="token string">"Length"</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>tw<span class="token punctuation">,</span> format<span class="token punctuation">,</span> <span class="token string">"-----"</span><span class="token punctuation">,</span> <span class="token string">"------"</span><span class="token punctuation">,</span> <span class="token string">"-----"</span><span class="token punctuation">,</span> <span class="token string">"----"</span><span class="token punctuation">,</span> <span class="token string">"------"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> t <span class="token operator">:=</span> <span class="token keyword">range</span> tracks <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>tw<span class="token punctuation">,</span> format<span class="token punctuation">,</span> t<span class="token punctuation">.</span>Title<span class="token punctuation">,</span> t<span class="token punctuation">.</span>Artist<span class="token punctuation">,</span> t<span class="token punctuation">.</span>Album<span class="token punctuation">,</span> t<span class="token punctuation">.</span>Year<span class="token punctuation">,</span> t<span class="token punctuation">.</span>Length<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    tw<span class="token punctuation">.</span><span class="token function">Flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// calculate column widths and print table</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了能按照Artist字段对播放列表进行排序，我们会像对<code>StringSlice</code>那样定义一个新的带有必须的Len，Less和Swap方法的切片类型。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> byArtist <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Track
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byArtist<span class="token punctuation">)</span> <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>           <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byArtist<span class="token punctuation">)</span> <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Artist <span class="token operator">&lt;</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span>Artist <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byArtist<span class="token punctuation">)</span> <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了调用通用的排序程序，我们必须先将tracks转换为新的byArtist类型，它定义了具体的排序：</p>
+<pre class="line-numbers language-go"><code class="language-go">sort<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span><span class="token function">byArtist</span><span class="token punctuation">(</span>tracks<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在按照artist对这个切片进行排序后，<code>printTrack</code>的输出如下</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Go          Delilah         From the Roots Up   2012 3m38s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Moby            Moby                1992 3m37s</code></pre>
+<p>如果用户第二次请求“按照artist排序”，我们会对tracks进行逆向排序。然而我们不需要定义一个有颠倒Less方法的新类型<code>byReverseArtist</code>，因为sort包中提供了Reverse函数将排序顺序转换成逆序。</p>
+<pre class="line-numbers language-go"><code class="language-go">sort<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">Reverse</span><span class="token punctuation">(</span><span class="token function">byArtist</span><span class="token punctuation">(</span>tracks<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在按照artist对这个切片进行逆向排序后，<code>printTrack</code>的输出如下</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s</code></pre>
+<p><code>sort.Reverse</code>函数值得进行更近一步的学习，这是一个重要的思路。sort包定义了一个不公开的struct类型reverse，它嵌入了一个<code>sort.Interface</code>。reverse的Less方法调用了内嵌的<code>sort.Interface</code>值的Less方法，但是通过交换索引的方式使排序结果变成逆序。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> sort
+
+<span class="token keyword">type</span> reverse <span class="token keyword">struct</span><span class="token punctuation">{</span> Interface <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// that is, sort.Interface</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>r reverse<span class="token punctuation">)</span> <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> r<span class="token punctuation">.</span>Interface<span class="token punctuation">.</span><span class="token function">Less</span><span class="token punctuation">(</span>j<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Reverse</span><span class="token punctuation">(</span>data Interface<span class="token punctuation">)</span> Interface <span class="token punctuation">{</span> <span class="token keyword">return</span> reverse<span class="token punctuation">{</span>data<span class="token punctuation">}</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>reverse的另外两个方法Len和Swap隐式地由原有内嵌的<code>sort.Interface</code>提供。因为reverse是一个不公开的类型，所以导出函数Reverse返回一个包含原有<code>sort.Interface</code>值的reverse类型实例。</p>
+<p>为了可以按照不同的列进行排序，我们必须定义一个新的类型例如<code>byYear</code>：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> byYear <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Track
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byYear<span class="token punctuation">)</span> <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>           <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byYear<span class="token punctuation">)</span> <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Year <span class="token operator">&lt;</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span>Year <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x byYear<span class="token punctuation">)</span> <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在使用<code>sort.Sort(byYear(tracks))</code>按照年对tracks进行排序后，<code>printTrack</code>展示了一个按时间先后顺序的列表：</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s</code></pre>
+<p>对于我们需要的每个切片元素类型和每个排序函数，我们需要定义一个新的<code>sort.Interface</code>实现。如你所见，Len和Swap方法对于所有的切片类型都有相同的定义。下个例子，具体的类型<code>customSort</code>会将一个切片和函数结合，使我们只需要写比较函数就可以定义一个新的排序。顺便说下，实现了<code>sort.Interface</code>的具体类型不一定是切片类型；<code>customSort</code>是一个结构体类型。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> customSort <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    t    <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Track
+    less <span class="token keyword">func</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y <span class="token operator">*</span>Track<span class="token punctuation">)</span> <span class="token builtin">bool</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x customSort<span class="token punctuation">)</span> <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>           <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>t<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x customSort<span class="token punctuation">)</span> <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> x<span class="token punctuation">.</span><span class="token function">less</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>x customSort<span class="token punctuation">)</span> <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>    <span class="token punctuation">{</span> x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">.</span>t<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>让我们定义一个多层的排序函数，它主要的排序键是标题，第二个键是年，第三个键是运行时间Length。下面是该排序的调用，其中这个排序使用了匿名排序函数：</p>
+<pre class="line-numbers language-go"><code class="language-go">sort<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span>customSort<span class="token punctuation">{</span>tracks<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y <span class="token operator">*</span>Track<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> x<span class="token punctuation">.</span>Title <span class="token operator">!=</span> y<span class="token punctuation">.</span>Title <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> x<span class="token punctuation">.</span>Title <span class="token operator">&lt;</span> y<span class="token punctuation">.</span>Title
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> x<span class="token punctuation">.</span>Year <span class="token operator">!=</span> y<span class="token punctuation">.</span>Year <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> x<span class="token punctuation">.</span>Year <span class="token operator">&lt;</span> y<span class="token punctuation">.</span>Year
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> x<span class="token punctuation">.</span>Length <span class="token operator">!=</span> y<span class="token punctuation">.</span>Length <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> x<span class="token punctuation">.</span>Length <span class="token operator">&lt;</span> y<span class="token punctuation">.</span>Length
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这下面是排序的结果。注意到两个标题是“Go”的track按照标题排序是相同的顺序，但是在按照year排序上更久的那个track优先。</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s</code></pre>
+<p>尽管对长度为n的序列排序需要 O(n log n)次比较操作，检查一个序列是否已经有序至少需要n-1次比较。sort包中的<code>IsSorted</code>函数帮我们做这样的检查。像<code>sort.Sort</code>一样，它也使用<code>sort.Interface</code>对这个序列和它的排序函数进行抽象，但是它从不会调用Swap方法：这段代码示范了<code>IntsAreSorted</code>和<code>Ints</code>函数在<code>IntSlice</code>类型上的使用：</p>
+<pre class="line-numbers language-go"><code class="language-go">values <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">IntsAreSorted</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "false"</span>
+sort<span class="token punctuation">.</span><span class="token function">Ints</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true">// "[1 1 3 4]"</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">IntsAreSorted</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "true"</span>
+sort<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">Reverse</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">IntSlice</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true">// "[4 3 1 1]"</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>sort<span class="token punctuation">.</span><span class="token function">IntsAreSorted</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "false"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了使用方便，sort包为[]int,[]string和[]float64的正常排序提供了特定版本的函数和类型。对于其他类型，例如[]int64或者[]uint，尽管路径也很简单，还是依赖我们自己实现。</p>
+<h3 id="二、http-Handler接口"><a href="#二、http-Handler接口" class="headerlink" title="二、http.Handler接口"></a>二、http.Handler接口</h3><p>在这个小节中，我们会对那些基于<code>http.Handler</code>接口的服务器API做更进一步的学习：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> http
+
+<span class="token keyword">type</span> Handler <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>w ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>Request<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">ListenAndServe</span><span class="token punctuation">(</span>address <span class="token builtin">string</span><span class="token punctuation">,</span> h Handler<span class="token punctuation">)</span> <span class="token builtin">error</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>ListenAndServe</code>函数需要一个例如“localhost:8000”的服务器地址，和一个所有请求都可以分派的Handler接口实例。它会一直运行，直到这个服务因为一个错误而失败（或者启动失败），它的返回值一定是一个非空的错误。</p>
+<p>想象一个电子商务网站，为了销售，将数据库中物品的价格映射成美元。下面这个程序可能是能想到的最简单的实现了。它将库存清单模型化为一个命名为database的map类型，我们给这个类型一个<code>ServeHttp</code>方法，这样它可以满足<code>http.Handler</code>接口。这个handler会遍历整个map并输出物品信息。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    db <span class="token operator">:=</span> database<span class="token punctuation">{</span><span class="token string">"shoes"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">"socks"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">}</span>
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">"localhost:8000"</span><span class="token punctuation">,</span> db<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> dollars <span class="token builtin">float32</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>d dollars<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"$%.2f"</span><span class="token punctuation">,</span> d<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> database <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>dollars
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>db database<span class="token punctuation">)</span> <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> item<span class="token punctuation">,</span> price <span class="token operator">:=</span> <span class="token keyword">range</span> db <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"%s: %s\n"</span><span class="token punctuation">,</span> item<span class="token punctuation">,</span> price<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果我们启动这个服务，</p>
+<pre class="line-numbers language-go"><code class="language-go">$ <span class="token keyword">go</span> build gopl<span class="token punctuation">.</span>io<span class="token operator">/</span>ch7<span class="token operator">/</span>http1
+$ <span class="token punctuation">.</span><span class="token operator">/</span>http1 <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>连接服务器,我们得到下面的输出：</p>
+<pre class="line-numbers language-go"><code class="language-go">$ <span class="token keyword">go</span> build gopl<span class="token punctuation">.</span>io<span class="token operator">/</span>ch1<span class="token operator">/</span>fetch
+$ <span class="token punctuation">.</span><span class="token operator">/</span>fetch http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">8000</span>
+shoes<span class="token punctuation">:</span> $<span class="token number">50.00</span>
+socks<span class="token punctuation">:</span> $<span class="token number">5.00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>目前为止，这个服务器不考虑URL，只能为每个请求列出它全部的库存清单。更真实的服务器会定义多个不同的URL，每一个都会触发一个不同的行为。让我们使用/list来调用已经存在的这个行为并且增加另一个/price调用表明单个货品的价格，像这样/price?item=socks来指定一个请求参数。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>db database<span class="token punctuation">)</span> <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Path <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">"/list"</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> item<span class="token punctuation">,</span> price <span class="token operator">:=</span> <span class="token keyword">range</span> db <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"%s: %s\n"</span><span class="token punctuation">,</span> item<span class="token punctuation">,</span> price<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> <span class="token string">"/price"</span><span class="token punctuation">:</span>
+        item <span class="token operator">:=</span> req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">"item"</span><span class="token punctuation">)</span>
+        price<span class="token punctuation">,</span> ok <span class="token operator">:=</span> db<span class="token punctuation">[</span>item<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> <span class="token operator">!</span>ok <span class="token punctuation">{</span>
+            w<span class="token punctuation">.</span><span class="token function">WriteHeader</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusNotFound<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 404</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"no such item: %q\n"</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"%s\n"</span><span class="token punctuation">,</span> price<span class="token punctuation">)</span>
+    <span class="token keyword">default</span><span class="token punctuation">:</span>
+        w<span class="token punctuation">.</span><span class="token function">WriteHeader</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusNotFound<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 404</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"no such page: %s\n"</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>URL<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在handler基于URL的路径部分（<code>req.URL.Path</code>）来决定执行什么逻辑。如果这个handler不能识别这个路径，它会通过调用<code>w.WriteHeader(http.StatusNotFound)</code>返回客户端一个HTTP错误；这个检查应该在向w写入任何值前完成。（顺便提一下，<code>http.ResponseWriter</code>是另一个接口。它在<code>io.Writer</code>上增加了发送HTTP相应头的方法。）等效地，我们可以使用实用的<code>http.Error</code>函数：</p>
+<pre class="line-numbers language-go"><code class="language-go">msg <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"no such page: %s\n"</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>URL<span class="token punctuation">)</span>
+http<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> msg<span class="token punctuation">,</span> http<span class="token punctuation">.</span>StatusNotFound<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 404</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>/price的case会调用URL的Query方法来将HTTP请求参数解析为一个map，或者更准确地说一个<code>net/url</code>包中<code>url.Values</code>类型的多重映射。然后找到第一个item参数并查找它的价格。如果这个货品没有找到会返回一个错误。</p>
+<p>这里是一个和新服务器会话的例子：</p>
+<pre><code>$ go build gopl.io/ch7/http2
+$ go build gopl.io/ch1/fetch
+$ ./http2 &amp;
+$ ./fetch http://localhost:8000/list
+shoes: $50.00
+socks: $5.00
+$ ./fetch http://localhost:8000/price?item=socks
+$5.00
+$ ./fetch http://localhost:8000/price?item=shoes
+$50.00
+$ ./fetch http://localhost:8000/price?item=hat
+no such item: "hat"
+$ ./fetch http://localhost:8000/help
+no such page: /help</code></pre>
+<p>显然我们可以继续向<code>ServeHTTP</code>方法中添加case，但在一个实际的应用中，将每个case中的逻辑定义到一个分开的方法或函数中会很实用。此外，相近的URL可能需要相似的逻辑；例如几个图片文件可能有形如<code>/images/*.png</code>的URL。因为这些原因，net/http包提供了一个请求多路器<code>ServeMux</code>来简化URL和handlers的联系。一个<code>ServeMux</code>将一批<code>http.Handler</code>聚集到一个单一的<code>http.Handler</code>中。再一次，我们可以看到满足同一接口的不同类型是可替换的：web服务器将请求指派给任意的<code>http.Handler </code>而不需要考虑它后面的具体类型。</p>
+<p>对于更复杂的应用，一些<code>ServeMux</code>可以通过组合来处理更加错综复杂的路由需求。Go语言目前没有一个权威的web框架，就像Ruby语言有Rails和python有Django。这并不是说这样的框架不存在，而是Go语言标准库中的构建模块就已经非常灵活以至于这些框架都是不必要的。此外，尽管在一个项目早期使用框架是非常方便的，但是它们带来额外的复杂度会使长期的维护更加困难。</p>
+<p>在下面的程序中，我们创建一个<code>ServeMux</code>并且使用它将URL和相应处理/list和/price操作的handler联系起来，这些操作逻辑都已经被分到不同的方法中。然后我门在调用<code>ListenAndServe</code>函数中使用<code>ServeMux</code>为主要的handler。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    db <span class="token operator">:=</span> database<span class="token punctuation">{</span><span class="token string">"shoes"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">"socks"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">}</span>
+    mux <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewServeMux</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    mux<span class="token punctuation">.</span><span class="token function">Handle</span><span class="token punctuation">(</span><span class="token string">"/list"</span><span class="token punctuation">,</span> http<span class="token punctuation">.</span><span class="token function">HandlerFunc</span><span class="token punctuation">(</span>db<span class="token punctuation">.</span>list<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    mux<span class="token punctuation">.</span><span class="token function">Handle</span><span class="token punctuation">(</span><span class="token string">"/price"</span><span class="token punctuation">,</span> http<span class="token punctuation">.</span><span class="token function">HandlerFunc</span><span class="token punctuation">(</span>db<span class="token punctuation">.</span>price<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">"localhost:8000"</span><span class="token punctuation">,</span> mux<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> database <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>dollars
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>db database<span class="token punctuation">)</span> <span class="token function">list</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> item<span class="token punctuation">,</span> price <span class="token operator">:=</span> <span class="token keyword">range</span> db <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"%s: %s\n"</span><span class="token punctuation">,</span> item<span class="token punctuation">,</span> price<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>db database<span class="token punctuation">)</span> <span class="token function">price</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    item <span class="token operator">:=</span> req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">"item"</span><span class="token punctuation">)</span>
+    price<span class="token punctuation">,</span> ok <span class="token operator">:=</span> db<span class="token punctuation">[</span>item<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token operator">!</span>ok <span class="token punctuation">{</span>
+        w<span class="token punctuation">.</span><span class="token function">WriteHeader</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusNotFound<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 404</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"no such item: %q\n"</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"%s\n"</span><span class="token punctuation">,</span> price<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>让我们关注这两个注册到handlers上的调用。第一个<code>db.list</code>是一个方法值，它是下面这个类型的值。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>也就是说<code>db.list</code>的调用会援引一个接收者是db的<code>database.list</code>方法。所以<code>db.list</code>是一个实现了handler类似行为的函数，但是因为它没有方法（理解：该方法没有它自己的方法），所以它不满足<code>http.Handler</code>接口并且不能直接传给<code>mux.Handle</code>。</p>
+<p>语句<code>http.HandlerFunc(db.list)</code>是一个转换而非一个函数调用，因为<code>http.HandlerFunc</code>是一个类型。它有如下的定义：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> http
+
+<span class="token keyword">type</span> HandlerFunc <span class="token keyword">func</span><span class="token punctuation">(</span>w ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>Request<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>f HandlerFunc<span class="token punctuation">)</span> <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>w ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">f</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> r<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>HandlerFunc</code>显示了在Go语言接口机制中一些不同寻常的特点。这是一个实现了接口<code>http.Handler</code>的方法的函数类型。<code>ServeHTTP</code>方法的行为是调用了它的函数本身。因此<code>HandlerFunc</code>是一个让函数值满足一个接口的适配器，这里函数和这个接口仅有的方法有相同的函数签名。实际上，这个技巧让一个单一的类型例如database以多种方式满足<code>http.Handler</code>接口：一种通过它的list方法，一种通过它的price方法等等。</p>
+<p>因为handler通过这种方式注册非常普遍，<code>ServeMux</code>有一个方便的<code>HandleFunc</code>方法，它帮我们简化handler注册代码成这样：</p>
+<pre class="line-numbers language-go"><code class="language-go">mux<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/list"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>list<span class="token punctuation">)</span>
+mux<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/price"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>price<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>从上面的代码很容易看出应该怎么构建一个程序：由两个不同的web服务器监听不同的端口，并且定义不同的URL将它们指派到不同的handler。我们只要构建另外一个<code>ServeMux</code>并且再调用一次<code>ListenAndServe</code>（可能并行的）。但是在大多数程序中，一个web服务器就足够了。此外，在一个应用程序的多个文件中定义HTTP handler也是非常典型的，如果它们必须全部都显式地注册到这个应用的<code>ServeMux</code>实例上会比较麻烦。</p>
+<p>所以为了方便，net/http包提供了一个全局的<code>ServeMux</code>实例<code>DefaultServerMux</code>和包级别的<code>http.Handle</code>和<code>http.HandleFunc</code>函数。现在，为了使用<code>DefaultServeMux</code>作为服务器的主handler，我们不需要将它传给<code>ListenAndServe</code>函数；nil值就可以工作。</p>
+<p>然后服务器的主函数可以简化成：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    db <span class="token operator">:=</span> database<span class="token punctuation">{</span><span class="token string">"shoes"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">"socks"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">}</span>
+    http<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/list"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>list<span class="token punctuation">)</span>
+    http<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/price"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>price<span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">"localhost:8000"</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后，一个重要的提示：web服务器在一个新的协程中调用每一个handler，所以当handler获取其它协程或者这个handler本身的其它请求也可以访问到变量时，一定要使用预防措施，比如锁机制。</p>
+<h3 id="三、error接口"><a href="#三、error接口" class="headerlink" title="三、error接口"></a>三、error接口</h3><p>我们已经创建和使用过神秘的预定义error类型，而且没有解释它究竟是什么。实际上它就是interface类型，这个类型有一个返回错误信息的单一方法：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> <span class="token builtin">error</span> <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>创建一个error最简单的方法就是调用<code>errors.New</code>函数，它会根据传入的错误信息返回一个新的error。整个errors包仅只有4行：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> errors
+
+<span class="token keyword">func</span> <span class="token function">New</span><span class="token punctuation">(</span>text <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token operator">&amp;</span>errorString<span class="token punctuation">{</span>text<span class="token punctuation">}</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> errorString <span class="token keyword">struct</span> <span class="token punctuation">{</span> text <span class="token builtin">string</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>e <span class="token operator">*</span>errorString<span class="token punctuation">)</span> <span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> e<span class="token punctuation">.</span>text <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>承载<code>errorString</code>的类型是一个结构体而非一个字符串，这是为了保护它表示的错误避免粗心（或有意）的更新。并且因为是指针类型<code>*errorString</code>满足error接口而非<code>errorString</code>类型，所以每个New函数的调用都分配了一个独特的和其他错误不相同的实例。我们也不想要重要的error例如<code>io.EOF</code>和一个刚好有相同错误消息的error比较后相等。</p>
+<pre class="line-numbers language-go"><code class="language-go">fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"EOF"</span><span class="token punctuation">)</span> <span class="token operator">==</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"EOF"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "false"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>调用<code>errors.New</code>函数是非常稀少的，因为有一个方便的封装函数<code>fmt.Errorf</code>，它还会处理字符串格式化。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> fmt
+
+<span class="token keyword">import</span> <span class="token string">"errors"</span>
+
+<span class="token keyword">func</span> <span class="token function">Errorf</span><span class="token punctuation">(</span>format <span class="token builtin">string</span><span class="token punctuation">,</span> args <span class="token operator">...</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token function">Sprintf</span><span class="token punctuation">(</span>format<span class="token punctuation">,</span> args<span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>虽然<code>*errorString</code>可能是最简单的错误类型，但远非只有它一个。例如，<code>syscall</code>包提供了Go语言底层系统调用API。在多个平台上，它定义一个实现error接口的数字类型<code>Errno</code>，并且在Unix平台上，<code>Errno</code>的Error方法会从一个字符串表中查找错误消息，如下面展示的这样：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> syscall
+
+<span class="token keyword">type</span> Errno <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// operating system error code</span>
+
+<span class="token keyword">var</span> errors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>
+    <span class="token number">1</span><span class="token punctuation">:</span>   <span class="token string">"operation not permitted"</span><span class="token punctuation">,</span>   <span class="token comment" spellcheck="true">// EPERM</span>
+    <span class="token number">2</span><span class="token punctuation">:</span>   <span class="token string">"no such file or directory"</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// ENOENT</span>
+    <span class="token number">3</span><span class="token punctuation">:</span>   <span class="token string">"no such process"</span><span class="token punctuation">,</span>           <span class="token comment" spellcheck="true">// ESRCH</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>e Errno<span class="token punctuation">)</span> <span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> <span class="token function">int</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">int</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>errors<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> errors<span class="token punctuation">[</span>e<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"errno %d"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面的语句创建了一个持有Errno值为2的接口值，表示POSIX ENOENT状况：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> err <span class="token builtin">error</span> <span class="token operator">=</span> syscall<span class="token punctuation">.</span><span class="token function">Errno</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "no such file or directory"</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true">// "no such file or directory"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>err的值图形化的呈现在图7.6中。</p>
+<p><img src="https://docs.hacknode.org/gopl-zh/images/ch7-06.png" alt="img"></p>
+<p><code>Errno</code>是一个系统调用错误的高效表示方式，它通过一个有限的集合进行描述，并且它满足标准的错误接口。</p>
+<h3 id="四、基于类型断言区别错误类型"><a href="#四、基于类型断言区别错误类型" class="headerlink" title="四、基于类型断言区别错误类型"></a>四、基于类型断言区别错误类型</h3><p>思考在os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：文件已经存在（对于创建操作），找不到文件（对于读取操作），和权限拒绝。os包中提供了三个帮助函数来对给定的错误值表示的失败进行分类：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> os
+
+<span class="token keyword">func</span> <span class="token function">IsExist</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span>
+<span class="token keyword">func</span> <span class="token function">IsNotExist</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span>
+<span class="token keyword">func</span> <span class="token function">IsPermission</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对这些判断的一个缺乏经验的实现可能会去检查错误消息是否包含了特定的子字符串，</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">IsNotExist</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// NOTE: not robust!</span>
+    <span class="token keyword">return</span> strings<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"file does not exist"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是处理I/O错误的逻辑可能一个和另一个平台非常的不同，所以这种方案并不健壮，并且对相同的失败可能会报出各种不同的错误消息。在测试的过程中，通过检查错误消息的子字符串来保证特定的函数以期望的方式失败是非常有用的，但对于线上的代码是不够的。</p>
+<p>一个更可靠的方式是使用一个专门的类型来描述结构化的错误。os包中定义了一个<code>PathError</code>类型来描述在文件路径操作中涉及到的失败，像Open或者Delete操作；并且定义了一个叫<code>LinkError</code>的变体来描述涉及到两个文件路径的操作，像<code>Symlink</code>和<code>Rename</code>。这下面是<code>os.PathError</code>：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> os
+
+<span class="token comment" spellcheck="true">// PathError records an error and the operation and file path that caused it.</span>
+<span class="token keyword">type</span> PathError <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Op   <span class="token builtin">string</span>
+    Path <span class="token builtin">string</span>
+    Err  <span class="token builtin">error</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>e <span class="token operator">*</span>PathError<span class="token punctuation">)</span> <span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> e<span class="token punctuation">.</span>Op <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span>Path <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span>Err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大多数调用方都不知道<code>PathError</code>并且通过调用错误本身的Error方法来统一处理所有的错误。尽<code>管PathError</code>的Error方法简单地把这些字段连接起来生成错误消息，<code>PathError</code>的结构保护了内部的错误组件。调用方需要使用类型断言来检测错误的具体类型以便将一种失败和另一种区分开；具体的类型可以比字符串提供更多的细节。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">"/no/such/file"</span><span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "open /no/such/file: No such file or directory"</span>
+fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%#v\n"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// Output:</span>
+<span class="token comment" spellcheck="true">// &amp;os.PathError{Op:"open", Path:"/no/such/file", Err:0x2}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这就是三个帮助函数是怎么工作的。例如下面展示的<code>IsNotExist</code>，它会报出是否一个错误和<code>syscall.ENOENT</code>或者和有名的错误<code>os.ErrNotExist</code>相等；或者是一个<code>*PathError</code>，它内部的错误是<code>syscall.ENOENT</code>和<code>os.ErrNotExist</code>其中之一。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"errors"</span>
+    <span class="token string">"syscall"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> ErrNotExist <span class="token operator">=</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"file does not exist"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// IsNotExist returns a boolean indicating whether the error is known to</span>
+<span class="token comment" spellcheck="true">// report that a file or directory does not exist. It is satisfied by</span>
+<span class="token comment" spellcheck="true">// ErrNotExist as well as some syscall errors.</span>
+<span class="token keyword">func</span> <span class="token function">IsNotExist</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> pe<span class="token punctuation">,</span> ok <span class="token operator">:=</span> err<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>PathError<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        err <span class="token operator">=</span> pe<span class="token punctuation">.</span>Err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> err <span class="token operator">==</span> syscall<span class="token punctuation">.</span>ENOENT <span class="token operator">||</span> err <span class="token operator">==</span> ErrNotExist
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面这里是它的实际使用：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">"/no/such/file"</span><span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span><span class="token function">IsNotExist</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// "true"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果错误消息结合成一个更大的字符串，当然<code>PathError</code>的结构就不再为人所知，例如通过一个对<code>fmt.Errorf</code>函数的调用。区别错误通常必须在失败操作后，错误传回调用者前进行。</p>
+<h3 id="五、通过类型断言询问行为"><a href="#五、通过类型断言询问行为" class="headerlink" title="五、通过类型断言询问行为"></a>五、通过类型断言询问行为</h3><p>下面这段逻辑和net/http包中web服务器负责写入HTTP头字段（例如：”Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应；写入它的字节最终被发送到某个人的web浏览器上。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">writeHeader</span><span class="token punctuation">(</span>w io<span class="token punctuation">.</span>Writer<span class="token punctuation">,</span> contentType <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"Content-Type: "</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>contentType<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为Write方法需要传入一个byte切片而我们希望写入的值是一个字符串，所以我们需要使用[]byte(…)进行转换。这个转换分配内存并且做一个拷贝，但是这个拷贝在转换后几乎立马就被丢弃掉。让我们假装这是一个web服务器的核心部分并且我们的性能分析表示这个内存分配使服务器的速度变慢。这里我们可以避免掉内存分配么？</p>
+<p>这个<code>io.Writer</code>接口告诉我们关于w持有的具体类型的唯一东西：就是可以向它写入字节切片。如果我们回顾net/http包中的内幕，我们知道在这个程序中的w变量持有的动态类型也有一个允许字符串高效写入的<code>WriteString</code>方法；这个方法会避免去分配一个临时的拷贝。（这可能像在黑夜中射击一样，但是许多满足<code>io.Writer</code>接口的重要类型同时也有<code>WriteString</code>方法，包括<code>*bytes.Buffer</code>，<code>*os.File</code>和<code>*bufio.Writer</code>。）</p>
+<p>我们不能对任意<code>io.Writer</code>类型的变量w，假设它也拥有<code>WriteString</code>方法。但是我们可以定义一个只有这个方法的新接口并且使用类型断言来检测是否w的动态类型满足这个新接口。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// writeString writes s to w.</span>
+<span class="token comment" spellcheck="true">// If w has a WriteString method, it is invoked instead of w.Write.</span>
+<span class="token keyword">func</span> <span class="token function">writeString</span><span class="token punctuation">(</span>w io<span class="token punctuation">.</span>Writer<span class="token punctuation">,</span> s <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">type</span> stringWriter <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+        <span class="token function">WriteString</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> sw<span class="token punctuation">,</span> ok <span class="token operator">:=</span> w<span class="token punctuation">.</span><span class="token punctuation">(</span>stringWriter<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> sw<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// avoid a copy</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// allocate temporary copy</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">writeHeader</span><span class="token punctuation">(</span>w io<span class="token punctuation">.</span>Writer<span class="token punctuation">,</span> contentType <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">writeString</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"Content-Type: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">writeString</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> contentType<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了避免重复定义，我们将这个检查移入到一个实用工具函数<code>writeString</code>中，但是它太有用了以致于标准库将它作为<code>io.WriteString</code>函数提供。这是向一个<code>io.Writer</code>接口写入字符串的推荐方法。</p>
+<p>这个例子的神奇之处在于，没有定义了<code>WriteString</code>方法的标准接口，也没有指定它是一个所需行为的标准接口。一个具体类型只会通过它的方法决定它是否满足<code>stringWriter</code>接口，而不是任何它和这个接口类型所表达的关系。它的意思就是上面的技术依赖于一个假设，这个假设就是：如果一个类型满足下面的这个接口，然后<code>WriteString(s)</code>方法就必须和Write([]byte(s))有相同的效果。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    io<span class="token punctuation">.</span>Writer
+    <span class="token function">WriteString</span><span class="token punctuation">(</span>s <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>尽管<code>io.WriteString</code>实施了这个假设，但是调用它的函数极少可能会去实施类似的假设。定义一个特定类型的方法隐式地获取了对特定行为的协约。对于Go语言的新手，特别是那些来自有强类型语言使用背景的新手，可能会发现它缺乏显式的意图令人感到混乱，但是在实战的过程中这几乎不是一个问题。除了空接口interface{}，接口类型很少意外巧合地被实现。</p>
+<p>上面的<code>writeString</code>函数使用一个类型断言来获知一个普遍接口类型的值是否满足一个更加具体的接口类型；并且如果满足，它会使用这个更具体接口的行为。这个技术可以被很好的使用，不论这个被询问的接口是一个标准如<code>io.ReadWriter</code>，或者用户定义的如<code>stringWriter</code>接口。</p>
+<p>这也是<code>fmt.Fprintf</code>函数怎么从其它所有值中区分满足error或者<code>fmt.Stringer</code>接口的值。在<code>fmt.Fprintf</code>内部，有一个将单个操作对象转换成一个字符串的步骤，像下面这样：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> fmt
+
+<span class="token keyword">func</span> <span class="token function">formatOneValue</span><span class="token punctuation">(</span>x <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> err<span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">error</span><span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> str<span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span>Stringer<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ...all other types...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果x满足这两个接口类型中的一个，具体满足的接口决定对值的格式化方式。如果都不满足，默认的case或多或少会统一地使用反射来处理所有的其它类型。再一次的，它假设任何有String方法的类型都满足<code>fmt.Stringer</code>中约定的行为，这个行为会返回一个适合打印的字符串。</p>
+<h3 id="六、类型分支"><a href="#六、类型分支" class="headerlink" title="六、类型分支"></a>六、类型分支</h3><p>接口被以两种不同的方式使用。在第一个方式中，以<code>io.Reader</code>，<code>io.Writer</code>，<code>fmt.Stringer</code>，<code>sort.Interface</code>，<code>http.Handler</code>和<code>error</code>为典型，一个接口的方法表达了实现这个接口的具体类型间的相似性，但是隐藏了代码的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。</p>
+<p>第二个方式是利用一个接口值可以持有各种具体类型值的能力，将这个接口认为是这些类型的联合。类型断言用来动态地区别这些类型，使得对每一种情况都不一样。在这个方式中，重点在于具体的类型满足这个接口，而不在于接口的方法（如果它确实有一些的话），并且没有任何的信息隐藏。我们将以这种方式使用的接口描述为discriminated unions（可辨识联合）。</p>
+<p>如果你熟悉面向对象编程，你可能会将这两种方式当作是subtype polymorphism（子类型多态）和 ad hoc polymorphism（非参数多态），但是你不需要去记住这些术语。对于本章剩下的部分，我们将会呈现一些第二种方式的例子。和其它那些语言一样，Go语言查询一个SQL数据库的API会干净地将查询中固定的部分和变化的部分分开。一个调用的例子可能看起来像这样：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"database/sql"</span>
+
+<span class="token keyword">func</span> <span class="token function">listTracks</span><span class="token punctuation">(</span>db sql<span class="token punctuation">.</span>DB<span class="token punctuation">,</span> artist <span class="token builtin">string</span><span class="token punctuation">,</span> minYear<span class="token punctuation">,</span> maxYear <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    result<span class="token punctuation">,</span> err <span class="token operator">:=</span> db<span class="token punctuation">.</span><span class="token function">Exec</span><span class="token punctuation">(</span>
+        <span class="token string">"SELECT * FROM tracks WHERE artist = ? AND ? &lt;= year AND year &lt;= ?"</span><span class="token punctuation">,</span>
+        artist<span class="token punctuation">,</span> minYear<span class="token punctuation">,</span> maxYear<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Exec方法使用SQL字面量替换在查询字符串中的每个’?’；SQL字面量表示相应参数的值，它有可能是一个布尔值，一个数字，一个字符串，或者nil空值。用这种方式构造查询可以帮助避免SQL注入攻击；这种攻击就是对手可以通过利用输入内容中不正确的引号来控制查询语句。在Exec函数内部，我们可能会找到像下面这样的一个函数，它会将每一个参数值转换成它的SQL字面量符号。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">sqlQuote</span><span class="token punctuation">(</span>x <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> x <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"NULL"</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">uint</span><span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> b<span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> b <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"TRUE"</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"FALSE"</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> s<span class="token punctuation">,</span> ok <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sqlQuoteString</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// (not shown)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"unexpected type %T: %v"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>switch语句可以简化if-else链，如果这个if-else链对一连串值做相等测试。一个相似的type switch（类型分支）可以简化类型断言的if-else链。</p>
+<p>在最简单的形式中，一个类型分支像普通的switch语句一样，它的运算对象是x.(type)——它使用了关键词字面量type——并且每个case有一到多个类型。一个类型分支基于这个接口值的动态类型使一个多路分支有效。这个nil的case和if x == nil匹配，并且这个default的case和如果其它case都不匹配的情况匹配。一个对<code>sqlQuote</code>的类型分支可能会有这些case：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">switch</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">case</span> <span class="token boolean">nil</span><span class="token punctuation">:</span>       <span class="token comment" spellcheck="true">// ...</span>
+<span class="token keyword">case</span> <span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">uint</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">// ...</span>
+<span class="token keyword">case</span> <span class="token builtin">bool</span><span class="token punctuation">:</span>      <span class="token comment" spellcheck="true">// ...</span>
+<span class="token keyword">case</span> <span class="token builtin">string</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token keyword">default</span><span class="token punctuation">:</span>        <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>和中的普通switch语句一样，每一个case会被顺序的进行考虑，并且当一个匹配找到时，这个case中的内容会被执行。当一个或多个case类型是接口时，case的顺序就会变得很重要，因为可能会有两个case同时匹配的情况。default case相对其它case的位置是无所谓的。它不会允许落空发生。</p>
+<p>注意到在原来的函数中，对于bool和string情况的逻辑需要通过类型断言访问提取的值。因为这个做法很典型，类型分支语句有一个扩展的形式，它可以将提取的值绑定到一个在每个case范围内都有效的新变量。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">switch</span> x <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* ... */</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里我们已经将新的变量也命名为x；和类型断言一样，重用变量名是很常见的。和一个switch语句相似地，一个类型分支隐式的创建了一个词法块，因此新变量x的定义不会和外面块中的x变量冲突。每一个case也会隐式的创建一个单独的词法块。</p>
+<p>使用类型分支的扩展形式来重写<code>sqlQuote</code>函数会让这个函数更加的清晰：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">sqlQuote</span><span class="token punctuation">(</span>x <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> x <span class="token operator">:=</span> x<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token boolean">nil</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"NULL"</span>
+    <span class="token keyword">case</span> <span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">uint</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// x has type interface{} here.</span>
+    <span class="token keyword">case</span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> x <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"TRUE"</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"FALSE"</span>
+    <span class="token keyword">case</span> <span class="token builtin">string</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token function">sqlQuoteString</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// (not shown)</span>
+    <span class="token keyword">default</span><span class="token punctuation">:</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"unexpected type %T: %v"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个版本的函数中，在每个单一类型的case内部，变量x和这个case的类型相同。例如，变量x在bool的case中是bool类型和string的case中是string类型。在所有其它的情况中，变量x是switch运算对象的类型（接口）；在这个例子中运算对象是一个interface{}。当多个case需要相同的操作时，比如int和uint的情况，类型分支可以很容易的合并这些情况。</p>
+<p>尽管<code>sqlQuote</code>接受一个任意类型的参数，但是这个函数只会在它的参数匹配类型分支中的一个case时运行到结束；其它情况的它会panic出“unexpected type”消息。虽然x的类型是interface{}，但是我们把它认为是一个int，uint，bool，string，和nil值的discriminated union（可识别联合）。</p>
+<h3 id="七、建议"><a href="#七、建议" class="headerlink" title="七、建议"></a>七、建议</h3><p>当设计一个新的包时，新手Go程序员总是先创建一套接口，然后再定义一些满足它们的具体类型。这种方式的结果就是有很多的接口，它们中的每一个仅只有一个实现。不要再这么做了。这种接口是不必要的抽象；它们也有一个运行时损耗。你可以使用<strong>导出机制</strong>来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有当有两个或两个以上的具体类型必须以相同的方式进行处理时才需要。</p>
+<p>当一个接口只被一个单一的具体类型实现时有一个例外，就是由于它的依赖，这个具体类型不能和这个接口存在在一个相同的包中。这种情况下，一个接口是解耦这两个包的一个好方式。</p>
+<p>因为在Go语言中只有当两个或更多的类型实现一个接口时才使用接口，它们必定会从任意特定的实现细节中抽象出来。结果就是有更少和更简单方法的更小的接口（经常和<code>io.Writer</code>或 <code>fmt.Stringer</code>一样只有一个）。当新的类型出现时，小的接口更容易满足。对于接口设计的一个好的标准就是 ask only for what you need（只考虑你需要的东西）</p>
+<p>我们完成了对方法和接口的学习过程。Go语言对面向对象风格的编程支持良好，但这并不意味着你只能使用这一风格。不是任何事物都需要被当做一个对象；独立的函数有它们自己的用处，未封装的数据类型也是这样。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/go/base/di-14-pian-biao-zhun-ku-zhong-de-jie-kou/">https://zhangyafeii.gitee.io/go/base/di-14-pian-biao-zhun-ku-zhong-de-jie-kou/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Go之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%8E%A5%E5%8F%A3/">
+                                    <span class="chip bg-color">接口</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A0%87%E5%87%86%E5%BA%93/">
+                                    <span class="chip bg-color">标准库</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-31T12-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/base/di-15-pian-fan-she/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/15.jpg" class="responsive-img" alt="第15篇：反射">
+                        
+                        <span class="card-title">第15篇：反射</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            官方说法，在编译时不知道类型的情况下，可更新变量、运行时查看值、调用方法以及直接对他们的布局进行操作的机制，称为反射。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-31
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%8D%E5%B0%84/">
+                        <span class="chip bg-color">反射</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/go/base/di-13-pian-jie-kou/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/13.jpg" class="responsive-img" alt="第13篇：接口">
+                        
+                        <span class="card-title">第13篇：接口</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Go语言中的基础数据类型可以表示一些事物的基本属性，但是当我们想表达一个事物的全部或部分属性时，这时候再用单一的基本数据类型明显就无法满足需求了，Go语言提供了一种自定义数据类型，可以封装多个基本数据类型，这种数据类型叫结构体，英文名称struct。也就是我们可以通过struct来定义自己的类型了。结构体是一个复合类型，用于表示一组数据。结构体由一系列属性组成，每个属性都有自己的类型和值。Go语言中通过struct来实现面向对象。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A5%E5%8F%A3/">
+                        <span class="chip bg-color">接口</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

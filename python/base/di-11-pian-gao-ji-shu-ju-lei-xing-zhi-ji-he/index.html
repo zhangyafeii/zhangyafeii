@@ -1,0 +1,1667 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第11篇：高级数据类型之集合, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="基础数据类型：
+
+int，整数类型（整形）
+float，浮点类型（浮点型）
+complex,复数类型
+bool，布尔类型
+str，字符串类型
+
+高级数据类型
+
+list，列表类型
+tuple，元组类型
+set，集合类型
+dict，字典类型
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第11篇：高级数据类型之集合 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3985026006,2698075005&fm=26&gp=0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第11篇：高级数据类型之集合
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                                <span class="chip bg-color">高级数据类型</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9B%86%E5%90%88/">
+                                <span class="chip bg-color">集合</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-16
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>基础数据类型：</p>
+<ul>
+<li><span style="color:gray">int，整数类型（整形）</span></li>
+<li><span style="color:gray">float，浮点类型（浮点型）</span></li>
+<li><span style="color:gray">complex,复数类型</span></li>
+<li><span style="color:gray">bool，布尔类型</span></li>
+<li><span style="color:gray">str，字符串类型</span></li>
+</ul>
+<p>高级数据类型</p>
+<ul>
+<li><span style="color:gray">list，列表类型</span></li>
+<li><span style="color:gray">tuple，元组类型</span></li>
+<li><strong>set，集合类型</strong></li>
+<li><span style="color:gray">dict，字典类型</span></li>
+</ul>
+<p><strong>学习目标：掌握集合相关知识。</strong></p>
+<p>在学习了列表和元组之后，我们再来学习一种容器型的数据类型，它的名字叫集合（set）。说到集合这个词大家一定不会陌生，在数学课本上就有这个概念。通常我们对集合的定义是“<strong>把一定范围的、确定的、可以区别的事物当作一个整体来看待</strong>”，集合中的各个事物通常称为集合的元素。集合应该满足以下特性：</p>
+<ol>
+<li><strong>无序性</strong>：一个集合中，每个元素的地位都是相同的，元素之间是无序的。</li>
+<li><strong>互异性</strong>：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。</li>
+<li><strong>确定性</strong>：给定一个集合，任给一个元素，该元素或者属于或者不属于该集合，二者必居其一，不允许有模棱两可的情况出现。</li>
+</ol>
+<p>Python程序中的集合跟数学上的集合是完全一致的，需要强调的是上面所说的无序性和互异性。无序性说明集合中的元素并不像列中的元素那样一个挨着一个，可以通过索引的方式实现随机访问（随机访问指的是给定一个有效的范围，随机抽取出一个数字，然后通过这个数字获取到对应的元素），所以Python中的<strong>集合肯定不能够支持索引运算</strong>。另外，集合的互异性决定了<strong>集合中不能有重复元素</strong>，这一点也是集合区别于列表的关键，说得更直白一些就是，Python中的集合类型具有去重特性。当然，Python中的集合一定是支持<code>in</code>和<code>not in</code>成员运算的，这样就可以确定一个元素是否属于集合，也就是上面所说的集合的确定性。<strong>集合的成员运算在性能上要优于列表的成员运算</strong>，这是集合的底层存储特性决定的，此处我们暂时不做讨论，先记下这个结论即可。</p>
+<h2 id="集合的定义"><a href="#集合的定义" class="headerlink" title="集合的定义"></a>集合的定义</h2><p>通过对比列表和元组，我们来看一下集合的定义：</p>
+<ul>
+<li><p>列表（list），是一个<strong>有序</strong>且<strong>可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素可重复</strong>的元素。</p>
+</li>
+<li><p>元组（tuple），是一个<strong>有序</strong>且<strong>不可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素可重复</strong>的元素。</p>
+</li>
+<li><p>集合（set），是一个 <strong>无序</strong> 且<strong>可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素不可重复</strong>的元素。</p>
+</li>
+<li><p>集合的特点：</p>
+<ul>
+<li>以<code>{}</code>包裹，<code>,</code>为分隔符</li>
+<li>内部元素无序：无法通过索引取值</li>
+<li>内部元素可变：可以添加和删除元素</li>
+<li>内部元素类型可不同</li>
+<li>内部元素不可重复：经常应用在有去重需求的场景</li>
+</ul>
+</li>
+<li><p>一般什么时候用集合呢？</p>
+</li>
+</ul>
+<blockquote>
+<p>就是想要维护一大堆不重复的数据时，就可以用它。比如：做爬虫去网上找图片的链接，为了避免链接重复，可以选择用集合去存储链接地址。</p>
+</blockquote>
+<h2 id="集合的创建"><a href="#集合的创建" class="headerlink" title="集合的创建"></a>集合的创建</h2><p>在Python中，创建集合可以使用<code>{}</code>字面量语法，<code>{}</code>中需要至少有一个元素，因为没有元素的<code>{}</code>并不是空集合而是一个空字典，我们下一节就会大家介绍字典的知识。当然，也可以使用内置函数<code>set</code>来创建一个集合，准确的说<code>set</code>并不是一个函数，而是创建集合对象的构造器，这个知识点我们很快也会讲到，现在不理解跳过它就可以了。要创建空集合可以使用<code>set()</code>；也可以将其他序列转换成集合，例如：<code>set('hello')</code>会得到一个包含了4个字符的集合（重复的<code>l</code>会被去掉）。除了这两种方式，我们还可以使用生成式语法来创建集合，就像我们之前用生成式创建列表那样。要知道集合中有多少个元素，还是使用内置函数<code>len</code>；使用<code>for</code>循环可以实现对集合元素的遍历。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建集合的字面量语法(重复元素不会出现在集合中)</span>
+set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># {1, 2, 3}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>set1<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 3</span>
+
+<span class="token comment" spellcheck="true"># 创建集合的构造器语法(后面会讲到什么是构造器)</span>
+set2 <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># {'h', 'l', 'o', 'e'}</span>
+
+<span class="token comment" spellcheck="true"># 将列表转换成集合(可以去掉列表中的重复元素)</span>
+set3 <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set3<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># {1, 2, 3}</span>
+
+<span class="token comment" spellcheck="true"># 创建集合的生成式语法(将列表生成式的[]换成{})</span>
+set4 <span class="token operator">=</span> <span class="token punctuation">{</span>num <span class="token keyword">for</span> num <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">if</span> num <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> num <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set4<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># {3, 5, 6, 9, 10, 12, 15, 18}</span>
+
+<span class="token comment" spellcheck="true"># 集合元素的循环遍历</span>
+<span class="token keyword">for</span> elem <span class="token keyword">in</span> set4<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意</strong>：定义空集合时，只能使用<code>v = set()</code>，不能使用 <code>v={}</code>（这样是定义一个空字典）。</p>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+v11 <span class="token operator">=</span> list<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+v2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+v22 <span class="token operator">=</span> tuple<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+v3 <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+v4 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true"># 空字典</span>
+v44 <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要提醒大家，集合中的元素必须是<code>hashable</code>类型。所谓<code>hashable</code>类型指的是能够计算出哈希码的数据类型，你可以暂时将哈希码理解为和变量对应的唯一的ID值。通常不可变类型都是<code>hashable</code>类型，如整数、浮点、字符串、元组等，而可变类型都不是<code>hashable</code>类型，因为可变类型无法确定唯一的ID值，所以也就不能放到集合中。集合本身也是可变类型，所以集合不能够作为集合中的元素，这一点请大家一定要注意。</p>
+<h2 id="集合的方法"><a href="#集合的方法" class="headerlink" title="集合的方法"></a>集合的方法</h2><p>集合常用的方法如下：</p>
+<ul>
+<li>添加<ul>
+<li>add(value)，在集合中添加一个元素</li>
+</ul>
+</li>
+<li>删除<ul>
+<li>pop()，删除并返回任意集合元素，若集合为空，则引发KeyError</li>
+<li>discard(value)，在集合中删除指定元素，若不存在不报错</li>
+<li>remove(value)，在集合中删除指定元素，若不存在报错</li>
+<li>del set，删除集合</li>
+</ul>
+</li>
+<li>清空<ul>
+<li>clear()，清空集合</li>
+</ul>
+</li>
+<li>求交集<ul>
+<li>intersection(set2)，返回两个集合的交集，自身集合不发生改变</li>
+<li>intersection_update(set2)，在自身集合的基础上求两个集合的交集，改变自身集合</li>
+</ul>
+</li>
+<li>求并集<ul>
+<li>update(set2)，使用自身和其他集合的并集来更新集合，改变自身集合</li>
+<li>union(set2)，并集，返回两个集合的并集，不改变自身</li>
+</ul>
+</li>
+<li>求差集<ul>
+<li>difference(set2)，返回两个集合的差集，自身集合不发生改变</li>
+<li>difference_update(set2)，在自身集合的基础上求两个集合的差集，改变自身集合</li>
+<li>symmetric_difference(set2)，对称差集</li>
+</ul>
+</li>
+<li>求超集和子集<ul>
+<li>issuperset(set2)，求超集</li>
+<li>issubset(set2)，求子集</li>
+</ul>
+</li>
+</ul>
+<p><strong>使用示例</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 1，列表去重。</span>
+l1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span><span class="token punctuation">]</span>
+set1 <span class="token operator">=</span> set<span class="token punctuation">(</span>l1<span class="token punctuation">)</span>
+l2 <span class="token operator">=</span> list<span class="token punctuation">(</span>set1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>l2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># [1, 2, 3, 4, 5, 6]</span>
+
+<span class="token comment" spellcheck="true"># 2，集合的增删查。</span>
+set1 <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 添加</span>
+set1<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token string">"周杰伦"</span><span class="token punctuation">)</span>
+set1<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token string">"林俊杰"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {'周杰伦', '林俊杰'}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"刘嘉玲"</span><span class="token punctuation">,</span> <span class="token string">'关之琳'</span><span class="token punctuation">,</span> <span class="token string">"王祖贤"</span><span class="token punctuation">,</span> <span class="token string">"张曼⽟"</span><span class="token punctuation">,</span> <span class="token string">"李若彤"</span><span class="token punctuation">}</span>
+set1<span class="token punctuation">.</span>update<span class="token punctuation">(</span>set2<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {'王祖贤', '刘嘉玲', '张曼⽟', '周杰伦', '林俊杰', '关之琳', '李若彤'}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>union<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># # {'王祖贤', '刘嘉玲', '张曼⽟', '周杰伦', '林俊杰', '关之琳', '李若彤'}</span>
+
+<span class="token comment" spellcheck="true"># 删除</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 关之琳  随机删除 返回指定元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>       <span class="token comment" spellcheck="true"># {'周杰伦', '张曼⽟', '李若彤', '王祖贤', '林俊杰', '刘嘉玲'}</span>
+set1<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">'刘嘉玲'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 删除指定元素 若不存在 会引发KeyError异常 {'周杰伦', '张曼⽟', '李若彤', '王祖贤', '林俊杰'}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>
+set1<span class="token punctuation">.</span>discard<span class="token punctuation">(</span><span class="token string">'李若彤'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 删除指定元素 若不存在不报错</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>          <span class="token comment" spellcheck="true"># {'周杰伦', '张曼⽟', '王祖贤', '林俊杰'}</span>
+
+<span class="token comment" spellcheck="true"># 清空</span>
+<span class="token comment" spellcheck="true"># set1.clear()</span>
+<span class="token comment" spellcheck="true"># print(set1)   # set()</span>
+<span class="token comment" spellcheck="true"># del set1</span>
+<span class="token comment" spellcheck="true"># print(set1)   # NameError: name 'set1' is not defined</span>
+
+<span class="token comment" spellcheck="true"># 查询: for循环</span>
+<span class="token keyword">for</span> val <span class="token keyword">in</span> set1<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 3，集合的关系测试。</span>
+set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true"># 交集：&amp; intersection</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">&amp;</span> set2<span class="token punctuation">)</span>       <span class="token comment" spellcheck="true"># {4, 5}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>intersection<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {4, 5}</span>
+
+<span class="token comment" spellcheck="true"># 并集：| union</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">|</span> set2<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5, 6, 7, 8}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>union<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5, 6, 7, 8}</span>
+
+<span class="token comment" spellcheck="true"># 差集：- difference</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">-</span> set2<span class="token punctuation">)</span>            <span class="token comment" spellcheck="true"># {1, 2, 3}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>difference<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {1, 2, 3}</span>
+
+<span class="token comment" spellcheck="true"># 对称差集: ^ symmetric_difference</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">^</span> set2<span class="token punctuation">)</span>                      <span class="token comment" spellcheck="true"># {1, 2, 3, 6, 7, 8}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>symmetric_difference<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {1, 2, 3, 6, 7, 8}</span>
+
+set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true"># 超集：></span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">></span> set2<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>issuperset<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+
+<span class="token comment" spellcheck="true"># 子集：&lt; issubset</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2 <span class="token operator">&lt;</span> set1<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2<span class="token punctuation">.</span>issubset<span class="token punctuation">(</span>set1<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果要判断两个集合有没有相同的元素可以使用<code>isdisjoint</code>方法，没有相同元素返回<code>True</code>，否则返回<code>False</code>，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Java'</span><span class="token punctuation">,</span> <span class="token string">'Python'</span><span class="token punctuation">,</span> <span class="token string">'Go'</span><span class="token punctuation">,</span> <span class="token string">'Kotlin'</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Kotlin'</span><span class="token punctuation">,</span> <span class="token string">'Swift'</span><span class="token punctuation">,</span> <span class="token string">'Java'</span><span class="token punctuation">,</span> <span class="token string">'Objective-C'</span><span class="token punctuation">,</span> <span class="token string">'Dart'</span><span class="token punctuation">}</span>
+set3 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'HTML'</span><span class="token punctuation">,</span> <span class="token string">'CSS'</span><span class="token punctuation">,</span> <span class="token string">'JavaScript'</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>isdisjoint<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>isdisjoint<span class="token punctuation">(</span>set3<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="集合的运算"><a href="#集合的运算" class="headerlink" title="集合的运算"></a>集合的运算</h2><p>Python为集合类型提供了非常丰富的运算符，主要包括：成员运算、交集运算、并集运算、差集运算、比较运算（相等性、子集、超集）等。常见运算总结如下：</p>
+<ul>
+<li>成员运算<ul>
+<li><code>int</code>/<code>not in</code>：检查元素是否在集合中</li>
+</ul>
+</li>
+<li>交并差运算<ul>
+<li><code>&amp;</code>：求两个集合的交集，即公共的元素</li>
+<li><code>|</code>：求两个集合的并集，即两个集合中去重之后所有的元素</li>
+<li><code>-</code>：求两个集合中的差集，及第一个集合中有第二个集合中没有的元素</li>
+<li><code>^</code>：求两个集合中的对称差，即两个集合的并集减去两个集合的差集</li>
+</ul>
+</li>
+<li>比较运算<ul>
+<li><code>==</code> ：判断两个集合中元素是否相等</li>
+<li><code>!=</code> ：判断两个集合中元素是否不等</li>
+<li><code>&lt;</code>：判断第一个集合是否是第二个集合的真子集</li>
+<li><code>&lt;=</code>：断第一个集合是否是第二个集合的子集</li>
+<li><code>&gt;</code>：判断第一个集合是否是第二个集合的超集</li>
+</ul>
+</li>
+</ul>
+<h3 id="成员运算"><a href="#成员运算" class="headerlink" title="成员运算"></a>成员运算</h3><p>可以通过成员运算<code>in</code>和<code>not in </code>检查元素是否在集合中，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token number">10</span> <span class="token keyword">in</span> set1<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># False </span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token number">15</span> <span class="token keyword">in</span> set1<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># True</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Python'</span><span class="token punctuation">,</span> <span class="token string">'Java'</span><span class="token punctuation">,</span> <span class="token string">'Go'</span><span class="token punctuation">,</span> <span class="token string">'Swift'</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Ruby'</span> <span class="token keyword">in</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Java'</span> <span class="token keyword">in</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="交并差运算"><a href="#交并差运算" class="headerlink" title="交并差运算"></a>交并差运算</h3><p>Python中的集合跟数学上的集合一样，可以进行交集、并集、差集等运算，而且可以通过运算符和方法调用两种方式来进行操作，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true"># 交集</span>
+<span class="token comment" spellcheck="true"># 方法一: 使用 &amp; 运算符</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">&amp;</span> set2<span class="token punctuation">)</span>                <span class="token comment" spellcheck="true"># {2, 4, 6}</span>
+<span class="token comment" spellcheck="true"># 方法二: 使用intersection方法</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>intersection<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {2, 4, 6}</span>
+
+<span class="token comment" spellcheck="true"># 并集</span>
+<span class="token comment" spellcheck="true"># 方法一: 使用 | 运算符</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">|</span> set2<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5, 6, 7, 8, 10}</span>
+<span class="token comment" spellcheck="true"># 方法二: 使用union方法</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>union<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5, 6, 7, 8, 10}</span>
+
+<span class="token comment" spellcheck="true"># 差集</span>
+<span class="token comment" spellcheck="true"># 方法一: 使用 - 运算符</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">-</span> set2<span class="token punctuation">)</span>              <span class="token comment" spellcheck="true"># {1, 3, 5, 7}</span>
+<span class="token comment" spellcheck="true"># 方法二: 使用difference方法</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>difference<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {1, 3, 5, 7}</span>
+
+<span class="token comment" spellcheck="true"># 对称差</span>
+<span class="token comment" spellcheck="true"># 方法一: 使用 ^ 运算符</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">^</span> set2<span class="token punctuation">)</span>                        <span class="token comment" spellcheck="true"># {1, 3, 5, 7, 8, 10}</span>
+<span class="token comment" spellcheck="true"># 方法二: 使用symmetric_difference方法</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>symmetric_difference<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {1, 3, 5, 7, 8, 10}</span>
+<span class="token comment" spellcheck="true"># 方法三: 对称差相当于两个集合的并集减去交集</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">(</span>set1 <span class="token operator">|</span> set2<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>set1 <span class="token operator">&amp;</span> set2<span class="token punctuation">)</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># {1, 3, 5, 7, 8, 10}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上面的代码可以看出，对两个集合求交集，<code>&amp;</code>运算符和<code>intersection</code>方法的作用是完全相同的，使用运算符的方式更直观而且代码也比较简短。相信大家对交集、并集、差集、对称差这几个概念是比较清楚的，如果没什么印象了可以看看下面的图。</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/set.png" alt="img"></p>
+<p>集合的交集、并集、差集运算还可以跟赋值运算一起构成复合运算，如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 将set1和set2求并集再赋值给set1</span>
+<span class="token comment" spellcheck="true"># 也可以通过set1.update(set2)来实现</span>
+set1 <span class="token operator">|</span><span class="token operator">=</span> set2
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5, 6, 7}</span>
+set3 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 将set1和set3求交集再赋值给set1</span>
+<span class="token comment" spellcheck="true"># 也可以通过set1.intersection_update(set3)来实现</span>
+set1 <span class="token operator">&amp;</span><span class="token operator">=</span> set3
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {3, 6}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="比较运算"><a href="#比较运算" class="headerlink" title="比较运算"></a>比较运算</h3><p>两个集合可以用<code>==</code>和<code>!=</code>进行相等性判断，如果两个集合中的元素完全相同，那么<code>==</code>比较的结果就是<code>True</code>，否则就是<code>False</code>。如果集合A的任意一个元素都是集合B的元素，那么集合A称为集合B的子集，即对于∀a∈A，均有a∈B，则A⊆B。A是B的子集，反过来也可以称B是A的超集。如果A是B的子集且A不等于B，那么A就是B的真子集。Python为集合类型提供了判断子集和超集的运算符，其实就是我们非常熟悉的<code>&lt;</code>和<code>&gt;</code>运算符，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+set2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+set3 <span class="token operator">=</span> set2
+<span class="token comment" spellcheck="true"># &lt;运算符表示真子集，&lt;=运算符表示子集</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">&lt;</span> set2<span class="token punctuation">,</span> set1 <span class="token operator">&lt;=</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2 <span class="token operator">&lt;</span> set3<span class="token punctuation">,</span> set2 <span class="token operator">&lt;=</span> set3<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># False True</span>
+<span class="token comment" spellcheck="true"># 通过issubset方法也能进行子集判断</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1<span class="token punctuation">.</span>issubset<span class="token punctuation">(</span>set2<span class="token punctuation">)</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># True</span>
+
+<span class="token comment" spellcheck="true"># 反过来可以用issuperset或>运算符进行超集判断</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2<span class="token punctuation">.</span>issuperset<span class="token punctuation">(</span>set1<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set2 <span class="token operator">></span> set1<span class="token punctuation">)</span>              <span class="token comment" spellcheck="true"># True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="不可变集合"><a href="#不可变集合" class="headerlink" title="不可变集合"></a>不可变集合</h2><p>Python中还有一种不可变类型的集合，名字叫<code>frozenset</code>。<code>set</code>跟<code>frozenset</code>的区别就如同<code>list</code>跟<code>tuple</code>的区别，<code>frozenset</code>由于是不可变类型，能够计算出哈希码，因此它可以作为<code>set</code>中的元素。除了不能添加和删除元素，<code>frozenset</code>在其他方面跟<code>set</code>基本是一样的，下面的代码简单的展示了<code>frozenset</code>的用法。</p>
+<pre class="line-numbers language-python"><code class="language-python">set1 <span class="token operator">=</span> frozenset<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+set2 <span class="token operator">=</span> frozenset<span class="token punctuation">(</span>range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">&amp;</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># frozenset({1, 3, 5})</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">|</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># frozenset({1, 2, 3, 4, 5, 7})</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">-</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># frozenset({7})</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>set1 <span class="token operator">&lt;</span> set2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="集合类型转换"><a href="#集合类型转换" class="headerlink" title="集合类型转换"></a>集合类型转换</h2><p>其他类型如果想要转换为集合类型，可以通过set进行转换，并且如果数据有重复自动剔除。</p>
+<p>提示：int/list/tuple/dict都可以转换为集合。</p>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token string">"张亚飞"</span>
+v2 <span class="token operator">=</span> set<span class="token punctuation">(</span>v1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {"张","亚","飞"}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">]</span>
+v2 <span class="token operator">=</span> set<span class="token punctuation">(</span>v1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {11,22,33,3,99}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span>
+v2 <span class="token operator">=</span> set<span class="token punctuation">(</span>v1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {11,22,3}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>提示：这其实也是去重的一个手段。</p>
+<pre class="line-numbers language-python"><code class="language-python">data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">}</span>
+v1 <span class="token operator">=</span> list<span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># [11,22,33,3,99]</span>
+v2 <span class="token operator">=</span> tuple<span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># (11,22,33,3,99)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="集合生成式"><a href="#集合生成式" class="headerlink" title="集合生成式"></a>集合生成式</h2><pre class="line-numbers language-python"><code class="language-python">s <span class="token operator">=</span> <span class="token punctuation">{</span>v <span class="token keyword">for</span> v <span class="token keyword">in</span> iterable<span class="token punctuation">}</span> 其中iterable是一个可迭代的对象，比如list。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>示例1：求余数</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># for in 循环实现</span>
+l1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">]</span>
+s <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> li<span class="token punctuation">:</span>
+    s<span class="token punctuation">.</span>add<span class="token punctuation">(</span>l1 <span class="token operator">%</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {0, 1, 2}</span>
+<span class="token comment" spellcheck="true"># 集合生成式</span>
+s <span class="token operator">=</span> <span class="token punctuation">{</span> i <span class="token operator">%</span> <span class="token number">3</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#  {0, 1， 2}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例2：嵌套if</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># for in 循环实现</span>
+l1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">]</span>
+s <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> li<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">15</span><span class="token punctuation">:</span>
+        s<span class="token punctuation">.</span>add<span class="token punctuation">(</span>l1 <span class="token operator">%</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {0, 1， 2}</span>
+<span class="token comment" spellcheck="true"># 集合生成式</span>
+s <span class="token operator">=</span> <span class="token punctuation">{</span> i <span class="token operator">%</span> <span class="token number">3</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> l1 <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">15</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#  {0, 1， 2}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例3：嵌套循环</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># for in 循环</span>
+S <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        S<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token punctuation">(</span> i <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 6, 9}</span>
+
+<span class="token comment" spellcheck="true"># 集合生成式</span>
+S <span class="token operator">=</span> <span class="token punctuation">{</span> i<span class="token operator">*</span>j <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {1, 2, 3, 4, 6, 9}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="集合的存储原理"><a href="#集合的存储原理" class="headerlink" title="集合的存储原理"></a>集合的存储原理</h2><p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/%E9%9B%86%E5%90%88.jpg" alt="集合的哈希存储"></p>
+<h3 id="元素必须可哈希"><a href="#元素必须可哈希" class="headerlink" title="元素必须可哈希"></a>元素必须可哈希</h3><p>因存储原理，集合的元素必须是可哈希的值，即：内部通过通过哈希函数把值转换成一个数字。</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/image-20201126114556403.png" alt="元素必须可哈希"></p>
+<p>目前可哈希的数据类型：int、bool、str、tuple，而list、set是不可哈希的。</p>
+<p>总结：集合的元素只能是 int、bool、str、tuple 。</p>
+<ul>
+<li><p>转换成功</p>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">]</span>
+v2 <span class="token operator">=</span> set<span class="token punctuation">(</span>v1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># {11,22,33,3,99}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>转换失败</p>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">"Michael"</span><span class="token punctuation">,</span><span class="token string">"eric"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">]</span>
+v2 <span class="token operator">=</span> set<span class="token punctuation">(</span>v1<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 报错 </span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="查找速度特别快"><a href="#查找速度特别快" class="headerlink" title="查找速度特别快"></a>查找速度特别快</h3><p>因存储原理特殊，集合的查找效率非常高（数据量大了才明显）。</p>
+<ul>
+<li><p>低</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 列表存储</span>
+user_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"张亚飞"</span><span class="token punctuation">,</span><span class="token string">"Michael"</span><span class="token punctuation">,</span><span class="token string">"刘翔"</span><span class="token punctuation">]</span>
+<span class="token keyword">if</span> <span class="token string">"Michael"</span> <span class="token keyword">in</span> user_list<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"不在"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 元组存储</span>
+user_tuple <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">"张亚飞"</span><span class="token punctuation">,</span><span class="token string">"Michael"</span><span class="token punctuation">,</span><span class="token string">"刘翔"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token string">"Michael"</span> <span class="token keyword">in</span> user_tuple<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"不在"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>效率高</p>
+<pre class="line-numbers language-python"><code class="language-python">user_set <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"张亚飞"</span><span class="token punctuation">,</span><span class="token string">"Michael"</span><span class="token punctuation">,</span><span class="token string">"刘翔"</span><span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token string">"Michael"</span> <span class="token keyword">in</span> user_set<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"不在"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="对比和嵌套"><a href="#对比和嵌套" class="headerlink" title="对比和嵌套"></a>对比和嵌套</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否可变</th>
+<th>是否有序</th>
+<th>元素要求</th>
+<th>是否可哈希</th>
+<th>转换</th>
+<th>定义空</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>list</td>
+<td>是</td>
+<td>是</td>
+<td>无</td>
+<td>否</td>
+<td>list(其他)</td>
+<td><code>v=[]或v=list()</code></td>
+</tr>
+<tr>
+<td>tuple</td>
+<td>否</td>
+<td>是</td>
+<td>无</td>
+<td>是</td>
+<td>tuple(其他)</td>
+<td><code>v=()或v=tuple()</code></td>
+</tr>
+<tr>
+<td>set</td>
+<td>是</td>
+<td>否</td>
+<td>可哈希</td>
+<td>否</td>
+<td>set(其他)</td>
+<td><code>v=set()</code></td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python"><code class="language-python">data_list <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"Michael"</span><span class="token punctuation">,</span>
+    <span class="token number">11</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Michael"</span><span class="token punctuation">,</span> <span class="token string">"eric"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"中国"</span><span class="token punctuation">,</span> <span class="token string">"北京"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"沙河"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意：由于True和False本质上存储的是 1 和 0 ，而集合又不允许重复，所以在整数 0、1和False、True出现在集合中会有如下现象：</p>
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {True}</span>
+
+v2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {1}</span>
+
+v3 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {0}</span>
+
+v4 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v4<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># {False}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="简单的总结"><a href="#简单的总结" class="headerlink" title="简单的总结"></a>简单的总结</h2><p>Python中的集合底层使用了<strong>哈希存储</strong>的方式，使得其具有查找速度快的优势，且其数据元素不可重复，经常应用在需要大量查找和去重的场景下。现阶段大家只需要知道以下几个知识点：</p>
+<ol>
+<li>集合，是 无序、不重复、元素必须可哈希、可变的一个容器（子孙元素都必须是可哈希）。</li>
+<li>集合的查找速度比较快（底层是基于哈希进行存储）</li>
+<li>集合可以具有 交并差 的功能。</li>
+<li>不支持索引运算</li>
+</ol>
+<p>集合与列表不同的地方在于集合中的元素<strong>没有序</strong>、<strong>不能用索引运算</strong>、<strong>不能重复</strong>。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-11-pian-gao-ji-shu-ju-lei-xing-zhi-ji-he/">https://zhangyafeii.gitee.io/python/base/di-11-pian-gao-ji-shu-ju-lei-xing-zhi-ji-he/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                                    <span class="chip bg-color">高级数据类型</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9B%86%E5%90%88/">
+                                    <span class="chip bg-color">集合</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-16T09-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-12-pian-gao-ji-shu-ju-lei-xing-zhi-zi-dian/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1550230659,1798500020&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第12篇：高级数据类型之字典">
+                        
+                        <span class="card-title">第12篇：高级数据类型之字典</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            基础数据类型：
+
+int，整数类型（整形）
+float，浮点类型（浮点型）
+complex,复数类型
+bool，布尔类型
+str，字符串类型
+
+高级数据类型
+
+list，列表类型
+tuple，元组类型
+set，集合类型
+dict，字典类型
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">高级数据类型</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E5%85%B8/">
+                        <span class="chip bg-color">字典</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-10-pian-lie-biao-he-yuan-zu-de-ying-yong/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=302443879,57190448&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第10篇：列表和元组的应用">
+                        
+                        <span class="card-title">第10篇：列表和元组的应用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            列表和元组在编写应用程序时都非常有用，我们通过下面几个案例帮助大家熟悉列表和元组的使用方法。
+经典的案例案例1：成绩表和平均分统计。
+说明：录入5个学生3门课程的考试成绩，计算每个学生的平均分和每门课的平均分。
+
+这个案例我们在之前说到过，
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">高级数据类型</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%97%E8%A1%A8/">
+                        <span class="chip bg-color">列表</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%83%E7%BB%84/">
+                        <span class="chip bg-color">元组</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BA%94%E7%94%A8/">
+                        <span class="chip bg-color">应用</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

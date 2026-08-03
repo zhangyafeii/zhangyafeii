@@ -1,0 +1,1434 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第18篇：模块和包, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="学习目标：了解Python中模块和包的概念，掌握相关包和模块的导入和使用方法
+模块是一个包含所有你定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。
+假设你">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第18篇：模块和包 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/%E7%AC%AC18%E7%AF%87.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第18篇：模块和包
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9D%97/">
+                                <span class="chip bg-color">模块</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-19
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>学习目标</strong>：了解Python中模块和包的概念，掌握相关包和模块的导入和使用方法</p>
+<p>模块是一个包含所有你定义的函数和变量的文件，其后缀名是<code>.py</code>。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。</p>
+<p>假设你写了一个10000行代码的程序，如果把全部代码写在一个文件里，查询起来将会非常困难。每次出现错误或异常时，不得不快速浏览10000行代码来查找导致问题的那行。为解决这个问题，程序员将大型程序分割成多个包含Python代码的文件，也就是被称为<strong>模块</strong>(Module)。Python支持在一个模块中使用另一个模块内的代码，也有<strong>内置模块</strong>，它是Python语言自带的，包含了许多重要的功能。本节将学习模块及其使用方式。</p>
+<h3 id="一、模块的概念"><a href="#一、模块的概念" class="headerlink" title="一、模块的概念"></a>一、模块的概念</h3><p><strong>模块</strong>就是一个工具包，这个工具包（<code>模块</code>）对外提供<strong>全局变量、函数、类</strong>三种类型的工具，工具包名称（<code>模块名</code>）实则是一个<strong>标识符</strong>，需要满足标识符命名规范，而<strong>模块的本质</strong>就是以<code>.py</code>为扩展名的源代码文件。<br><strong>模块的开发原则</strong>也很简单，就是每一个文件应该是可以被导入的，我们可以理解为：</p>
+<ul>
+<li><p>模块中所有没有任何缩进的代码都应该被执行一遍，加载到内存，以供调用者使用；</p>
+</li>
+<li><p>模块中的测试代码应该保证仅在其内部使用，而被导入到其他文件中应该不被执行；</p>
+<p>这么一看，那么问题来了，我们该如何让测试代码满足以上的执行条件呢？接下来我们需要学习一下python中的一个内置属性__name_，此属性记录着一个字符串，详情如下表：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>分情况讨论</th>
+<th>__name__值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模块为当前执行程序时</td>
+<td><code>__main__</code>（双下划线字符串）</td>
+</tr>
+<tr>
+<td>模块被其他文件导入时</td>
+<td>被导入<code>模块名</code></td>
+</tr>
+</tbody></table>
+<p>由此，我们可以好好使用这个属性，将我们的测试代码放入其中，如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">=</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 此处写测试代码</span>
+    <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这样，我们的测试代码仅在模块为当前执行程序时，被导入将不再执行，大功告成！最后，给出推荐的模块代码格式，如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 导入模块</span>
+<span class="token comment" spellcheck="true"># 定义全局变量</span>
+<span class="token comment" spellcheck="true"># 定义类</span>
+<span class="token comment" spellcheck="true"># 定义函数</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    此处为测试代码，是否已解惑各位同学们心中那些年的疑惑呀？
+    """</span>
+    <span class="token keyword">pass</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">=</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    仅在模块为当前执行程序时，执行main()；
+    被其他文件导入时，将不再执行main()
+    """</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>模块的作用总结起来有三点：</p>
+<ul>
+<li>提高代码重用性</li>
+<li>系统命名空间的划分</li>
+<li>实现共享服务和数据</li>
+</ul>
+<p>模块分为三种：</p>
+<ul>
+<li>内置模块</li>
+<li>第三方模块</li>
+<li>自定义模块</li>
+</ul>
+<p>模块导入规范</p>
+<ul>
+<li>文件头部导入</li>
+<li>内置模块放在最开始</li>
+<li>第三方模块放在中间</li>
+<li>自定义模块放在最后</li>
+<li>不同种类模块之间空一行</li>
+</ul>
+<h3 id="二、包的概念"><a href="#二、包的概念" class="headerlink" title="二、包的概念"></a>二、包的概念</h3><p>包是一种管理 Python 模块命名空间的形式，采用”点模块名称”。比如一个模块的名称是 A.B， 那么他表示一个包 A中的子模块 B 。就好像使用模块的时候，你不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块重名的情况。这样不同的作者都可以提供 NumPy 模块，或者是 Python 图形库。不妨假设你想设计一套统一处理声音文件和数据的模块（或者称之为一个”包”）。现存很多种不同的音频文件格式（基本上都是通过后缀名区分的，例如： .wav，:file:.aiff，:file:.au，），所以你需要有一组不断增加的模块，用来在不同的格式之间转换。并且针对这些音频数据，还有很多不同的操作（比如混音，添加回声，增加均衡器功能，创建人造立体声效果），所以你还需要一组怎么也写不完的模块来处理这些操作。这里给出了一种可能的包结构（在分层的文件系统中）:</p>
+<pre class="line-numbers language-python"><code class="language-python">sound<span class="token operator">/</span>                          顶层包
+      __init__<span class="token punctuation">.</span>py               初始化 sound 包
+      formats<span class="token operator">/</span>                  文件格式转换子包
+              __init__<span class="token punctuation">.</span>py
+              wavread<span class="token punctuation">.</span>py
+              wavwrite<span class="token punctuation">.</span>py
+              aiffread<span class="token punctuation">.</span>py
+              aiffwrite<span class="token punctuation">.</span>py
+              auread<span class="token punctuation">.</span>py
+              auwrite<span class="token punctuation">.</span>py
+              <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      effects<span class="token operator">/</span>                  声音效果子包
+              __init__<span class="token punctuation">.</span>py
+              echo<span class="token punctuation">.</span>py
+              surround<span class="token punctuation">.</span>py
+              reverse<span class="token punctuation">.</span>py
+              <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      filters<span class="token operator">/</span>                  filters 子包
+              __init__<span class="token punctuation">.</span>py
+              equalizer<span class="token punctuation">.</span>py
+              vocoder<span class="token punctuation">.</span>py
+              karaoke<span class="token punctuation">.</span>py
+              <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在导入一个包的时候，Python 会根据 <code>sys.path</code> 中的目录来寻找这个包中包含的子目录。</p>
+<p>目录只有包含一个叫做 <code>__init__</code>.<code>py</code> 的文件才会被认作是一个包，主要是为了避免一些滥俗的名字（比如叫做 string）不小心的影响搜索路径中的有效模块。</p>
+<p>最简单的情况，放一个空的 :file:<code>__init__</code>.<code>py</code>就可以了。当然这个文件中也可以包含一些初始化代码或者为（将在后面介绍的） __all__变量赋值。</p>
+<p>用户可以每次只导入一个包里面的特定模块，比如:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> sound<span class="token punctuation">.</span>effects<span class="token punctuation">.</span>echo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将会导入子模块:<code>sound</code>.<code>effects</code>.<code>echo</code>。 他必须使用全名去访问:</p>
+<pre class="line-numbers language-python"><code class="language-python">sound<span class="token punctuation">.</span>effects<span class="token punctuation">.</span>echo<span class="token punctuation">.</span>echofilter<span class="token punctuation">(</span>input<span class="token punctuation">,</span> output<span class="token punctuation">,</span> delay<span class="token operator">=</span><span class="token number">0.7</span><span class="token punctuation">,</span> atten<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>还有一种导入子模块的方法是:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sound<span class="token punctuation">.</span>effects <span class="token keyword">import</span> echo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这同样会导入子模块: echo，并且他不需要那些冗长的前缀，所以他可以这样使用:</p>
+<pre class="line-numbers language-python"><code class="language-python">echo<span class="token punctuation">.</span>echofilter<span class="token punctuation">(</span>input<span class="token punctuation">,</span> output<span class="token punctuation">,</span> delay<span class="token operator">=</span><span class="token number">0.7</span><span class="token punctuation">,</span> atten<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>还有一种变化就是直接导入一个函数或者变量:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sound<span class="token punctuation">.</span>effects<span class="token punctuation">.</span>echo <span class="token keyword">import</span> echofilter<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>同样的，这种方法会导入子模块: echo，并且可以直接使用他的 <code>echofilter()</code> 函数:</p>
+<pre class="line-numbers language-python"><code class="language-python">echofilter<span class="token punctuation">(</span>input<span class="token punctuation">,</span> output<span class="token punctuation">,</span> delay<span class="token operator">=</span><span class="token number">0.7</span><span class="token punctuation">,</span> atten<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注意当使用 <strong>from package import item</strong> 这种形式的时候，对应的 item 既可以是包里面的子模块（子包），或者包里面定义的其他名称，比如函数，类或者变量。</p>
+<p>import 语法会首先把 item 当作一个包定义的名称，如果没找到，再试图按照一个模块去导入。如果还没找到，抛出一个 <strong>:<code>exc:ImportError</code></strong> 异常。</p>
+<p>反之，如果使用形如 <strong><code>import item.subitem.subsubitem</code></strong> 这种导入形式，除了最后一项，都必须是包，而最后一项则可以是模块或者是包，但是不可以是类，函数或者变量的名字。</p>
+<ul>
+<li><p>模块：一个包含所有你定义的函数和变量的文件，其后缀名是 <code>.py</code> ，一个<code>.py</code>文件就是一个模块</p>
+</li>
+<li><p>包：一个包含 <code>__init__</code>.<code>py</code>模块 的文件夹,一般也会包含其他一些模块和子包</p>
+</li>
+<li><p>库(lib)：库是完成一定功能的代码集合，具体表现可以是包，也可以是一个模块</p>
+</li>
+<li><p>框架（framework）：为解决一个开放性问题而设计的具有一定约束性的支撑结构</p>
+</li>
+<li><p>python内置了一些库，除此之外，还有其他人自己做的一些库，称之为第三方库</p>
+</li>
+<li><p>一般把第三方库放在…/python3/lib/site_packages中</p>
+</li>
+</ul>
+<h3 id="三、模块和包的导入"><a href="#三、模块和包的导入" class="headerlink" title="三、模块和包的导入"></a>三、模块和包的导入</h3><p>使用模块之前，必须先<strong>导入</strong>（import）：意味着要写代码，以便让Python知道从哪获取模块。Python导入模块有以下几种方式：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> module
+<span class="token keyword">from</span> module<span class="token punctuation">.</span>xx<span class="token punctuation">.</span>xx <span class="token keyword">import</span> xx             精确导入
+<span class="token keyword">from</span> module<span class="token punctuation">.</span>xx<span class="token punctuation">.</span>xx <span class="token keyword">import</span> xx <span class="token keyword">as</span> rename  
+<span class="token keyword">from</span> module<span class="token punctuation">.</span>xx<span class="token punctuation">.</span>xx <span class="token keyword">import</span> <span class="token operator">*</span>              模糊导入<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导入示例如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> math
+<span class="token keyword">from</span> random <span class="token keyword">import</span> randint
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> tkinter <span class="token keyword">import</span> <span class="token operator">*</span>
+
+math<span class="token punctuation">.</span>pow<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 2的3次方</span>
+randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 随机生成1-10的一个整数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导入模块其实就是告诉Python解释器去解释那个<code>py</code>文件</p>
+<ul>
+<li>导入一个<code>py</code>文件，解释器解释该<code>py</code>文件</li>
+<li>导入一个包，解释器解释该包下的 <code>__init__</code>.<code>py</code> 文件</li>
+</ul>
+<p>模糊导入中的*中的模块是由<code>__all__</code>来定义的，<code>__init__</code>.<code>py</code>的另外一个作用就是定义package中的<code>__all__</code>，用来模糊导入，如<code>__init__</code>.<code>py</code>：</p>
+<p><code>__init__</code>.<code>py</code> 控制着包的导入行为。假如 <code>__init__</code>.<code>py</code> 为空，那么仅仅导入包是什么都做不了的。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> dingxiangyuan <span class="token keyword">import</span> <span class="token operator">*</span>  <span class="token comment" spellcheck="true"># 虽然dingxiangyuan文件夹下有DBHelper模块 但没有定义__all__</span>
+DBHelper
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"D:\python37\lib\site-packages\IPython\core\interactiveshell.py"</span><span class="token punctuation">,</span> line <span class="token number">3319</span><span class="token punctuation">,</span> <span class="token keyword">in</span> run_code
+    <span class="token keyword">exec</span><span class="token punctuation">(</span>code_obj<span class="token punctuation">,</span> self<span class="token punctuation">.</span>user_global_ns<span class="token punctuation">,</span> self<span class="token punctuation">.</span>user_ns<span class="token punctuation">)</span>
+  File <span class="token string">"&lt;ipython-input-3-60abe7946ad7>"</span><span class="token punctuation">,</span> line <span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+    DBHelper
+NameError<span class="token punctuation">:</span> name <span class="token string">'DBHelper'</span> <span class="token keyword">is</span> <span class="token operator">not</span> defined　<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>定义变量<strong>all</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">    __all__ <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'DBHelper'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>包外调用</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> dingxiangyuan <span class="token keyword">import</span> <span class="token operator">*</span>
+DBHelper
+Out<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token operator">&lt;</span>module <span class="token string">'dingxiangyuan.DBHelper'</span> <span class="token keyword">from</span> <span class="token string">'E:\\ZhangYafei\\project\\丁香园\\dingxiangyuan\\dingxiangyuan\\DBHelper.py'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>从上边的例子可以看出，<strong>init</strong>.py的主要作用是：</p>
+<ol>
+<li>Python中package的标识，不能删除</li>
+<li>定义__all__用来模糊导入</li>
+<li>编写Python代码(不建议在<strong>init__中写python模块，可以在包中在创建另外的模块来写，尽量保证__init</strong>.py简单）</li>
+</ol>
+<p>那么问题来了，导入模块时是根据那个路径作为基准来进行的呢？即：<code>sys.path</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> sys
+<span class="token operator">>></span><span class="token operator">></span> sys<span class="token punctuation">.</span>path
+<span class="token punctuation">[</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">'F:\\python37\\python37.zip'</span><span class="token punctuation">,</span> <span class="token string">'F:\\python37\\DLLs'</span><span class="token punctuation">,</span> <span class="token string">'F:\\python37\\lib'</span><span class="token punctuation">,</span> <span class="token string">'F:\\python37'</span><span class="token punctuation">,</span> <span class="token string">'C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python37\\site-packages'</span><span class="token punctuation">,</span> <span class="token string">'C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python37\\site-packages\\win32'</span><span class="token punctuation">,</span> <span class="token string">'C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python37\\site-packages\\win32\\lib'</span><span class="token punctuation">,</span> <span class="token string">'C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python37\\site-packages\\Pythonwin'</span><span class="token punctuation">,</span> <span class="token string">'F:\\python37\\lib\\site-packages'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>搜索规则：</p>
+<ol>
+<li>搜索<code>当前目录</code>，若模块名存在，则直接导入，否则继续搜索；</li>
+<li>搜索<code>系统目录</code>，若模块名存在，则直接导入，否则调用模块中的方法时，将会抛出异常；</li>
+</ol>
+<p>如果<code>sys.path</code>路径列表没有你想要的路径，可以通过 <code>sys.path.append('路径') </code>添加。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200216162157375.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1ODQ0MDQz,size_16,color_FFFFFF,t_70" alt="模块搜索顺序"></p>
+<p>例如：将当前文件的目录的上一层目录添加到环境路径中。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os<span class="token punctuation">,</span>sys
+
+BASE_DIR <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+sys<span class="token punctuation">.</span>path<span class="token punctuation">.</span>append<span class="token punctuation">(</span>BASE_DIR<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://img2018.cnblogs.com/blog/1476293/201812/1476293-20181213111052400-1224511037.png"></p>
+<p><strong>dir() 函数</strong></p>
+<p>内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> os
+<span class="token operator">>></span><span class="token operator">></span> dir<span class="token punctuation">(</span>os<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'DirEntry'</span><span class="token punctuation">,</span> <span class="token string">'F_OK'</span><span class="token punctuation">,</span> <span class="token string">'MutableMapping'</span><span class="token punctuation">,</span> <span class="token string">'O_APPEND'</span><span class="token punctuation">,</span> <span class="token string">'O_BINARY'</span><span class="token punctuation">,</span> <span class="token string">'O_CREAT'</span><span class="token punctuation">,</span> <span class="token string">'O_EXCL'</span><span class="token punctuation">,</span> <span class="token string">'O_NOINHERIT'</span><span class="token punctuation">,</span> <span class="token string">'O_RANDOM'</span><span class="token punctuation">,</span> <span class="token string">'O_RDONLY'</span><span class="token punctuation">,</span> <span class="token string">'O_RDWR'</span><span class="token punctuation">,</span> <span class="token string">'O_SEQUENTIAL'</span><span class="token punctuation">,</span> <span class="token string">'O_SHORT_LIVED'</span><span class="token punctuation">,</span> <span class="token string">'O_TEMPORARY'</span><span class="token punctuation">,</span> <span class="token string">'O_TEXT'</span><span class="token punctuation">,</span> <span class="token string">'O_TRUNC'</span><span class="token punctuation">,</span> <span class="token string">'O_WRONLY'</span><span class="token punctuation">,</span> <span class="token string">'P_DETACH'</span><span class="token punctuation">,</span> <span class="token string">'P_NOWAIT'</span><span class="token punctuation">,</span> <span class="token string">'P_NOWAITO'</span><span class="token punctuation">,</span> <span class="token string">'P_OVERLAY'</span><span class="token punctuation">,</span> <span class="token string">'P_WAIT'</span><span class="token punctuation">,</span> <span class="token string">'PathLike'</span><span class="token punctuation">,</span> <span class="token string">'R_OK'</span><span class="token punctuation">,</span> <span class="token string">'SEEK_CUR'</span><span class="token punctuation">,</span> <span class="token string">'SEEK_END'</span><span class="token punctuation">,</span> <span class="token string">'SEEK_SET'</span><span class="token punctuation">,</span> <span class="token string">'TMP_MAX'</span><span class="token punctuation">,</span> <span class="token string">'W_OK'</span><span class="token punctuation">,</span> <span class="token string">'X_OK'</span><span class="token punctuation">,</span> <span class="token string">'_Environ'</span><span class="token punctuation">,</span> <span class="token string">'__all__'</span><span class="token punctuation">,</span> <span class="token string">'__builtins__'</span><span class="token punctuation">,</span> <span class="token string">'__cached__'</span><span class="token punctuation">,</span> <span class="token string">'__doc__'</span><span class="token punctuation">,</span> <span class="token string">'__file__'</span><span class="token punctuation">,</span> <span class="token string">'__loader__'</span><span class="token punctuation">,</span> <span class="token string">'__name__'</span><span class="token punctuation">,</span> <span class="token string">'__package__'</span><span class="token punctuation">,</span> <span class="token string">'__spec__'</span><span class="token punctuation">,</span> <span class="token string">'_check_methods'</span><span class="token punctuation">,</span> <span class="token string">'_execvpe'</span><span class="token punctuation">,</span> <span class="token string">'_exists'</span><span class="token punctuation">,</span> <span class="token string">'_exit'</span><span class="token punctuation">,</span> <span class="token string">'_fspath'</span><span class="token punctuation">,</span> <span class="token string">'_get_exports_list'</span><span class="token punctuation">,</span> <span class="token string">'_putenv'</span><span class="token punctuation">,</span> <span class="token string">'_unsetenv'</span><span class="token punctuation">,</span> <span class="token string">'_wrap_close'</span><span class="token punctuation">,</span> <span class="token string">'abc'</span><span class="token punctuation">,</span> <span class="token string">'abort'</span><span class="token punctuation">,</span> <span class="token string">'access'</span><span class="token punctuation">,</span> <span class="token string">'altsep'</span><span class="token punctuation">,</span> <span class="token string">'chdir'</span><span class="token punctuation">,</span> <span class="token string">'chmod'</span><span class="token punctuation">,</span> <span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token string">'closerange'</span><span class="token punctuation">,</span> <span class="token string">'cpu_count'</span><span class="token punctuation">,</span> <span class="token string">'curdir'</span><span class="token punctuation">,</span> <span class="token string">'defpath'</span><span class="token punctuation">,</span> <span class="token string">'device_encoding'</span><span class="token punctuation">,</span> <span class="token string">'devnull'</span><span class="token punctuation">,</span> <span class="token string">'dup'</span><span class="token punctuation">,</span> <span class="token string">'dup2'</span><span class="token punctuation">,</span> <span class="token string">'environ'</span><span class="token punctuation">,</span> <span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token string">'execl'</span><span class="token punctuation">,</span> <span class="token string">'execle'</span><span class="token punctuation">,</span> <span class="token string">'execlp'</span><span class="token punctuation">,</span> <span class="token string">'execlpe'</span><span class="token punctuation">,</span> <span class="token string">'execv'</span><span class="token punctuation">,</span> <span class="token string">'execve'</span><span class="token punctuation">,</span> <span class="token string">'execvp'</span><span class="token punctuation">,</span> <span class="token string">'execvpe'</span><span class="token punctuation">,</span> <span class="token string">'extsep'</span><span class="token punctuation">,</span> <span class="token string">'fdopen'</span><span class="token punctuation">,</span> <span class="token string">'fsdecode'</span><span class="token punctuation">,</span> <span class="token string">'fsencode'</span><span class="token punctuation">,</span> <span class="token string">'fspath'</span><span class="token punctuation">,</span> <span class="token string">'fstat'</span><span class="token punctuation">,</span> <span class="token string">'fsync'</span><span class="token punctuation">,</span> <span class="token string">'ftruncate'</span><span class="token punctuation">,</span> <span class="token string">'get_exec_path'</span><span class="token punctuation">,</span> <span class="token string">'get_handle_inheritable'</span><span class="token punctuation">,</span> <span class="token string">'get_inheritable'</span><span class="token punctuation">,</span> <span class="token string">'get_terminal_size'</span><span class="token punctuation">,</span> <span class="token string">'getcwd'</span><span class="token punctuation">,</span> <span class="token string">'getcwdb'</span><span class="token punctuation">,</span> <span class="token string">'getenv'</span><span class="token punctuation">,</span> <span class="token string">'getlogin'</span><span class="token punctuation">,</span> <span class="token string">'getpid'</span><span class="token punctuation">,</span> <span class="token string">'getppid'</span><span class="token punctuation">,</span> <span class="token string">'isatty'</span><span class="token punctuation">,</span> <span class="token string">'kill'</span><span class="token punctuation">,</span> <span class="token string">'linesep'</span><span class="token punctuation">,</span> <span class="token string">'link'</span><span class="token punctuation">,</span> <span class="token string">'listdir'</span><span class="token punctuation">,</span> <span class="token string">'lseek'</span><span class="token punctuation">,</span> <span class="token string">'lstat'</span><span class="token punctuation">,</span> <span class="token string">'makedirs'</span><span class="token punctuation">,</span> <span class="token string">'mkdir'</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token string">'pardir'</span><span class="token punctuation">,</span> <span class="token string">'path'</span><span class="token punctuation">,</span> <span class="token string">'pathsep'</span><span class="token punctuation">,</span> <span class="token string">'pipe'</span><span class="token punctuation">,</span> <span class="token string">'popen'</span><span class="token punctuation">,</span> <span class="token string">'putenv'</span><span class="token punctuation">,</span> <span class="token string">'read'</span><span class="token punctuation">,</span> <span class="token string">'readlink'</span><span class="token punctuation">,</span> <span class="token string">'remove'</span><span class="token punctuation">,</span> <span class="token string">'removedirs'</span><span class="token punctuation">,</span> <span class="token string">'rename'</span><span class="token punctuation">,</span> <span class="token string">'renames'</span><span class="token punctuation">,</span> <span class="token string">'replace'</span><span class="token punctuation">,</span> <span class="token string">'rmdir'</span><span class="token punctuation">,</span> <span class="token string">'scandir'</span><span class="token punctuation">,</span> <span class="token string">'sep'</span><span class="token punctuation">,</span> <span class="token string">'set_handle_inheritable'</span><span class="token punctuation">,</span> <span class="token string">'set_inheritable'</span><span class="token punctuation">,</span> <span class="token string">'spawnl'</span><span class="token punctuation">,</span> <span class="token string">'spawnle'</span><span class="token punctuation">,</span> <span class="token string">'spawnv'</span><span class="token punctuation">,</span> <span class="token string">'spawnve'</span><span class="token punctuation">,</span> <span class="token string">'st'</span><span class="token punctuation">,</span> <span class="token string">'startfile'</span><span class="token punctuation">,</span> <span class="token string">'stat'</span><span class="token punctuation">,</span> <span class="token string">'stat_result'</span><span class="token punctuation">,</span> <span class="token string">'statvfs_result'</span><span class="token punctuation">,</span> <span class="token string">'strerror'</span><span class="token punctuation">,</span> <span class="token string">'supports_bytes_environ'</span><span class="token punctuation">,</span> <span class="token string">'supports_dir_fd'</span><span class="token punctuation">,</span> <span class="token string">'supports_effective_ids'</span><span class="token punctuation">,</span> <span class="token string">'supports_fd'</span><span class="token punctuation">,</span> <span class="token string">'supports_follow_symlinks'</span><span class="token punctuation">,</span> <span class="token string">'symlink'</span><span class="token punctuation">,</span> <span class="token string">'sys'</span><span class="token punctuation">,</span> <span class="token string">'system'</span><span class="token punctuation">,</span> <span class="token string">'terminal_size'</span><span class="token punctuation">,</span> <span class="token string">'times'</span><span class="token punctuation">,</span> <span class="token string">'times_result'</span><span class="token punctuation">,</span> <span class="token string">'truncate'</span><span class="token punctuation">,</span> <span class="token string">'umask'</span><span class="token punctuation">,</span> <span class="token string">'uname_result'</span><span class="token punctuation">,</span> <span class="token string">'unlink'</span><span class="token punctuation">,</span> <span class="token string">'urandom'</span><span class="token punctuation">,</span> <span class="token string">'utime'</span><span class="token punctuation">,</span> <span class="token string">'waitpid'</span><span class="token punctuation">,</span> <span class="token string">'walk'</span><span class="token punctuation">,</span> <span class="token string">'write'</span><span class="token punctuation">]</span>
+<span class="token operator">>></span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果没有给定参数，那么 <code>dir()</code> 函数会罗列出当前定义的所有名称:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dir<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'__annotations__'</span><span class="token punctuation">,</span> <span class="token string">'__builtins__'</span><span class="token punctuation">,</span> <span class="token string">'__doc__'</span><span class="token punctuation">,</span> <span class="token string">'__loader__'</span><span class="token punctuation">,</span> <span class="token string">'__name__'</span><span class="token punctuation">,</span> <span class="token string">'__package__'</span><span class="token punctuation">,</span> <span class="token string">'__spec__'</span><span class="token punctuation">,</span> <span class="token string">'os'</span><span class="token punctuation">,</span> <span class="token string">'randint'</span><span class="token punctuation">,</span> <span class="token string">'sys'</span><span class="token punctuation">]</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">del</span> os
+<span class="token operator">>></span><span class="token operator">></span> dir<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'__annotations__'</span><span class="token punctuation">,</span> <span class="token string">'__builtins__'</span><span class="token punctuation">,</span> <span class="token string">'__doc__'</span><span class="token punctuation">,</span> <span class="token string">'__loader__'</span><span class="token punctuation">,</span> <span class="token string">'__name__'</span><span class="token punctuation">,</span> <span class="token string">'__package__'</span><span class="token punctuation">,</span> <span class="token string">'__spec__'</span><span class="token punctuation">,</span> <span class="token string">'randint'</span><span class="token punctuation">,</span> <span class="token string">'sys'</span><span class="token punctuation">]</span>
+<span class="token operator">>></span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="四、第三方模块"><a href="#四、第三方模块" class="headerlink" title="四、第三方模块"></a>四、第三方模块</h3><p>安装第三方库实质上是下载并使用别人写的代码。常见的第三方库的格式：源码(Source)（压缩包，需先解压，得到包含setup.py文件夹）；egg（本质是压缩包）；<code>whl</code>（本质也是压缩文件）。</p>
+<h4 id="1-下载和安装"><a href="#1-下载和安装" class="headerlink" title="1. 下载和安装"></a>1. 下载和安装</h4><ul>
+<li><p>源码安装（本地安装）：手动下载，再安装到本地；</p>
+<p>（1）到对应库托管网站下载所需要的文件，<a target="_blank" rel="noopener" href="https://pypi.org/%E6%88%96https://www.lfd.uci.edu/~gohlke/pythonlibs/%E7%AD%89">https://pypi.org/或https://www.lfd.uci.edu/~gohlke/pythonlibs/等</a></p>
+<p>（2）下载的文件要对应自己python的版本，还要选择32位还是64位安装的python的系统</p>
+<p>（3）打开命令行（win+R cmd）:切换到下载的文件所在的目录 cd /d</p>
+<p>（4）对于带setup.py的文件（源码文件），输入命令：python setup.py install。注意：若没有<code>setuptools</code>包，需手动下载安装，再利用<code>setuptools</code>安装其他使用<code>setuptools</code>打包的包</p>
+<p>（5）对于 .egg文件使用easy_stall安装，输入命令：easy_install xxx.egg(完整文件名称)</p>
+<p>（6）对于<code>whl</code>文件可以使用easy_stall如上安装，也可以使用pip安装，输入命令：pip install xxx.whl(完整文件名称)</p>
+</li>
+<li><p>包管理安装（远程安装）：通过命令使自动化的为用户安装管理包和模块。安装命令如下：</p>
+<pre class="line-numbers language-python"><code class="language-python">yum（linux），pip，apt<span class="token operator">-</span>get<span class="token punctuation">(</span>linux<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使用国内源安装</p>
+<p>默认pip是使用Python官方的源，但是由于国外官方源经常被墙，导致不可用，我们可以使用国内的python镜像源，从而解决Python安装不上库的烦恼。国内有很多源，比如：</p>
+<pre class="line-numbers language-python"><code class="language-python">（<span class="token number">1</span>）阿里云 http<span class="token punctuation">:</span><span class="token operator">//</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span class="token operator">/</span>pypi<span class="token operator">/</span>simple<span class="token operator">/</span>
+（<span class="token number">2</span>）豆瓣http<span class="token punctuation">:</span><span class="token operator">//</span>pypi<span class="token punctuation">.</span>douban<span class="token punctuation">.</span>com<span class="token operator">/</span>simple<span class="token operator">/</span>
+（<span class="token number">3</span>）清华大学 https<span class="token punctuation">:</span><span class="token operator">//</span>pypi<span class="token punctuation">.</span>tuna<span class="token punctuation">.</span>tsinghua<span class="token punctuation">.</span>edu<span class="token punctuation">.</span>cn<span class="token operator">/</span>simple<span class="token operator">/</span>
+（<span class="token number">4</span>）中国科学技术大学 http<span class="token punctuation">:</span><span class="token operator">//</span>pypi<span class="token punctuation">.</span>mirrors<span class="token punctuation">.</span>ustc<span class="token punctuation">.</span>edu<span class="token punctuation">.</span>cn<span class="token operator">/</span>simple<span class="token operator">/</span>
+（<span class="token number">5</span>）华中科技大学http<span class="token punctuation">:</span><span class="token operator">//</span>pypi<span class="token punctuation">.</span>hustunique<span class="token punctuation">.</span>com<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><p>临时使用</p>
+<pre class="line-numbers language-python"><code class="language-python">pip install <span class="token operator">-</span>i https<span class="token punctuation">:</span><span class="token operator">//</span>pypi<span class="token punctuation">.</span>tuna<span class="token punctuation">.</span>tsinghua<span class="token punctuation">.</span>edu<span class="token punctuation">.</span>cn<span class="token operator">/</span>simple 模块名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>永久修改，一劳永逸</p>
+<pre class="line-numbers language-python"><code class="language-python">Linux下，修改 <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>pip<span class="token operator">/</span>pip<span class="token punctuation">.</span>conf <span class="token punctuation">(</span>没有就创建一个<span class="token punctuation">)</span>， 修改 index<span class="token operator">-</span>url至tuna，内容如下：
+<span class="token punctuation">[</span><span class="token keyword">global</span><span class="token punctuation">]</span>
+index<span class="token operator">-</span>url <span class="token operator">=</span> http<span class="token punctuation">:</span><span class="token operator">//</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span class="token operator">/</span>pypi<span class="token operator">/</span>simple<span class="token operator">/</span>
+<span class="token punctuation">[</span>install<span class="token punctuation">]</span>
+trusted<span class="token operator">-</span>host<span class="token operator">=</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com
+
+windows下，直接在user目录中创建一个pip目录，如：C<span class="token punctuation">:</span>\Users\xx\pip，新建文件pip<span class="token punctuation">.</span>ini，内容如下<span class="token punctuation">:</span>
+<span class="token punctuation">[</span><span class="token keyword">global</span><span class="token punctuation">]</span>
+index<span class="token operator">-</span>url <span class="token operator">=</span> http<span class="token punctuation">:</span><span class="token operator">//</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span class="token operator">/</span>pypi<span class="token operator">/</span>simple<span class="token operator">/</span>
+<span class="token punctuation">[</span>install<span class="token punctuation">]</span>
+trusted<span class="token operator">-</span>host<span class="token operator">=</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-卸载"><a href="#2-卸载" class="headerlink" title="2. 卸载"></a>2. 卸载</h4><pre class="line-numbers language-python"><code class="language-python">pip uninstall 模块名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-更新pip"><a href="#3-更新pip" class="headerlink" title="3. 更新pip"></a>3. 更新pip</h4><p>若提示更新pip</p>
+<pre class="line-numbers language-python"><code class="language-python">WARNING<span class="token punctuation">:</span> You are using pip version <span class="token number">20.2</span><span class="token punctuation">.</span><span class="token number">3</span><span class="token punctuation">;</span> however<span class="token punctuation">,</span> version <span class="token number">20.2</span><span class="token punctuation">.</span><span class="token number">4</span> <span class="token keyword">is</span> available<span class="token punctuation">.</span>
+You should consider upgrading via the <span class="token string">'f:\python37\python.exe -m pip install --upgrade pip'</span> command<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>按提示输入 python -m pip install –upgrade pip，还是报错</p>
+<pre class="line-numbers language-python"><code class="language-python">ValueError<span class="token punctuation">:</span> Unable to find resource t64<span class="token punctuation">.</span>exe <span class="token keyword">in</span> package pip<span class="token punctuation">.</span>_vendor<span class="token punctuation">.</span>distlib
+WARNING<span class="token punctuation">:</span> You are using pip version <span class="token number">20.2</span><span class="token punctuation">.</span><span class="token number">3</span><span class="token punctuation">;</span> however<span class="token punctuation">,</span> version <span class="token number">20.2</span><span class="token punctuation">.</span><span class="token number">4</span> <span class="token keyword">is</span> available<span class="token punctuation">.</span>
+You should consider upgrading via the <span class="token string">'F:\python37\python.exe -m pip install --upgrade pip'</span> command<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>解决方法</p>
+<pre class="line-numbers language-python"><code class="language-python">python <span class="token operator">-</span>m pip uninstall pip setuptools
+pip3 install <span class="token operator">-</span><span class="token operator">-</span>upgrade pip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="五、内置模块"><a href="#五、内置模块" class="headerlink" title="五、内置模块"></a>五、内置模块</h3><p>官网网址：<a target="_blank" rel="noopener" href="https://docs.python.org/3/py-modindex.html">https://docs.python.org/3/py-modindex.html</a></p>
+<p>关于内置模块，也称标准库模块，我们将再另一章节讲解。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-18-pian-mo-kuai-he-bao/">https://zhangyafeii.gitee.io/python/base/di-18-pian-mo-kuai-he-bao/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A8%A1%E5%9D%97/">
+                                    <span class="chip bg-color">模块</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-19T14-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-19-pian-yi-chang-chu-li/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/%E7%AC%AC19%E7%AF%87.jpg" class="responsive-img" alt="第19篇：异常处理">
+                        
+                        <span class="card-title">第19篇：异常处理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：了解Python异常处理的常用知识，掌握异常处理的基本用法。
+为增强程序的健壮性， 我们也需要考虑异常处理方面的内容。 例如， 在读取文件时需要考虑文件不存在、 文件格式不正确等异常情况。 这就是本节要介绍的异常处理。  
+一、第
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+                        <span class="chip bg-color">异常处理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-17-pian-han-shu-bu-fen-gong-gu-ti-sheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/%E7%AC%AC17%E7%AF%87.jpg" class="responsive-img" alt="第17篇：函数部分巩固提升">
+                        
+                        <span class="card-title">第17篇：函数部分巩固提升</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            函数部分巩固提升练习1：实现计算求最大公约数和最小公倍数的函数。参考答案：
+def gcd(x, y):
+    """求最大公约数"""
+    (x, y) = (y, x) if x > y else (x, y)
+    for f
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%87%BD%E6%95%B0/">
+                        <span class="chip bg-color">函数</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="chip bg-color">练习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1496 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="进阶篇：Python迭代器深入理解, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="一、可迭代对象 Iterable可迭代对象 Iterable：表示该对象可迭代，其并不是指某种具体数据类型。简单来说只要是实现了 __iter__ 方法的类就是可迭代对象。
+from collections.abc import Itera">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>进阶篇：Python迭代器深入理解 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/advanced-2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        进阶篇：Python迭代器深入理解
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+                                <span class="chip bg-color">迭代器</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/">
+                                <span class="chip bg-color">进阶篇</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/Advanced/" class="post-category">
+                                Advanced
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-23
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、可迭代对象-Iterable"><a href="#一、可迭代对象-Iterable" class="headerlink" title="一、可迭代对象 Iterable"></a>一、可迭代对象 Iterable</h3><p><strong>可迭代对象 Iterable</strong>：表示该对象可迭代，其并不是指某种具体数据类型。简单来说<strong>只要是实现了 <code>__iter__</code> 方法的类就是可迭代对象</strong>。</p>
+<pre class="line-numbers language-python3"><code class="language-python3">from collections.abc import Iterable, Iterator
+
+class A(object):
+    def __init__(self):
+        self.a = [1, 2, 3]
+
+    def __iter__(self):
+        # 此处返回啥无所谓
+        return self.a
+
+cls_a = A()
+#  True
+print(isinstance(cls_a, Iterable))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是对象如果是 Iterable 的，看起来好像也没有特别大的用途，因为你依然无法迭代，实际上 Iterable 仅仅是提供了一种抽象规范接口：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> a <span class="token keyword">in</span> cls_a<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 程序报错，要理解这个错误的含义</span>
+TypeError<span class="token punctuation">:</span> iter<span class="token punctuation">(</span><span class="token punctuation">)</span> returned non<span class="token operator">-</span>iterator of type <span class="token string">'list'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们可以检查下 Iterable 接口：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Iterable</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 如果实现了这个方法，那么就是 Iterable</span>
+    @abstractmethod
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">False</span><span class="token punctuation">:</span>
+            <span class="token keyword">yield</span> None
+
+    @classmethod
+    <span class="token keyword">def</span> <span class="token function">__subclasshook__</span><span class="token punctuation">(</span>cls<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> cls <span class="token keyword">is</span> Iterable<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> _check_methods<span class="token punctuation">(</span>C<span class="token punctuation">,</span> <span class="token string">"__iter__"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> NotImplemented<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>看起来实现 Iterable 接口用途不大，其实不是的，其有很多用途的，例如简化代码等，在后面的高级语法糖中会频繁用到，后面会分析。</p>
+<h3 id="二、迭代器-Iterator"><a href="#二、迭代器-Iterator" class="headerlink" title="二、迭代器 Iterator"></a>二、迭代器 Iterator</h3><p><strong>迭代器 Iterator</strong>：其和 Iterable 之间是一个包含与被包含的关系，<strong>如果一个对象是迭代器 Iterator，那么这个对象肯定是可迭代 Iterable；但是反过来，如果一个对象是可迭代 Iterable，那么这个对象不一定是迭代器 Iterator</strong>，可以通过接口协议看出：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Iterator</span><span class="token punctuation">(</span>Iterable<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 迭代具体实现</span>
+    @abstractmethod
+    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token string">'Return the next item from the iterator. When exhausted, raise StopIteration'</span>
+        <span class="token keyword">raise</span> StopIteration
+
+    <span class="token comment" spellcheck="true"># 返回自身，因为自身有 __next__ 方法(如果自身没有 __next__，那么返回自身没有意义)</span>
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self
+
+    @classmethod
+    <span class="token keyword">def</span> <span class="token function">__subclasshook__</span><span class="token punctuation">(</span>cls<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> cls <span class="token keyword">is</span> Iterator<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> _check_methods<span class="token punctuation">(</span>C<span class="token punctuation">,</span> <span class="token string">'__iter__'</span><span class="token punctuation">,</span> <span class="token string">'__next__'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> NotImplemented<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以发现：<strong>实现了 <code>__next__</code> 和 <code>__iter__</code> 方法的类才能称为迭代器，就可以被 for 遍历了</strong>。到目前为止这句话是正确的，但是当你读到后面就知道这句话不严谨。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        self<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+
+    <span class="token comment" spellcheck="true"># 必须要返回一个实现了 __next__ 方法的对象，否则后面无法 for 遍历</span>
+    <span class="token comment" spellcheck="true"># 因为本类自身实现了 __next__，所以通常都是返回 self 对象即可</span>
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self
+
+    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>index <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>index <span class="token operator">&lt;</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>a<span class="token punctuation">[</span>self<span class="token punctuation">.</span>index<span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 抛异常，for 内部会自动捕获，表示迭代完成</span>
+            <span class="token keyword">raise</span> StopIteration<span class="token punctuation">(</span><span class="token string">"遍历完了"</span><span class="token punctuation">)</span>
+
+cls_a <span class="token operator">=</span> A<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+
+<span class="token keyword">for</span> a <span class="token keyword">in</span> cls_a<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 打印 1 2 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再次明确，一个对象如果要是 Iterator ，那么必须要实现 <code>__next__</code> 和 <code>__iter__</code> 方法(不严谨，看到后面就知道为啥不严谨了)，但是要理解其内部迭代流程，还需要理解 for .. in .. 流程。</p>
+<h3 id="三、for-in-本质流程"><a href="#三、for-in-本质流程" class="headerlink" title="三、for .. in .. 本质流程"></a>三、for .. in .. 本质流程</h3><p>for .. in .. 也就是常见的迭代操作了，其被 python 编译器编译后，实际上代码是：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 实际调用了 __iter__ 方法返回自身，包括了 __next__ 方法的对象</span>
+cls_a <span class="token operator">=</span> iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 然后调用对象的 __next__ 方法，不断返回元素</span>
+        value <span class="token operator">=</span> next<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 如果迭代完成，则捕获异常即可</span>
+    <span class="token keyword">except</span> StopIteration<span class="token punctuation">:</span>
+        <span class="token keyword">break</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看出，<strong>任何一个对象如果要能够被 for 遍历，必须要实现 <code>__iter__</code> 和 <code>__next__</code> 方法，缺一不可</strong>。同样的，这句话在我们已经解读过的知识下是正确的，但是不够严谨，甚至表述有点问题，因为该对象不需要直接实现这两个方法也可以得到一个迭代器，后面会说。严谨说法应该是该对象直接或者间接实现了这两个方法都可以返回迭代器，例如后面要讲的高级语法糖功能。</p>
+<p>明白了上述流程，那么迭代器对象 A，我们可以采用如下方式进行遍历：</p>
+<pre class="line-numbers language-python"><code class="language-python">myiter <span class="token operator">=</span> iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>next<span class="token punctuation">(</span>myiter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>next<span class="token punctuation">(</span>myiter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>next<span class="token punctuation">(</span>myiter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 因为遍历完了，故此时会出现错误： StopIteration: 遍历完了</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>next<span class="token punctuation">(</span>myiter<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们再来<strong>思考 python 内置对象 list 为啥可以被迭代</strong>？</p>
+<pre class="line-numbers language-python"><code class="language-python">b<span class="token operator">=</span>list<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>b<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>b<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>可以发现 list 类型是可迭代对象，但是其不是迭代器(即 list 没有 <code>__next__</code> 方法)，那为啥 for .. in .. 可以迭代呢？</p>
+<p>原因是 <strong>list 内部的 <code>__iter__</code> 方法内部返回了具备 <code>__next__</code> 方法的类，或者说调用 iter() 后返回的对象本身就是一个迭代器，当然可以 for 循环了。</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">b<span class="token operator">=</span>list<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dir<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 可以发现其存在 __iter__ 方法，不存在 __next__</span>
+
+b<span class="token operator">=</span>iter<span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 调用 list 内部的 __iter__，返回了具备 __next__ 的对象</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>b<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>b<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dir<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 同时具备 __iter__ 和 __next__ 方法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>基于上述理解我们可以对 A 类代码进行改造，使其更加简单：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 我们内部又调用了 list 对象的 __iter__ 方法，故此时返回的对象是迭代器对象</span>
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> iter<span class="token punctuation">(</span>self<span class="token punctuation">.</span>a<span class="token punctuation">)</span>
+
+cls_a <span class="token operator">=</span> A<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+
+<span class="token keyword">for</span> a <span class="token keyword">in</span> cls_a<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 输出： 1 2 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>此时我们就实现了仅仅实现 Iterable 规范接口，但是又具备了 for .. in .. 功能，代码是不是比最开始的实现简单很多？ 这种写法应用也非常广泛，因为其不需要自己再次实现 <code>__next__</code> 方法。</p>
+<p>如果你想理解的更加透彻，那么可以看下面例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 仅仅实现 __iter__ </span>
+<span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>b <span class="token operator">=</span> B<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>b
+
+<span class="token comment" spellcheck="true"># 仅仅实现 __next__</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        self<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>index <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>index <span class="token operator">&lt;</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>a<span class="token punctuation">[</span>self<span class="token punctuation">.</span>index<span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 内部会自动捕获，表示迭代完成</span>
+            <span class="token keyword">raise</span> StopIteration<span class="token punctuation">(</span><span class="token string">"遍历完了"</span><span class="token punctuation">)</span>
+
+
+cls_a <span class="token operator">=</span> A<span class="token punctuation">(</span><span class="token punctuation">)</span>
+cls_b <span class="token operator">=</span> B<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_b<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_b<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>type<span class="token punctuation">(</span>iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># B 对象</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+
+<span class="token keyword">for</span> a <span class="token keyword">in</span> cls_a<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出： 1 2 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>自此我们知道了：<strong>一个对象要能够被 for .. in .. 迭代，那么不管你是直接实现 <code>__iter__</code> 和 <code>__next__</code> 方法(对象必然是 Iterator)，还是只实现 <code>__iter__</code>(不是 Iterator)，但是内部间接返回了具备 <code>__next__</code> 对象的类，都是可行的</strong>。</p>
+<p>但是除了这两种实现，还有其他高级语法糖，可以进一步精简代码。</p>
+<h3 id="四、getitem理解"><a href="#四、getitem理解" class="headerlink" title="四、getitem理解"></a>四、getitem理解</h3><p>上面说过 for .. in .. 的本质就是调用对象的 <code>__iter__</code> 和 <code>__next__</code> 方法，但是有一种更加简单的写法，你通过仅仅实现 <code>__getitem__</code> 方法就可以让对象实现迭代功能。实际上任何一个类，如果实现了<code>__getitem__</code> 方法，那么当调用 iter(类实例) 时候会自动具备<code>__iter__</code> 和 <code>__next__</code>方法，从而可迭代了。</p>
+<p>通过下面例子可以看出，<code>__getitem__</code> 实际上是属于 <strong>iter</strong><code>和</code><strong>next</strong>` 方法的高级封装，<strong>也就是我们常说的语法糖</strong>，只不过这个转化是通过编译器完成，内部自动转化，非常方便。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>a<span class="token punctuation">[</span>item<span class="token punctuation">]</span>
+
+cls_a <span class="token operator">=</span> A<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dir<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 仅仅具备 __getitem__ 方法</span>
+
+cls_a <span class="token operator">=</span> iter<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dir<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 具备 __iter__ 和 __next__ 方法</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterable<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_a<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># True</span>
+
+<span class="token comment" spellcheck="true"># 等价于 for .. in ..</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 然后调用对象的 __next__ 方法，不断返回元素</span>
+        value <span class="token operator">=</span> next<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 如果迭代完成，则捕获异常即可</span>
+    <span class="token keyword">except</span> StopIteration<span class="token punctuation">:</span>
+        <span class="token keyword">break</span>
+
+<span class="token comment" spellcheck="true"># 输出： 1 2 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>而且 <code>__getitem__</code> 还可以通过索引直接访问元素，非常方便</p>
+<pre class="line-numbers language-python"><code class="language-python">a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 1</span>
+a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 错误，索引越界</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果你想该对象具备 list 等对象一样的长度属性，则只需要实现 <code>__len__</code> 方法即可</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>a<span class="token punctuation">[</span>item<span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>a<span class="token punctuation">)</span>
+
+cls_a <span class="token operator">=</span> A<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>cls_a<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>到目前为止，我们已经知道了第一种高级语法糖实现迭代器功能，下面分析另一个更简单的可以直接作用于函数的语法糖。</p>
+<h3 id="五、yield-生成器"><a href="#五、yield-生成器" class="headerlink" title="五、yield 生成器"></a>五、yield 生成器</h3><p><strong>生成器是一个在行为上和迭代器非常类似的对象，二者功能上差不多，但是生成器更优雅，只需要用关键字 yield 来返回</strong>，作用于函数上叫生成器函数，函数被调用时会返回一个生成器对象，生成器本质就是迭代器，其最大特点是代码简洁。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> a <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">yield</span> a
+
+cls_g <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>isinstance<span class="token punctuation">(</span>cls_g<span class="token punctuation">,</span> Iterator<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dir<span class="token punctuation">(</span>cls_g<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 自动具备 __iter__ 和 __next__ 方法</span>
+
+<span class="token keyword">for</span> a <span class="token keyword">in</span> cls_g<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出: 1 2 3</span>
+
+<span class="token comment" spellcheck="true"># 一种更简单的写法是用 ()</span>
+cls_g <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>直观感觉和 <code>__getitem__</code> 一样，也是高级语法糖，但是比 <code>__getitem__</code> 更加简单，更加好用。</p>
+<p>使用 yield 函数与使用 return 函数，在执行时差别在于：包含 yield 的方法一般用于迭代，每次执行时遇到 yield 就返回 yield 后的结果，但内部会保留上次执行的状态，下次继续迭代时，会继续执行 yield 之后的代码，直到再次遇到 yield 后返回。<strong>生成器是懒加载模式，特别适合解决内存占用大的集合问题。</strong>假设创建一个包含10万个元素的列表，如果用 list 返回不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了，这种场景就适合采用生成器，在迭代过程中推算出后续元素，而不需要一次性全部算出。</p>
+<h3 id="六、迭代器的高级用法"><a href="#六、迭代器的高级用法" class="headerlink" title="六、迭代器的高级用法"></a>六、迭代器的高级用法</h3><h4 id="6-1-dropwhile"><a href="#6-1-dropwhile" class="headerlink" title="6.1 dropwhile"></a>6.1 dropwhile</h4><p>在实际的应用当中，比如记录的日志或者是代码等等，一般来说头部都会附上一段说明，或者用注释标注或者是用特殊的符号标记。这些信息是给用到数据的程序员看的，当我们通过代码获取数据的时候，显然是希望可以过滤掉这些信息的。</p>
+<p>比如我们有一段数据，它的开头用#做了一些注释：</p>
+<pre><code># This is a data for student
+# Rows 100
+
+xiaoming, 17, 99;
+xiaoli, 18, 98;
+...</code></pre>
+<p>常规操作当中，我们会创建一个打开文件的迭代器，我们通过遍历这个迭代器去获取文件当中的数据：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'xxxx.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  <span class="token keyword">for</span> line <span class="token keyword">in</span> f<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果只是用来输出还好，如果我们需要加工文件当中的数据，那么头部的注释信息就会干扰我们代码的运行。我们当然可以手动加入一些判断，但是这会比较麻烦，代码也不够美观。针对这个问题，一个比较好的解决方案是<code>dropwhile</code>。</p>
+<p><code>dropwhile</code>是<code>itemtools</code>当中的一个函数，它可以接收一个我们自定义的过滤函数和迭代器重新生成一个新的迭代器，这个新的迭代器当中会过滤掉之前迭代器头部不符合我们要求的数据：</p>
+<p>在刚才的例子当中我们想要过滤掉头部加了#注释的部分，我们可以这么操作：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> itertools <span class="token keyword">import</span> dropwhile
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'xxxx.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  <span class="token keyword">for</span> line <span class="token keyword">in</span> dropwhile<span class="token punctuation">(</span><span class="token keyword">lambda</span> line<span class="token punctuation">:</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'#'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样出来的结果就没有头部我们不需要的内容了。</p>
+<p>当我们知道头部不符合情况的数据的格式的时候，可以使用<code>dropwhile</code>来规定过滤的格式。如果我们知道需要过滤的条数，则可以使用另外一个工具，叫做<code>islice</code>，它的本质是一个切片函数，就像是Python当中数组的切片功能一样，可以切出迭代器当中指定片段的数据。</p>
+<p>举个例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> itertools <span class="token keyword">import</span> dropwhile
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'xxxx.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  <span class="token keyword">for</span> line <span class="token keyword">in</span> islice<span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样我们就会从第三行开始获取，之前的数据会被过滤掉。它其实就代表着数组当中[3: ]的切片操作。</p>
+<h4 id="6-2-迭代排列组合"><a href="#6-2-迭代排列组合" class="headerlink" title="6.2 迭代排列组合"></a>6.2 迭代排列组合</h4><p>我们都知道在C++当中有一个叫做next_permutation的函数，可以传入一个数组，返回下一个字典序的排列。在Python当中也有同样的功能，但是是以迭代器的形式使用的。</p>
+<p>举个简单的例子，比如我们有a, b, c三个元素，我们希望求出它的所有排列：</p>
+<pre class="line-numbers language-python"><code class="language-python">items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span>
+<span class="token keyword">from</span> itertools <span class="token keyword">import</span> permutations
+
+<span class="token keyword">for</span> p <span class="token keyword">in</span> permutations<span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>permutations还支持多传一个参数，比如上述的排列当中我们希望只保留前两个元素，除了切片之外，我们只需要多传一个参数就好了，like this：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> p <span class="token keyword">in</span> permutations<span class="token punctuation">(</span>items<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>除了排列之外，<code>itertools</code>当中还支持组合，用法还是一样，只是把函数名称换成是combinations而已：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> itertools <span class="token keyword">import</span> combindations
+<span class="token keyword">for</span> c <span class="token keyword">in</span> combinations<span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>在一般的组合当中，一个元素一旦被选中那么它接下来就会从候选集当中移除，再也不会被选中。如果我们希望获得有放回的组合，我们可以再换一个函数，这个函数名称有点长，但是名字倒也直观叫做combinations_with_replacement。但既然是有放回的抽样，我们需要设定元素的数量，否则抽样可以无限进行下去。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> c <span class="token keyword">in</span> combinations_with_replacement<span class="token punctuation">(</span>items<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="6-3-迭代合并后的序列"><a href="#6-3-迭代合并后的序列" class="headerlink" title="6.3 迭代合并后的序列"></a>6.3 迭代合并后的序列</h4><p>上一篇文章当中我们介绍了zip可以同时迭代多个迭代器，除此之外还有一种情况是我们需要把多个迭代器串起来迭代。比如系统的日志打在了多个文件当中，我们希望找出其中有error的日志来分析。这个时候，我们希望的不是同时读取多个迭代器，而是希望能够有办法将多个迭代器的内容串联起来。这个功能就是itertools当中的chain方法，它接受多个迭代器，当我们遍历的时候，会自动将多个迭代器的内容串联起来，我们可以无缝迭代。</p>
+<p>举个例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> itertools <span class="token keyword">import</span> chain
+nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+chars <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> chain<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> chars<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样我们会把<code>nums</code>和<code>chars</code>当中的内容一起输出出来，就好像从头到尾只执行了一个迭代器一样。</p>
+<p>你可能会说我们不用chain也可以实现啊，我们可以这样：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> i <span class="token keyword">in</span> nums <span class="token operator">+</span> chars<span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>的确，从结果上来看这样也是行得通的。但是如果我们分析一下内部执行的时候的中间变量，会发现当我们执行<code>nums</code>+<code>chars</code>的时候，实际上是先创建了一个新的临时list。然后在这个list当中存储nums和chars的数据，也就是说我们迭代的其实是这个新的list。这带来的结果是我们额外开辟了一段内存，并且花费了一些时间。如果我们使用chain，它并不会有这样的中间变量，完全是通过迭代器来执行的迭代，非常节省内存，这也是chain的优点。</p>
+<h4 id="6-4-归并迭代的内容"><a href="#6-4-归并迭代的内容" class="headerlink" title="6.4 归并迭代的内容"></a>6.4 归并迭代的内容</h4><p>对于归并操作我们应该都不陌生，在之前的归并排序以及一些题解的文章当中我们见过很多次。同样，我们在使用工具合并多个迭代器内容的时候，如果迭代器当中的内容有序，我们也可以对多个迭代器当中的元素进行归并，而不再需要我们自己手动操作。</p>
+<p>使用我们之前介绍的<code>heapq</code>的库可以非常轻松地做到这一点，我们一起来看一个例子：</p>
+<pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
+b <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>
+
+<span class="token keyword">import</span> heapq
+
+<span class="token keyword">for</span> c <span class="token keyword">in</span> heapq<span class="token punctuation">.</span>merge<span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行之后，我们会得到[1, 2, 3, 4, 5, 6]的结果。也就是说通过heapq.merge操作，我们把多个有序的迭代器合并到了一起。当然我们也可以自己合并，但如果我们只是需要利用当中的数据的话，使用merge操作可以节省内存空间。</p>
+<h3 id="七、小结"><a href="#七、小结" class="headerlink" title="七、小结"></a>七、小结</h3><p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/20201203210845234.png"></p>
+<ul>
+<li>list set dict等内置对象都是容器 container 对象，容器是一种把多个元素组织在一起的数据结构，可以逐个迭代获取其中的元素。容器可以用 in 来判断容器中是否包含某个元素。大多数容器都是可迭代对象，可以使用某种方式访问容器中的每一个元素。</li>
+<li>在迭代对象基础上，如果实现了 <code>__next__</code> 方法则是迭代器对象，该对象在调用 next() 的时候返回下一个值，如果容器中没有更多元素了，则抛出 StopIteration 异常。</li>
+<li>对于采用语法糖 <code>__getitem__</code> 实现的迭代器对象，其本身实例既不是可迭代对象，更不是迭代器，但是其可以被 for in 迭代，原因是对该对象采用 iter(类实例) 操作后就会自动变成迭代器。</li>
+<li>生成器是一种特殊迭代器，但是不需要像迭代器一样实现<code>__iter__</code>和<code>__next__</code>方法，只需要使用关键字 yield 就可以，生成器的构造可以通过生成器表达式 ()，或者对函数返回值加入 yield 关键字实现。</li>
+<li>对于在类的 <code>__iter__</code> 方法中采用语法糖 yield 实现的迭代器对象，其本身实例是可迭代对象，但不是迭代器，但是其可以被 for .. in .. 迭代，原因是对该对象采用 iter(类实例) 操作后就会自动变成迭代器</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/advanced/python-die-dai-qi-shen-ru-li-jie/">https://zhangyafeii.gitee.io/python/advanced/python-die-dai-qi-shen-ru-li-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+                                    <span class="chip bg-color">迭代器</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/">
+                                    <span class="chip bg-color">进阶篇</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2021-01-23T22-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/base/di-26-pian-gin-jian-ming-jiao-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/26.jpg" class="responsive-img" alt="第26篇：Gin简明教程">
+                        
+                        <span class="card-title">第26篇：Gin简明教程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Gin 简介
+Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance –
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/Gin/">
+                        <span class="chip bg-color">Gin</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/pandas/pandas-he-sql-cao-zuo-yu-ju-dui-zhao/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/pandas-2.jpg" class="responsive-img" alt="pandas和SQL操作语句对照">
+                        
+                        <span class="card-title">pandas和SQL操作语句对照</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SQL的神奇之处在于它容易学习，而它容易学习的原因是代码语法非常直观。另一方面，Pandas不是那么直观，特别是如果像我一样首先从SQL开始。就我个人而言，我发现真正有用的是思考如何在SQL中操作数据，然后在Pandas中复制它。所以如果你
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/pandas/" class="post-category">
+                                    pandas
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/pandas/">
+                        <span class="chip bg-color">pandas</span>
+                    </a>
+                    
+                    <a href="/tags/SQL/">
+                        <span class="chip bg-color">SQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

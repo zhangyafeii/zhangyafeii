@@ -1,0 +1,1646 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第1篇：Go语言入门及环境搭建, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="一、Go语言介绍1. Go语言诞生背景最近十年来，C/C++在计算领域没有很好得到发展，并没有新的系统编程语言出现。对开发程度和系统效率在很多情况下不能兼得。要么执行效率高，但低效的开发和编译，如C++；要么执行低效，但拥有有效的编译，如.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第1篇：Go语言入门及环境搭建 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第1篇：Go语言入门及环境搭建
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Go之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%85%A5%E9%97%A8/">
+                                <span class="chip bg-color">入门</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                <span class="chip bg-color">环境搭建</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Go/" class="post-category">
+                                Go
+                            </a>
+                        
+                            <a href="/categories/Go/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-26
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    31 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、Go语言介绍"><a href="#一、Go语言介绍" class="headerlink" title="一、Go语言介绍"></a>一、Go语言介绍</h3><h4 id="1-Go语言诞生背景"><a href="#1-Go语言诞生背景" class="headerlink" title="1. Go语言诞生背景"></a>1. Go语言诞生背景</h4><p>最近十年来，C/C++在计算领域没有很好得到发展，并没有新的系统编程语言出现。对开发程度和系统效率在很多情况下不能兼得。要么执行效率高，但低效的开发和编译，如C++；要么执行低效，但拥有有效的编译，如.NET、Java；所以需要一种拥有较高效的执行速度、编译速度和开发速度的编程语言，Go就横空出世了。</p>
+<blockquote>
+<p>传统的语言比如c++，大家花费太多时间来学习如何使用这门语言，而不是如何更好的表达写作者的思想，同时编译花费的时间实在太长，对于编写-编译-运行这个链条来说周期太长。动态语言如Python，由于没有强类型的约束，很多问题需要在运行时发现，这种低级错误更应该交给编译器来发现。</p>
+</blockquote>
+<ul>
+<li>人力成本越来越高</li>
+<li>机器越来越便宜</li>
+<li>机器的性能越来越厉害</li>
+<li>在开发效率和运行速度上达到平衡</li>
+</ul>
+<p>go出现之前，无论汇编语言、还是动态脚本语言，在执行效率和开发效率上都不能兼备。</p>
+<blockquote>
+<p>执行效率 execution speed： C/C++ &gt; Java &gt; PHP 开发效率 developing efficiency： PHP &gt; Java &gt; C/C++</p>
+</blockquote>
+<p> 谷歌的“20%时间”工作方式，允许工程师拿出20%的时间来研究自己喜欢的项目。语音服务Google Now、谷歌新闻Google News、谷歌地图Google Map上的交通信息等，全都是20%时间的产物。Go语言最开始也是20%时间的产物。</p>
+<p><img src="http://7xtcwd.com1.z0.glb.clouddn.com/aa.jpg" alt="Go三个创始人"></p>
+<p>Go的三个作者分别是： <code>Rob Pike</code>（罗伯.派克），<code>Ken Thompson</code>（肯.汤普森）和<code>Robert Griesemer</code>（罗伯特.格利茨默） 。</p>
+<ul>
+<li><code>Rob Pike</code>：曾是贝尔实验室（Bell Labs）的Unix团队，和Plan 9操作系统计划的成员。他与Thompson共事多年，并共创出广泛使用的UTF-8 字元编码。</li>
+<li><code>Ken Thompson</code>：主要是B语言、C语言的作者、Unix之父。1983年图灵奖（Turing Award）和1998年美国国家技术奖（National Medal of Technology）得主。他与Dennis Ritchie是Unix的原创者。Thompson也发明了后来衍生出C语言的B程序语言。</li>
+<li><code>Robert Griesemer</code>：在开发Go之前是<code>Google V8</code>、<code>Chubby</code>和<code>HotSpot JVM</code>的主要贡献者。</li>
+<li>此外还有Plan 9开发者<code>Russ Cox</code>、和曾改善目前广泛使用之开原码编译器GCC的<code>Ian Taylor</code>。</li>
+</ul>
+<h4 id="2-Go语言的缔造与发展"><a href="#2-Go语言的缔造与发展" class="headerlink" title="2. Go语言的缔造与发展"></a>2. Go语言的缔造与发展</h4><h5 id="2-1-Go语言的命名"><a href="#2-1-Go语言的命名" class="headerlink" title="2.1  Go语言的命名"></a>2.1  Go语言的命名</h5><p>这是一封由 Rob Pike 在 2007 年 9 月 25 号，星期二，下午 3：12 回复给 Robert Griesemer、Ken Thompson 的有关编程语言讨论主题的邮件，邮件正文大意为：</p>
+<blockquote>
+<p>在开车回家的路上我得到了些灵感。1.给这门编程语言取名为“go”，它很简短，易书写。工具类可以命名为：goc、 gol、goa。交互式的调试工具也可以直接命名为“go”。语言文件后缀名为 .go 等等。</p>
+</blockquote>
+<p>​    这就是 Go 语言名字的来源，自此之后 Robert、Rob 和 Ken 三个人开始在 Google 内部进行了研发，一直到了 2009 年，Go 正式开源了，Go 项目团队将 2009 年 11 月 10 日，即该语言正式对外开源的日字作为其官方生日。源代码最初托管在 <a href="http://link.zhihu.com/?target=http://code.google.com">http://code.google.com</a> 上，之后几年才逐步的迁移到 GitHub 上。</p>
+<h5 id="2-2-Go发展过程中的记事"><a href="#2-2-Go发展过程中的记事" class="headerlink" title="2.2 Go发展过程中的记事"></a>2.2 Go发展过程中的记事</h5><p><strong>第一个事情是在开发设计 Go 语言过程中的第一个重大惊喜是收到了以下这封邮件：</strong></p>
+<p><img src="http://7xtcwd.com1.z0.glb.clouddn.com/mail2.jpg" alt="img"></p>
+<p>这是一封由 Ian Lance Taylor 在 2008 年 6月 7 日（星期六）的晚上 7：06 写给 Robert Griesemer、Rob Pike、 Ken Thompson 的关于 Go gcc 编译器前端的邮件。邮件正文大意如下：</p>
+<blockquote>
+<p>我的同事向我推荐了这个网站 http://…/go_lang.html 。这似乎是一门很有趣的编程语言。我为它写了一个 gcc 编译器前端。虽然这个工具仍缺少很多的功能，但它确实可以编译网站上展示的那个素数筛选程序了。</p>
+</blockquote>
+<p>Ian Lance Taylor 的加入以及第二个编译器 (gcc go) 的实现 在带来震惊的同时，也伴随着喜悦。这对 Go 项目来说不仅仅是鼓励，更是一种对可行性的证明。语言的第二次实现对制定语言规范和确定标准库的过程至关重要，同时也有助于保证其高可移植性，这也是 Go 语言承诺的一部分。自此之后 Ian Lance Taylor 成为了设计和实现 Go 语言及其工具的核心人物。</p>
+<p><strong>第二件事情是 Russ Cox 在2008年带着他的语言设计天赋和编程技巧加入了刚成立不久的 Go 团队。</strong>Russ 发现 Go 方法的通用性意味着函数也能拥有自己的方法，这直接促成了 <strong>http.HandlerFunc</strong> 的实现，这是一个让 Go 一下子变得无限可能的特性。Russ 还提出了更多的泛化性的想法，比如 io.Reader 和 io.Writer 接口，奠定了所有 I/O 库的整体结构。</p>
+<p><strong>第三件事情是聘请了安全专家 Adam Langley 帮助 Go 走向 Google 外面的世界。</strong>Adam 为 Go 团队做了许多不为外人知晓的工作，包括创建最初的 <strong><a target="_blank" rel="noopener" href="http://golang.org/">http://golang.org</a></strong> 网站以及 <strong>build dashboard</strong>。不过他最大的贡献当属创建了 cryptographic 库。起先，在我们中的部分人看来，这个库无论在规模还是复杂度上都不成气候。但是就是这个库在后期成为了很多重要的网络和安全软件的基础，并且成为了 Go 语言开发历史的关键组成部分。许多网络基础设施公司，比如 <strong>Cloudflare</strong>，均重度依赖 Adam 在 Go 项目上的工作，互联网也因它变得更好。我记得当初 beego 设计的时候，session 模块设计的时候也得到了 Adam 的很多建议，因此，就 Go 而言，我们由衷地感谢 Adam。</p>
+<p><strong>第四个事情就是一家叫做 Docker 的公司。</strong>就是使用 Go 进行项目开发，并促进了计算机领域的容器行业，进而出现了像 Kubernetes 这样的项目。现在，我们完全可以说 Go 是容器语言，这是另一个完全出乎意料的结果。</p>
+<p><img src="http://7xtcwd.com1.z0.glb.clouddn.com/1641730da1fe6861.jpg" alt="img"> 除了大名鼎鼎的Docker，完全用GO实现。业界最为火爆的容器编排管理系统kubernetes完全用GO实现。之后的Docker Swarm，完全用GO实现。除此之外，还有各种有名的项目，如etcd/consul/flannel，七牛云存储等等 均使用GO实现。有人说，GO语言之所以出名，是赶上了云时代。但为什么不能换种说法？也是GO语言促使了云的发展。</p>
+<p>除了云项目外，还有像今日头条、UBER这样的公司，他们也使用GO语言对自己的业务进行了彻底的重构。</p>
+<h5 id="2-3-总结"><a href="#2-3-总结" class="headerlink" title="2.3 总结"></a>2.3 总结</h5><p>Go语言是谷歌2009年发布的第二款开源编程语言（系统开发语言)，它是基于编译、垃圾收集和并发的编程语言。 Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美 C / C++代码的速度，而且更加安全、支持并行进程。作为出现在21世纪的语言，其近C的执行性能和近解析型语言的开发效率，以及近乎于完美的编译速度，已经风靡全球。特别是在云项目中，大部分都使用了Golang来开发。不得不说，Golang早已深入人心。而对于一个没有历史负担的新项目，Golang或许就是个不二的选择。 很多人将Go语言称为21世纪的C语言，因为Go不仅拥有C的简洁和性能。而且还很好的提供了21世纪互联网环境下服务端开发的各种实用特性。被称为Go语言之父的罗勃·派克(Rob Pike)就曾说过，你是否同意Go语言，取决于你是认可少就是多，还是少就是少(Less is more or less is less)。Go语言的整个设计哲学就是：将简单、实用体现得淋漓尽致。 如今 Go 已经是云计算编程语言，GO语言背靠Google这棵大树，又不乏牛人坐镇，是名副其实的“牛二代”。想象一下：一个只有十几年发展经历的编程语言，已经成为了如此巨大而且正在不断发展的行业的主导者，这种成功是每个人都无法想象的。</p>
+<h4 id="3-为什么选择Go"><a href="#3-为什么选择Go" class="headerlink" title="3. 为什么选择Go?"></a>3. 为什么选择Go?</h4><h5 id="3-1-Go为并发而生"><a href="#3-1-Go为并发而生" class="headerlink" title="3.1 Go为并发而生"></a>3.1 Go为并发而生</h5><p>go语言（或 <code>Golang</code>）是Google开发的开源编程语言，诞生于2006年1月2日下午15点4分5秒，于2009年11月开源，2012年发布go稳定版。Go语言在多核并发上拥有原生的设计优势，Go语言从底层原生支持并发，无须第三方库、开发者的编程技巧和开发经验。</p>
+<p>go是非常年轻的一门语言，它的主要目标是“兼具Python 等动态语言的开发速度和C/C++等编译型语言的性能与安全性”</p>
+<p>很多公司，特别是中国的互联网公司，即将或者已经完成了使用 Go 语言改造旧系统的过程。经过 Go 语言重构的系统能使用更少的硬件资源获得更高的并发和I/O吞吐表现。充分挖掘硬件设备的潜力也满足当前精细化运营的市场大环境。</p>
+<p>Go语言的并发是基于 <code>goroutine</code> 的，<code>goroutine</code> 类似于线程，但并非线程。可以将 <code>goroutine</code> 理解为一种虚拟线程。Go 语言运行时会参与调度 <code>goroutine</code>，并将 <code>goroutine</code> 合理地分配到每个 CPU 中，最大限度地使用CPU性能。开启一个goroutine的消耗非常小（大约2KB的内存），你可以轻松创建数百万个<code>goroutine</code>。</p>
+<p><code>goroutine</code>的特点：</p>
+<pre><code>1. goroutine具有可增长的分段堆栈。这意味着它们只在需要时才会使用更多内存。
+2. goroutine的启动时间比线程快。
+3. goroutine原生支持利用channel安全地进行通信。
+4. goroutine共享数据结构时无需使用互斥锁。</code></pre>
+<h5 id="3-2-Go语言的发展目标"><a href="#3-2-Go语言的发展目标" class="headerlink" title="3.2 Go语言的发展目标"></a>3.2 Go语言的发展目标</h5><p>Go 语言的主要目标是将静态语言的安全性和高效性与动态语言的易开发性进行有机结合，达到完美平衡，从而使编程变得更加有乐趣，而不是在艰难抉择中痛苦前行。因此，Go 语言是一门类型安全和内存安全的编程语言。虽然 Go 语言中仍有指针的存在，但并不允许进行指针运算。</p>
+<p>Go 语言的另一个目标是对于网络通信、并发和并行编程的极佳支持，从而更好地利用大量的分布式和多核的计算机，这一点对于谷歌内部的使用来说就非常重要了。设计者通过 goroutine 这种轻量级线程的概念来实现这个目标，然后通过 channel 来实现各个 goroutine 之间的通信。他们实现了分段栈增长和 goroutine 在线程基础上多路复用技术的自动化。</p>
+<p>这个特性显然是 Go 语言最强有力的部分，不仅支持了日益重要的多核与多处理器计算机，也弥补了现存编程语言在这方面所存在的不足。</p>
+<p>Go 语言中另一个非常重要的特性就是它的构建速度（编译和链接到机器代码的速度），一般情况下构建一个程序的时间只需要数百毫秒到几秒。作为大量使用 C++ 来构建基础设施的谷歌来说，无疑从根本上摆脱了 C++ 在构建速度上非常不理想的噩梦。这不仅极大地提升了开发者的生产力，同时也使得软件开发过程中的代码测试环节更加紧凑，而不必浪费大量的时间在等待程序的构建上。</p>
+<p>依赖管理是现今软件开发的一个重要组成部分，但是 C 语言中“头文件”的概念却导致越来越多因为依赖关系而使得构建一个大型的项目需要长达几个小时的时间。人们越来越需要一门具有严格的、简洁的依赖关系分析系统从而能够快速编译的编程语言。这正是 Go 语言采用包模型的根本原因，这个模型通过严格的依赖关系检查机制来加快程序构建的速度，提供了非常好的可量测性。</p>
+<p>整个 Go 语言标准库的编译时间一般都在 20 秒以内，其它的常规项目也只需要半秒钟的时间来完成编译工作。这种闪电般的编译速度甚至比编译 C 语言或者 Fortran 更加快，使得编译这一环节不再成为在软件开发中困扰开发人员的问题。在这之前，动态语言将快速编译作为自身的一大亮点，像 C++ 那样的静态语言一般都有非常漫长的编译和链接工作。而同样作为静态语言的 Go 语言，通过自身优良的构建机制，成功地去除了这个弊端，使得程序的构建过程变得微不足道，拥有了像脚本语言和动态语言那样的高效开发的能力。</p>
+<p>另外，Go 语言在执行速度方面也可以与 C/C++ 相提并论。</p>
+<p>由于内存问题（通常称为内存泄漏）长期以来一直伴随着 C++ 的开发者们，Go 语言的设计者们认为内存管理不应该是开发人员所需要考虑的问题。因此尽管 Go 语言像其它静态语言一样执行本地代码，但它依旧运行在某种意义上的虚拟机，以此来实现高效快速的垃圾回收（使用了一个简单的标记-清除算法）。</p>
+<p>尽管垃圾回收并不容易实现，但考虑这将是未来并发应用程序发展的一个重要组成部分，Go 语言的设计者们还是完成了这项艰难的任务。</p>
+<p>Go 语言还能够在运行时进行反射相关的操作。</p>
+<p>使用 <code>go install</code> 能够很轻松地对第三方包进行部署。</p>
+<h5 id="3-3-Go语言的指导设计原则"><a href="#3-3-Go语言的指导设计原则" class="headerlink" title="3.3 Go语言的指导设计原则"></a>3.3 Go语言的指导设计原则</h5><p>Go语言通过减少关键字的数量（25 个）来简化编码过程中的混乱和复杂度。干净、整齐和简洁的语法也能够提高程序的编译速度，因为这些关键字在编译过程中少到甚至不需要符号表来协助解析。这些方面的工作都是为了减少编码的工作量，甚至可以与 Java 的简化程度相比较。</p>
+<p>Go 语言有一种极简抽象艺术家的感觉，因为它只提供了一到两种方法来解决某个问题，这使得开发者们的代码都非常容易阅读和理解。众所周知，代码的可读性是软件工程里最重要的一部分（ <strong>代码是写给人看的，不是写给机器看的</strong> ）。</p>
+<p>这些设计理念没有建立其它概念之上，所以并不会因为牵扯到一些概念而将某个概念复杂化，他们之间是相互独立的。</p>
+<p>Go 语言有一套完整的编码规范，你可以在 <a target="_blank" rel="noopener" href="http://golang.org/doc/go_spec.html">Go 语言编码规范</a> 页面进行查看。</p>
+<p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/LALR_parser">LALR</a> 是 Go 语言的语法标准，这种语法标准在编译时不需要符号表来协助解析。</p>
+<h5 id="3-4-Go语言的特性"><a href="#3-4-Go语言的特性" class="headerlink" title="3.4 Go语言的特性"></a>3.4 Go语言的特性</h5><p>Go 语言从本质上（程序和结构方面）来实现并发编程。</p>
+<p>因为 Go 语言没有类和继承的概念，所以它和 Java 或 C++ 看起来并不相同。但是它通过接口（interface）的概念来实现多态性。Go 语言有一个清晰易懂的轻量级类型系统，在类型之间也没有层级之说。因此可以说这是一门混合型的语言。</p>
+<p>在传统的面向对象语言中，使用面向对象编程技术显得非常臃肿，它们总是通过复杂的模式来构建庞大的类型层级，这违背了编程语言应该提升生产力的宗旨。</p>
+<p>函数是 Go 语言中的基本构件，它们的使用方法非常灵活。在第六章，我们会看到 Go 语言在函数式编程方面的基本概念。</p>
+<p>Go 语言使用静态类型，所以它是类型安全的一门语言，加上通过构建到本地代码，程序的执行速度也非常快。</p>
+<p>作为强类型语言，隐式的类型转换是不被允许的，记住一条原则：让所有的东西都是显式的。</p>
+<p>Go 语言其实也有一些动态语言的特性（通过关键字 <code>var</code>），所以它对那些逃离 Java 和 .Net 世界而使用 Python、Ruby、PHP 和 JavaScript 的开发者们也具有很大的吸引力。</p>
+<p>Go 语言支持交叉编译，比如说你可以在运行 Linux 系统的计算机上开发运行 Windows 下运行的应用程序。这是第一门完全支持 UTF-8 的编程语言，这不仅体现在它可以处理使用 UTF-8 编码的字符串，就连它的源码文件格式都是使用的 UTF-8 编码。Go 语言做到了真正的国际化！</p>
+<h5 id="3-5-Go语言简单易学"><a href="#3-5-Go语言简单易学" class="headerlink" title="3.5 Go语言简单易学"></a>3.5 Go语言简单易学</h5><ul>
+<li>语法简洁</li>
+</ul>
+<p>Go 语言简单易学，学习曲线平缓，不需要像 C/C++ 语言动辄需要两到三年的学习期。Go 语言被称为“互联网时代的C语言”。Go 语言的风格类似于C语言。其语法在C语言的基础上进行了大幅的简化，去掉了不需要的表达式括号，循环也只有 for 一种表示方法，就可以实现数值、键值等各种遍历。</p>
+<ul>
+<li>代码风格统一</li>
+</ul>
+<p>Go 语言提供了一套格式化工具——go fmt。一些 Go 语言的开发环境或者编辑器在保存时，都会使用格式化工具进行修改代码的格式化，这样就保证了不同开发者提交的代码都是统一的格式。(吐槽下：再也不用担心那些看不懂的黑魔法了…)</p>
+<ul>
+<li>开发效率高</li>
+</ul>
+<p><img src="http://www.topgoer.com/static/home/2.jpg" alt="开发效率高图"></p>
+<p>Go语言实现了开发效率与执行效率的完美结合，让你像写Python代码（效率）一样编写C代码（性能）。</p>
+<h5 id="3-6-使用go的公司"><a href="#3-6-使用go的公司" class="headerlink" title="3.6  使用go的公司"></a>3.6  使用go的公司</h5><ul>
+<li>Google<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes">https://github.com/kubernetes/kubernetes</a></li>
+</ul>
+</li>
+<li>Facebook<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebookgo">https://github.com/facebookgo</a></li>
+</ul>
+</li>
+<li>腾讯</li>
+<li>百度</li>
+<li>360开源日志系统<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Qihoo360/poseidon">https://github.com/Qihoo360/poseidon</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="4-Go适合做什么"><a href="#4-Go适合做什么" class="headerlink" title="4. Go适合做什么"></a>4. Go适合做什么</h4><ul>
+<li>服务端开发</li>
+<li>分布式系统，微服务</li>
+<li>网络编程</li>
+<li>区块链开发</li>
+<li>内存KV数据库，例如<code>boltDB</code>、<code>levelDB</code></li>
+<li>云平台</li>
+</ul>
+<h4 id="5-学习Go语言的前景"><a href="#5-学习Go语言的前景" class="headerlink" title="5. 学习Go语言的前景"></a>5. 学习Go语言的前景</h4><p>目前Go语言已经⼴泛应用于人工智能、云计算开发、容器虚拟化、⼤数据开发、数据分析及科学计算、运维开发、爬虫开发、游戏开发等领域。</p>
+<p>Go语言简单易学，天生支持并发，完美契合当下高并发的互联网生态。Go语言的岗位需求持续高涨，目前的Go程序员数量少，待遇好。</p>
+<p>抓住趋势，要学会做一个领跑者而不是跟随者。</p>
+<p>国内Go语言的需求潜力巨大，目前无论是国内大厂还是新兴互联网公司基本上都会有Go语言的岗位需求。</p>
+<h3 id="二、Go语言环境搭建"><a href="#二、Go语言环境搭建" class="headerlink" title="二、Go语言环境搭建"></a>二、Go语言环境搭建</h3><p>Go 和 C语言、C++、Python、Java 等一样都是编程语言。学习任何一门编程语言本质上都分3步走：</p>
+<ul>
+<li>第一步：安装 <code>解释器 或 编译器</code>。</li>
+<li>第二步：学相关编程语言语法，然后写代码。</li>
+<li>第三步：用已安装<code>解释器 或 编译器</code> 去运行自己写的代码，这样代码就会去完成我们编写的功能了。</li>
+</ul>
+<p>Go是编译型语言，所以我们一般称Go安装是<code>编译器</code>。</p>
+<p>Go是开源且跨平台的一门编程语言，所以他支持window、linux、mac操作系统，同时也意味着我们可以在各种系统中安装Go的编译器。</p>
+<h4 id="1-环境变量"><a href="#1-环境变量" class="headerlink" title="1. 环境变量"></a>1. 环境变量</h4><p>Go 开发环境依赖于一些操作系统环境变量，你最好在安装 Go 之前就已经设置好他们。如果你使用的是 Windows 的话，你完全不用进行手动设置，Go 将被默认安装在目录 <code>c:/go</code> 下。这里列举几个最为重要的环境变量：</p>
+<ul>
+<li><p><strong>GOROOT</strong> 表示 Go 在你的电脑上的安装位置，它的值一般都是 <code>$HOME/go</code>，当然，你也可以安装在别的地方。</p>
+</li>
+<li><p><strong>GOPATH</strong> 用于存放Go项目源码文件、包文件和编译后的可执行文件的路径，而这些路径下又必须分别包含三个规定的目录：<code>src</code>、<code>pkg</code> 和 <code>bin</code>，这三个目录分别用于存放源码文件、包文件和可执行文件（go 1.11版本后，go mod）。默认采用和 <code>$GOROOT</code> 一样的值，但从 Go 1.1 版本开始，你必须修改为其它路径。。</p>
+</li>
+<li><p><strong>GOBIN</strong> 表示编译后可执行文件的存放位置，默认是 <code>$GOROOT/bin</code>。</p>
+</li>
+<li><p><strong>GORROXY</strong> GO下载包的国内代理，常用的国内代理</p>
+<pre class="line-numbers language-go"><code class="language-go">阿里云    https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span class="token operator">/</span>goproxy<span class="token operator">/</span>
+七牛云    https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>goproxy<span class="token punctuation">.</span>cn
+goproxy<span class="token punctuation">.</span>io  https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>goproxy<span class="token punctuation">.</span>io<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>$GOMAXPROCS</strong> 用于设置应用程序可使用的处理器个数与核数。</p>
+</li>
+<li><p><strong>GOARCH</strong> 表示目标机器的处理器架构，它的值可以是 386、amd64 或 arm。</p>
+</li>
+<li><p><strong>GOOS</strong> 表示目标机器的操作系统，它的值可以是 <code>darwin</code>、<code>freebsd</code>、<code>linux</code> 或 <code>windows</code>。</p>
+</li>
+</ul>
+<p>目标机器是指你打算运行你的 Go 应用程序的机器。</p>
+<p>Go 编译器支持交叉编译，也就是说你可以在一台机器上构建运行在具有不同操作系统和处理器架构上运行的应用程序，也就是说编写源代码的机器可以和目标机器有完全不同的特性（操作系统与处理器架构）。</p>
+<p>在接下来的内容中，我们将会讨论如何在 Linux、Mac OS X 和 Windows 上安装 Go 语言。</p>
+<h4 id="2-Mac系统"><a href="#2-Mac系统" class="headerlink" title="2. Mac系统"></a>2. Mac系统</h4><h5 id="2-1-下载Go编译器"><a href="#2-1-下载Go编译器" class="headerlink" title="2.1 下载Go编译器"></a>2.1 下载Go编译器</h5><p><a target="_blank" rel="noopener" href="https://golang.google.cn/">https://golang.google.cn/</a></p>
+<h5 id="2-2-点击安装"><a href="#2-2-点击安装" class="headerlink" title="2.2 点击安装"></a>2.2 点击安装</h5><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20200530225723360.png" alt="image-20200530225723360" style="zoom: 50%;float:left">
+
+<p>默认的安装目录：<code>/usr/local/go/</code></p>
+<p>编译器启动文件：<code>/usr/local/go/bin/go</code></p>
+<h5 id="2-3-配置环境PATH"><a href="#2-3-配置环境PATH" class="headerlink" title="2.3 配置环境PATH"></a>2.3 配置环境PATH</h5><pre><code>export PATH=/usr/local/go/bin:$PATH</code></pre>
+<h5 id="2-4-其他配置"><a href="#2-4-其他配置" class="headerlink" title="2.4 其他配置"></a>2.4 其他配置</h5><h6 id="2-4-1-创建一个任意目录"><a href="#2-4-1-创建一个任意目录" class="headerlink" title="2.4.1 创建一个任意目录"></a>2.4.1 创建一个任意目录</h6><p>此目录以后放你写的所有go代码。</p>
+<pre><code>/Users/xxx/GolangProjects/
+- bin,通过go install编译时候，生成的可执行文件。
+- pkg,通过go install编译时候，生成的包文件。
+- src,放我们以后编写的所有go代码和依赖。</code></pre>
+<h6 id="2-4-2-配置环境变量"><a href="#2-4-2-配置环境变量" class="headerlink" title="2.4.2 配置环境变量"></a>2.4.2 配置环境变量</h6><pre class="line-numbers language-sh"><code class="language-sh">// Go安装目录
+export GOROOT=/usr/local/go
+// 代码和编译之后的文件相关代码
+export GOPATH=/Users/xxx/GolangProjects
+// 存放编译之后的文件
+export GOBIN=/Users/xxx/GolangProjects/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="2-5-环境变量持久化"><a href="#2-5-环境变量持久化" class="headerlink" title="2.5 环境变量持久化"></a>2.5 环境变量持久化</h5><p>vim ~/.bash_profile</p>
+<pre class="line-numbers language-sh"><code class="language-sh">export PATH=/usr/local/go/bin:$PATH
+export GOROOT=/usr/local/go
+export GOPATH=/Users/xxx/GolangProjects
+export GOBIN=/Users/xxx/GolangProjects/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="2-6-编写go代码"><a href="#2-6-编写go代码" class="headerlink" title="2.6 编写go代码"></a>2.6 编写go代码</h5><pre><code>$GOPATH
+├── bin
+├── pkg
+└── src
+    └── crm
+        └── app.go</code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"我的第一个Golang程序，好开心！"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="2-7-运行"><a href="#2-7-运行" class="headerlink" title="2.7 运行"></a>2.7 运行</h5><p>本质上就是让Go编译器去运行咱们编写的代码。</p>
+<p>方式1：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 先进入项目目录</span>
+<span class="token keyword">go</span> run app<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>方式2（推荐）：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 先进入项目目录</span>
+
+<span class="token comment" spellcheck="true">// 编译代码</span>
+<span class="token keyword">go</span> build
+<span class="token comment" spellcheck="true">// 运行</span>
+<span class="token punctuation">.</span><span class="token operator">/</span>crm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式3：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 先进入项目目录</span>
+<span class="token keyword">go</span> install 
+
+<span class="token comment" spellcheck="true">// 去bin运行</span>
+<span class="token punctuation">.</span><span class="token operator">/</span>crm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>$GOPATH
+├── bin
+│&nbsp;&nbsp; └── crm
+├── pkg
+└── src
+    └── crm
+        └── app.go</code></pre>
+<h4 id="3-Linux系统"><a href="#3-Linux系统" class="headerlink" title="3. Linux系统"></a>3. Linux系统</h4><h5 id="3-1-下载Go编译器"><a href="#3-1-下载Go编译器" class="headerlink" title="3.1 下载Go编译器"></a>3.1 下载Go编译器</h5><p><a target="_blank" rel="noopener" href="https://golang.google.cn/">https://golang.google.cn/</a></p>
+<h5 id="3-2-安装"><a href="#3-2-安装" class="headerlink" title="3.2 安装"></a>3.2 安装</h5><pre><code>安装目录
+/opt/go</code></pre>
+<p>启动Go编译器文件：<code>/opt/go/bin/go</code></p>
+<h5 id="3-3-配置环境变量PATH"><a href="#3-3-配置环境变量PATH" class="headerlink" title="3.3 配置环境变量PATH"></a>3.3 配置环境变量PATH</h5><pre><code>export PATH=/opt/go/bin:$PATH</code></pre>
+<h5 id="3-4-其他配置"><a href="#3-4-其他配置" class="headerlink" title="3.4 其他配置"></a>3.4 其他配置</h5><h6 id="3-4-1-创建一个任意目录"><a href="#3-4-1-创建一个任意目录" class="headerlink" title="3.4.1 创建一个任意目录"></a>3.4.1 创建一个任意目录</h6><p>存放咱们编写的所有项目代码，编译文件之后存放编译后的文件。</p>
+<pre><code>/home/xxx/GolangProjects/
+- bin,在执行go install 命令，生成的可执行文件的目录。
+- pkg,在执行go install 命令，存放生成的包文件。
+- src,以后编写的所有Go代码都会放在这个目录。
+    - crm
+        - app.go
+    - luffy
+        - lk.go</code></pre>
+<h6 id="3-4-2-环境变量的配置"><a href="#3-4-2-环境变量的配置" class="headerlink" title="3.4.2 环境变量的配置"></a>3.4.2 环境变量的配置</h6><pre><code>export GOROOT=/opt/go
+export GOPATH=/home/xxx/GolangProjects
+export GOBIN=/home/xxx/GolangProjects/bin</code></pre>
+<h5 id="3-5-环境变量的持久化"><a href="#3-5-环境变量的持久化" class="headerlink" title="3.5 环境变量的持久化"></a>3.5 环境变量的持久化</h5><p>vim ~/.bash_profile</p>
+<pre class="line-numbers language-go"><code class="language-go">export PATH<span class="token operator">=</span><span class="token operator">/</span>opt<span class="token operator">/</span><span class="token keyword">go</span><span class="token operator">/</span>bin<span class="token punctuation">:</span>$PATH
+export GOROOT<span class="token operator">=</span><span class="token operator">/</span>opt<span class="token operator">/</span><span class="token keyword">go</span>
+export GOPATH<span class="token operator">=</span><span class="token operator">/</span>home<span class="token operator">/</span>xxx<span class="token operator">/</span>GolangProjects
+export GOBIN<span class="token operator">=</span><span class="token operator">/</span>home<span class="token operator">/</span>xxx<span class="token operator">/</span>GolangProjects<span class="token operator">/</span>bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="3-6-编写go代码"><a href="#3-6-编写go代码" class="headerlink" title="3.6 编写go代码"></a>3.6 编写go代码</h5><pre><code>/home/xxx/GolangProjects（简写$GOPATH）
+├── bin
+├── pkg
+└── src
+    └── crm
+        └── app.go</code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 调用Println函数在屏幕输出：这是我的第一个Golang程序，好开心</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"我的第一个Golang程序，好开心！"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="3-7-运行代码"><a href="#3-7-运行代码" class="headerlink" title="3.7 运行代码"></a>3.7 运行代码</h5><p>本质上将写好的代码交给Go编译器去执行。</p>
+<p>方式1：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+<span class="token keyword">go</span> run app<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>方式2（推荐）：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+
+<span class="token comment" spellcheck="true">// 编译代码并生成一个可执行文件</span>
+<span class="token keyword">go</span> build  
+
+<span class="token comment" spellcheck="true">// 运行</span>
+<span class="token punctuation">.</span><span class="token operator">/</span>crm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式3：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+
+<span class="token comment" spellcheck="true">// 编译代码，把编译之后的结果会放在 bin/pkg目录</span>
+<span class="token keyword">go</span> install 
+
+<span class="token comment" spellcheck="true">// 运行</span>
+<span class="token punctuation">.</span><span class="token operator">/</span>crm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>├── bin
+│&nbsp;&nbsp; └── crm
+├── pkg
+└── src
+    └── crm
+        └── app.go</code></pre>
+<p>Go程序员的项目：</p>
+<ul>
+<li>产出一个可执行文件。</li>
+<li>产出一个包文件。</li>
+</ul>
+<h4 id="4-Windows系统"><a href="#4-Windows系统" class="headerlink" title="4. Windows系统"></a>4. Windows系统</h4><h5 id="4-1-下载Go编译器"><a href="#4-1-下载Go编译器" class="headerlink" title="4.1 下载Go编译器"></a>4.1 下载Go编译器</h5><p><a target="_blank" rel="noopener" href="https://golang.google.cn/">https://golang.google.cn/</a></p>
+<h5 id="4-2-点击安装"><a href="#4-2-点击安装" class="headerlink" title="4.2 点击安装"></a>4.2 点击安装</h5><h5 id="4-3-环境变量PATH"><a href="#4-3-环境变量PATH" class="headerlink" title="4.3 环境变量PATH"></a>4.3 环境变量PATH</h5><p>以便于以后运行GO编译器时，无需再写路径。</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20201127155836724.png" alt="image-20201127155836724"></p>
+<h5 id="4-4-其他配置"><a href="#4-4-其他配置" class="headerlink" title="4.4 其他配置"></a>4.4 其他配置</h5><h6 id="4-4-1-创建一个任意目录"><a href="#4-4-1-创建一个任意目录" class="headerlink" title="4.4.1 创建一个任意目录"></a>4.4.1 创建一个任意目录</h6><p>以后咱们的go项目都要按照要求放在这个目录。</p>
+<pre class="line-numbers language-go"><code class="language-go">Y<span class="token punctuation">:</span>\GolangProjects
+ <span class="token operator">-</span> bin<span class="token punctuation">,</span><span class="token keyword">go</span> install在编译项目时，生成的可执行文件会放到此目录。
+ <span class="token operator">-</span> pkg<span class="token punctuation">,</span><span class="token keyword">go</span> install在编译项目时，生成的包文件会放到此目录。
+ <span class="token operator">-</span> src<span class="token punctuation">,</span>以后所有的项目都要放在这个目录。
+     <span class="token operator">-</span> xxx
+         <span class="token operator">-</span> yy<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="4-4-2-环境变量配置"><a href="#4-4-2-环境变量配置" class="headerlink" title="4.4.2 环境变量配置"></a>4.4.2 环境变量配置</h6><p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20200531115559729.png" alt="image-20200531115559729"></p>
+<h5 id="4-5-编写代码"><a href="#4-5-编写代码" class="headerlink" title="4.5 编写代码"></a>4.5 编写代码</h5><pre class="line-numbers language-go"><code class="language-go">Y<span class="token punctuation">:</span>\GolangProjects
+ <span class="token operator">-</span> bin
+ <span class="token operator">-</span> pkg
+ <span class="token operator">-</span> src<span class="token punctuation">,</span>以后所有的项目都要放在这个目录。
+     <span class="token operator">-</span> crm
+         <span class="token operator">-</span> app<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"这是我的第一个Golang程序，好开心"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="4-6-运行"><a href="#4-6-运行" class="headerlink" title="4.6 运行"></a>4.6 运行</h5><p>本质上就是把Go代码交给Go编译器去执行。</p>
+<p>方式1：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+<span class="token keyword">go</span> run app<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>方式2（推荐）：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+<span class="token keyword">go</span> build
+
+crm<span class="token punctuation">.</span>exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式3：</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 进入项目目录</span>
+<span class="token keyword">go</span> install
+
+执行 crm<span class="token punctuation">.</span>exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">Y<span class="token punctuation">:</span>\GolangProjects
+ <span class="token operator">-</span> bin
+     <span class="token operator">-</span> crm<span class="token punctuation">.</span>exe
+ <span class="token operator">-</span> pkg
+     <span class="token operator">-</span> windows_amd64
+         <span class="token operator">-</span> utils<span class="token punctuation">.</span>a
+ <span class="token operator">-</span> src<span class="token punctuation">,</span>以后所有的项目都要放在这个目录。
+     <span class="token operator">-</span> crm
+         <span class="token operator">-</span> app<span class="token punctuation">.</span><span class="token keyword">go</span>
+     <span class="token operator">-</span> utils
+         <span class="token operator">-</span> page<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>平时开发：</p>
+<ul>
+<li>开发可执行文件，用来让用户使用。</li>
+<li>开发一个包文件，其他项目来进行调用。</li>
+</ul>
+<h4 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h4><p>首先要去下载Go编译器，然后进行安装，在安装目录下就是GO编译器相关的所有内容。</p>
+<pre><code>mac:     /etc/local/go/
+linux:   /opt/go/
+windows: C:\go\  可以自定义</code></pre>
+<p>在安装目录下有 bin目录中有一个go可执行文件，基于他来启动编译器。</p>
+<ul>
+<li>直接通过路径找到可执行文件去运行（麻烦）</li>
+<li>将 <code>/etc/local/go/bin</code> 目录添加PATH环境变量中。</li>
+</ul>
+<p>那么在终端就可以执行执行<code>go version</code>，调用咱们安装的编译器。</p>
+<p>如果想要正确的使用go编译器，还需做一些相关的配置（其他语言）。</p>
+<ul>
+<li><p>创建目录，用于存放项目代码、编译后的可执行文件、编译后的包文件。</p>
+<pre><code>xxxx
+- bin
+- pkg
+- src
+    - crm
+        app.go</code></pre>
+</li>
+</ul>
+<p>编写代码，然后进行。</p>
+<p>写了两个项目：</p>
+<ul>
+<li><code>crm</code>，编译后生成一个可执行文件。</li>
+<li><code>utils</code>，编译后生成一个包文件。</li>
+</ul>
+<p>运行项目</p>
+<ul>
+<li>go run，运行项目代码，内部会先编译并将编译后的文件放在系统的临时目录，然后再自动执行。</li>
+<li>go build，运行项目代码，手动编译并生成一个可执行文件，然后再自动执行。</li>
+<li>go install ，生成可执行文件 + 包文件，并且会将编译后的文件放在bin/pkg目录。</li>
+</ul>
+<h4 id="5-开发工具"><a href="#5-开发工具" class="headerlink" title="5. 开发工具"></a>5. 开发工具</h4><ul>
+<li><code>Goland</code>，IDE（继承开发环境）【收费】</li>
+<li><code>vscode</code>，编辑器 + 第三发组件  【免费】</li>
+</ul>
+<h5 id="5-1-下载Goland"><a href="#5-1-下载Goland" class="headerlink" title="5. 1 下载Goland"></a>5. 1 下载Goland</h5><p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/go/">https://www.jetbrains.com/go/</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20201127153001017.png" alt="image-20201127153001017"></p>
+<h5 id="5-2-配置"><a href="#5-2-配置" class="headerlink" title="5.2  配置"></a>5.2  配置</h5><ul>
+<li><p>字体</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20201127155356732.png" alt="image-20201127155356732"></p>
+</li>
+<li><p>参数提示</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20201127155237379.png" alt="image-20201127155237379"></p>
+</li>
+<li><p>GOPROXY</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/image-20201127170300069.png" alt="image-20201127170300069"></p>
+</li>
+</ul>
+<h4 id="6-Goland激活"><a href="#6-Goland激活" class="headerlink" title="6. Goland激活"></a>6. Goland激活</h4><ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://shimo.im/docs/dKYCkd8PrX3ckX99/read">https://shimo.im/docs/dKYCkd8PrX3ckX99/read</a></li>
+</ul>
+<h3 id="三、hello-word"><a href="#三、hello-word" class="headerlink" title="三、hello word"></a>三、hello word</h3><p>按照惯例，介绍所有编程语言的第一个程序都是“Hello, World!”。我们还是不想打破这个惯例（因为这个传统正是从Go语言的前辈C语言传承而来的）。下面的代码展示的Go语言程序输出的是中文“你好, 世界!”。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"你好, 世界!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将以上代码保存到<code>hello.go</code>文件中。因为代码中有非ASCII的中文字符，我们需要将文件的编码显式指定为无BOM的UTF8编码格式（源文件采用UTF8编码是Go语言规范所要求的）。然后进入命令行并切换到<code>hello.go</code>文件所在的目录。目前我们可以将Go语言当作脚本语言，在命令行中直接输入<code>go run hello.go</code>来运行程序。如果一切正常的话。应该可以在命令行看到输出”你好, 世界!”的结果。</p>
+<p>现在，让我们简单介绍一下程序。所有的Go程序，都是由最基本的函数和变量构成，函数和变量被组织到一个个单独的Go源文件中，这些源文件再按照作者的意图组织成合适的package，最终这些package再有机地组成一个完整的Go语言程序。其中，函数用于包含一系列的语句(指明要执行的操作序列)，以及执行操作时存放数据的变量。我们这个程序中函数的名字是main。虽然Go语言中，函数的名字没有太多的限制，但是main包中的main函数默认是每一个可执行程序的入口。而package则用于包装和组织相关的函数、变量和常量。在使用一个package之前，我们需要使用import语句导入包。例如，我们这个程序中导入了<code>fmt</code>包（<code>fmt</code>是format单词的缩写，表示格式化相关的包），然后我们才可以使用<code>fmt</code>包中的<code>Println</code>函数。</p>
+<p>而双引号包含的“你好, 世界!”则是Go语言的字符串面值常量。和C语言中的字符串不同，Go语言中的字符串内容是不可变更的。在以字符串作为参数传递给<code>fmt.Println</code>函数时，字符串的内容并没有被复制——传递的仅仅是字符串的地址和长度（字符串的结构在<code>reflect.StringHeader</code>中定义）。在Go语言中，函数参数都是以复制的方式(不支持以引用的方式)传递（比较特殊的是，Go语言闭包函数对外部变量是以引用的方式使用）。</p>
+<h3 id="四、命令"><a href="#四、命令" class="headerlink" title="四、命令"></a>四、命令</h3><p>如果你已安装了<code>golang</code>环境，你可以在命令行执行go命令查看相关的Go语言命令：</p>
+<pre class="line-numbers language-go"><code class="language-go">$ <span class="token keyword">go</span>
+Go is a tool <span class="token keyword">for</span> managing Go source code<span class="token punctuation">.</span>
+
+Usage<span class="token punctuation">:</span>
+
+        <span class="token keyword">go</span> <span class="token operator">&lt;</span>command<span class="token operator">></span> <span class="token punctuation">[</span>arguments<span class="token punctuation">]</span>
+
+The commands are<span class="token punctuation">:</span>
+
+        bug         start a bug report
+        build       compile packages and dependencies
+        clean       remove object files and cached files
+        doc         show documentation <span class="token keyword">for</span> <span class="token keyword">package</span> or symbol
+        env         <span class="token builtin">print</span> Go environment information
+        fix         update packages to use <span class="token builtin">new</span> APIs
+        fmt         <span class="token function">gofmt</span> <span class="token punctuation">(</span>reformat<span class="token punctuation">)</span> <span class="token keyword">package</span> sources
+        generate    generate Go files by processing source
+        get         add dependencies to current module and install them
+        install     compile and install packages and dependencies
+        list        list packages or modules
+        mod         module maintenance
+        run         compile and run Go program
+        test        test packages
+        tool        run specified <span class="token keyword">go</span> tool
+        version     <span class="token builtin">print</span> Go version
+        vet         report likely mistakes in packages
+
+Use <span class="token string">"go help &lt;command>"</span> <span class="token keyword">for</span> more information about a command<span class="token punctuation">.</span>
+
+Additional help topics<span class="token punctuation">:</span>
+
+        buildconstraint build constraints
+        buildmode       build modes
+        c               calling between Go and C
+        cache           build and test caching
+        environment     environment variables
+        filetype        file types
+        <span class="token keyword">go</span><span class="token punctuation">.</span>mod          the <span class="token keyword">go</span><span class="token punctuation">.</span>mod file
+        gopath          GOPATH environment variable
+        gopath<span class="token operator">-</span>get      legacy GOPATH <span class="token keyword">go</span> get
+        goproxy         module proxy protocol
+        importpath      <span class="token keyword">import</span> path syntax
+        modules         modules<span class="token punctuation">,</span> module versions<span class="token punctuation">,</span> and more
+        module<span class="token operator">-</span>get      module<span class="token operator">-</span>aware <span class="token keyword">go</span> get
+        module<span class="token operator">-</span>auth     module authentication using <span class="token keyword">go</span><span class="token punctuation">.</span>sum
+        module<span class="token operator">-</span>private  module configuration <span class="token keyword">for</span> non<span class="token operator">-</span>public modules
+        packages        <span class="token keyword">package</span> lists and patterns
+        testflag        testing flags
+        testfunc        testing functions
+
+Use <span class="token string">"go help &lt;topic>"</span> <span class="token keyword">for</span> more information about that topic<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>go env用于打印Go语言的环境信息。</li>
+<li>go run命令可以编译并运行命令源码文件。</li>
+<li>go get可以根据要求和实际情况从互联网上下载或更新指定的代码包及其依赖包，并对它们进行编译和安装。</li>
+<li>go build命令用于编译我们指定的源码文件或代码包以及它们的依赖包。</li>
+<li>go install用于编译并安装指定的代码包及它们的依赖包。</li>
+<li>go clean命令会删除掉执行其它命令时产生的一些文件和目录。</li>
+<li>go doc命令可以打印附于Go语言程序实体上的文档。我们可以通过把程序实体的标识符作为该命令的参数来达到查看其文档的目的。</li>
+<li>go test命令用于对Go语言编写的程序进行测试。</li>
+<li>go list命令的作用是列出指定的代码包的信息。</li>
+<li>go mod命令的作用是列出操作<code>modules</code>相关指令（最新的包管理工具，后续会介绍）。</li>
+<li>go fix会把指定代码包的所有Go语言源码文件中的旧版本代码修正为新版本的代码。</li>
+<li>go vet是一个用于检查Go语言源码中静态错误的简单工具。</li>
+<li>go tool pprof命令来交互式的访问概要文件的内容。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/go/base/di-1-pian-go-jie-shao-ji-huan-jing-da-jian/">https://zhangyafeii.gitee.io/go/base/di-1-pian-go-jie-shao-ji-huan-jing-da-jian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Go之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%85%A5%E9%97%A8/">
+                                    <span class="chip bg-color">入门</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                    <span class="chip bg-color">环境搭建</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-26T08-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/base/di-2-pian-go-kuai-su-ru-men/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/2.jpg" class="responsive-img" alt="第2篇：Go快速上手">
+                        
+                        <span class="card-title">第2篇：Go快速上手</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            内容概要
+
+初识包管理，知道项目中文件和文件、文件和文件夹之间关系。
+输出，写代码，在go编译器运行时会在屏幕显示内容。
+初识数据类型
+整型，数字。例如：1、2、3、4
+字符串，表示文本信息。例如：“如家”  “锦江之星”
+布尔类型，真假。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">
+                        <span class="chip bg-color">快速上手</span>
+                    </a>
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/fan-wai-pian-kong-zhi-tai-da-yin-biao-ge-he-yan-se/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/%E7%95%AA%E5%A4%961.jpg" class="responsive-img" alt="番外篇：控制台打印表格和颜色">
+                        
+                        <span class="card-title">番外篇：控制台打印表格和颜色</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            打印表格Python内置的print函数和字符串格式化可以帮我们实现大部分打印功能，但有时我们想在控制台打印一些类似表格型的数据往往会比较困难，尤其是中文问混合对齐的问题，那是相当头疼。本节给大家介绍一个第三方表格美化模块prettytab
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%95%AA%E5%A4%96%E7%AF%87/">
+                        <span class="chip bg-color">番外篇</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%89%93%E5%8D%B0/">
+                        <span class="chip bg-color">控制台打印</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

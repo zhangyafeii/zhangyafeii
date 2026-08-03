@@ -1,0 +1,1465 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="进阶篇：线程协程性能对比, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="文档相关代码：git仓库
+一、前言今天我要给大家分享的是如何爬取中农网产品报价数据，并分别用普通的单线程、多线程和协程来爬取，从而对比单线程、多线程和协程在网络爬虫中的性能。
+目标URL：https://www.zhongnongwang.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>进阶篇：线程协程性能对比 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/advanced-5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        进阶篇：线程协程性能对比
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/">
+                                <span class="chip bg-color">进阶篇</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94/">
+                                <span class="chip bg-color">线程协程性能对比</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/Advanced/" class="post-category">
+                                Advanced
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-03-14
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>文档相关代码：<a target="_blank" rel="noopener" href="https://gitee.com/zhangyafeii/python-doc-tutorial/tree/master/code/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94">git仓库</a></p>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>今天我要给大家分享的是如何爬取中农网产品报价数据，并分别用普通的单线程、多线程和协程来爬取，从而对比单线程、多线程和协程在网络爬虫中的性能。</p>
+<p><strong>目标URL</strong>：<strong><a target="_blank" rel="noopener" href="https://www.zhongnongwang.com/quote/product-htm-page-1.html">https://www.zhongnongwang.com/quote/product-htm-page-1.html</a></strong></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/image/image-20210314112306711.png"></p>
+<p>爬取产品品名、最新报价、单位、报价数、报价时间等信息，保存到本地Excel。</p>
+<h2 id="二、爬取测试"><a href="#二、爬取测试" class="headerlink" title="二、爬取测试"></a>二、爬取测试</h2><p>翻页查看 URL 变化规律：</p>
+<pre><code>https://www.zhongnongwang.com/quote/product-htm-page-1.html
+https://www.zhongnongwang.com/quote/product-htm-page-2.html
+https://www.zhongnongwang.com/quote/product-htm-page-3.html
+https://www.zhongnongwang.com/quote/product-htm-page-4.html
+https://www.zhongnongwang.com/quote/product-htm-page-5.html
+https://www.zhongnongwang.com/quote/product-htm-page-6.html</code></pre>
+<p>检查网页，可以发现网页结构简单，容易解析和提取数据。</p>
+<p><strong>思路</strong>：每一条产品报价信息在 class 为 tb 的 table 标签下的 tbody 下的 tr 标签里，获取到所有 tr 标签的内容，然后遍历，从中提取出每一个产品品名、最新报价、单位、报价数、报价时间等信息。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
+
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> zyf<span class="token punctuation">.</span>user_agent <span class="token keyword">import</span> UserAgent
+<span class="token keyword">from</span> lxml <span class="token keyword">import</span> etree
+
+<span class="token comment" spellcheck="true"># 日志输出的基本配置</span>
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>INFO<span class="token punctuation">,</span> format<span class="token operator">=</span><span class="token string">'%(asctime)s - %(levelname)s: %(message)s'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 随机产生请求头</span>
+ua <span class="token operator">=</span> UserAgent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+url <span class="token operator">=</span> <span class="token string">'https://www.zhongnongwang.com/quote/product-htm-page-1.html'</span>
+<span class="token comment" spellcheck="true"># 伪装请求头</span>
+headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">"Accept-Encoding"</span><span class="token punctuation">:</span> <span class="token string">"gzip"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 使用gzip压缩传输数据让访问更快</span>
+    <span class="token string">"User-Agent"</span><span class="token punctuation">:</span> ua<span class="token punctuation">.</span>random
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 发送请求  获取响应</span>
+rep <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>rep<span class="token punctuation">.</span>status_code<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 200</span>
+<span class="token comment" spellcheck="true"># Xpath定位提取数据</span>
+html <span class="token operator">=</span> etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span>rep<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+items <span class="token operator">=</span> html<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'/html/body/div[10]/table/tr[@align="center"]'</span><span class="token punctuation">)</span>
+logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span>f<span class="token string">'该页有多少条信息：{len(items)}'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 一页有20条信息</span>
+<span class="token comment" spellcheck="true"># 遍历提取出数据</span>
+<span class="token keyword">for</span> item <span class="token keyword">in</span> items<span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 品名</span>
+    price <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[3]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 最新报价</span>
+    unit <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[4]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 单位</span>
+    nums <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[5]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 报价数</span>
+    time_ <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[6]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 报价时间</span>
+    logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：</p>
+<pre><code>200
+2021-03-14 11:47:42,781 - INFO: 该页有多少条信息：20
+2021-03-14 11:47:42,782 - INFO: ['芥蓝种子', '￥6.20', '斤', '1', '2021-03-14 11:39']
+2021-03-14 11:47:42,783 - INFO: ['鸡毛菜种子', '￥4.00', '斤', '1', '2021-03-14 11:39']
+...
+2021-03-14 11:47:42,800 - INFO: ['酸刀豆', '￥85.90', '斤', '1', '2021-03-14 11:39']
+2021-03-14 11:47:42,802 - INFO: ['糟菜', '￥3.50', '斤', '1', '2021-03-14 11:39']</code></pre>
+<p>可以成功爬取到数据，接下来分别用普通的单线程、多线程和协程来爬取 50 页的数据、保存到Excel。</p>
+<h2 id="三、单线程爬虫"><a href="#三、单线程爬虫" class="headerlink" title="三、单线程爬虫"></a>三、单线程爬虫</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> logging
+<span class="token keyword">from</span> zyf<span class="token punctuation">.</span>user_agent <span class="token keyword">import</span> UserAgent
+<span class="token keyword">from</span> lxml <span class="token keyword">import</span> etree
+<span class="token keyword">import</span> openpyxl
+<span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
+
+<span class="token comment" spellcheck="true"># 日志输出的基本配置</span>
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>INFO<span class="token punctuation">,</span> format<span class="token operator">=</span><span class="token string">'%(asctime)s - %(levelname)s: %(message)s'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 随机产生请求头</span>
+ua <span class="token operator">=</span> UserAgent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+wb <span class="token operator">=</span> openpyxl<span class="token punctuation">.</span>Workbook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>active
+sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'品名'</span><span class="token punctuation">,</span> <span class="token string">'最新报价'</span><span class="token punctuation">,</span> <span class="token string">'单位'</span><span class="token punctuation">,</span> <span class="token string">'报价数'</span><span class="token punctuation">,</span> <span class="token string">'报价时间'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+start <span class="token operator">=</span> datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> page <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">51</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 构造URL</span>
+    url <span class="token operator">=</span> f<span class="token string">'https://www.zhongnongwang.com/quote/product-htm-page-{page}.html'</span>
+    <span class="token comment" spellcheck="true"># 伪装请求头</span>
+    headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"Accept-Encoding"</span><span class="token punctuation">:</span> <span class="token string">"gzip"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 使用gzip压缩传输数据让访问更快</span>
+        <span class="token string">"User-Agent"</span><span class="token punctuation">:</span> ua<span class="token punctuation">.</span>random
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true"># 发送请求  获取响应</span>
+    rep <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># print(rep.status_code)</span>
+    <span class="token comment" spellcheck="true"># Xpath定位提取数据</span>
+    html <span class="token operator">=</span> etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span>rep<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    items <span class="token operator">=</span> html<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'/html/body/div[10]/table/tr[@align="center"]'</span><span class="token punctuation">)</span>
+    logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span>f<span class="token string">'该页有多少条信息：{len(items)}'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 一页有20条信息</span>
+    <span class="token comment" spellcheck="true"># 遍历提取出数据</span>
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> items<span class="token punctuation">:</span>
+        name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 品名</span>
+        price <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[3]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 最新报价</span>
+        unit <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[4]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 单位</span>
+        nums <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[5]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 报价数</span>
+        time_ <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[6]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 报价时间</span>
+        sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span>filename<span class="token operator">=</span><span class="token string">'data1.xlsx'</span><span class="token punctuation">)</span>
+delta <span class="token operator">=</span> <span class="token punctuation">(</span>datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">.</span>total_seconds<span class="token punctuation">(</span><span class="token punctuation">)</span>
+logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span>f<span class="token string">'用时：{delta}s'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：</p>
+<pre><code>2021-03-14 11:18:24,119 - INFO: 该页有多少条信息：20
+2021-03-14 11:18:24,121 - INFO: ['芥蓝种子', '￥6.20', '斤', '1', '2021-03-14 11:10']
+2021-03-14 11:18:24,122 - INFO: ['鸡毛菜种子', '￥4.00', '斤', '1', '2021-03-14 11:10']
+2021-03-14 11:18:24,123 - INFO: ['芝麻种子', '￥60.00', '斤', '1', '2021-03-14 11:10']
+...
+2021-03-14 11:18:42,014 - INFO: 用时：18.245532s</code></pre>
+<p>单线程爬虫必须上一个页面爬取完成才能继续爬取，还可能受当时网络状态影响，用时18.245532s，才将数据爬取完，速度比较慢。</p>
+<h2 id="四、多线程爬虫"><a href="#四、多线程爬虫" class="headerlink" title="四、多线程爬虫"></a>四、多线程爬虫</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> logging
+<span class="token keyword">from</span> zyf<span class="token punctuation">.</span>user_agent <span class="token keyword">import</span> UserAgent
+<span class="token keyword">from</span> lxml <span class="token keyword">import</span> etree
+<span class="token keyword">import</span> openpyxl
+<span class="token keyword">from</span> concurrent<span class="token punctuation">.</span>futures <span class="token keyword">import</span> ThreadPoolExecutor<span class="token punctuation">,</span> wait<span class="token punctuation">,</span> ALL_COMPLETED
+<span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
+
+<span class="token comment" spellcheck="true"># 日志输出的基本配置</span>
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>INFO<span class="token punctuation">,</span> format<span class="token operator">=</span><span class="token string">'%(asctime)s - %(levelname)s: %(message)s'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 随机产生请求头</span>
+ua <span class="token operator">=</span> UserAgent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+wb <span class="token operator">=</span> openpyxl<span class="token punctuation">.</span>Workbook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>active
+sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'品名'</span><span class="token punctuation">,</span> <span class="token string">'最新报价'</span><span class="token punctuation">,</span> <span class="token string">'单位'</span><span class="token punctuation">,</span> <span class="token string">'报价数'</span><span class="token punctuation">,</span> <span class="token string">'报价时间'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+start <span class="token operator">=</span> datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">get_data</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 构造URL</span>
+    url <span class="token operator">=</span> f<span class="token string">'https://www.zhongnongwang.com/quote/product-htm-page-{page}.html'</span>
+    <span class="token comment" spellcheck="true"># 伪装请求头</span>
+    headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"Accept-Encoding"</span><span class="token punctuation">:</span> <span class="token string">"gzip"</span><span class="token punctuation">,</span>    <span class="token comment" spellcheck="true"># 使用gzip压缩传输数据让访问更快</span>
+        <span class="token string">"User-Agent"</span><span class="token punctuation">:</span> ua<span class="token punctuation">.</span>random
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true"># 发送请求  获取响应</span>
+    rep <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># print(rep.status_code)</span>
+    <span class="token comment" spellcheck="true"># Xpath定位提取数据</span>
+    html <span class="token operator">=</span> etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span>rep<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    items <span class="token operator">=</span> html<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'/html/body/div[10]/table/tr[@align="center"]'</span><span class="token punctuation">)</span>
+    logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span>f<span class="token string">'该页有多少条信息：{len(items)}'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 一页有20条信息</span>
+    <span class="token comment" spellcheck="true"># 遍历提取出数据</span>
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> items<span class="token punctuation">:</span>
+        name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 品名</span>
+        price <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[3]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 最新报价</span>
+        unit <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[4]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 单位</span>
+        nums <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[5]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 报价数</span>
+        time_ <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[6]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 报价时间</span>
+        sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 爬取1-50页</span>
+    <span class="token keyword">with</span> ThreadPoolExecutor<span class="token punctuation">(</span>max_workers<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token keyword">as</span> executor<span class="token punctuation">:</span>
+        future_tasks <span class="token operator">=</span> <span class="token punctuation">[</span>executor<span class="token punctuation">.</span>submit<span class="token punctuation">(</span>get_data<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">51</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        wait<span class="token punctuation">(</span>future_tasks<span class="token punctuation">,</span> return_when<span class="token operator">=</span>ALL_COMPLETED<span class="token punctuation">)</span>
+
+    wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span>filename<span class="token operator">=</span><span class="token string">'data2.xlsx'</span><span class="token punctuation">)</span>
+    delta <span class="token operator">=</span> <span class="token punctuation">(</span>datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">.</span>total_seconds<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'用时：{delta}s'</span><span class="token punctuation">)</span>
+
+
+run<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：</p>
+<pre><code>2021-03-14 11:31:39,209 - INFO: 该页有多少条信息：20
+2021-03-14 11:31:39,211 - INFO: ['芥蓝种子', '￥6.20', '斤', '1', '2021-03-14 11:23']
+2021-03-14 11:31:39,213 - INFO: ['鸡毛菜种子', '￥4.00', '斤', '1', '2021-03-14 11:23']
+2021-03-14 11:31:39,214 - INFO: ['芝麻种子', '￥60.00', '斤', '1', '2021-03-14 11:23']
+2021-03-14 11:31:39,215 - INFO: ['雪玉菜花种子', '￥60.00', '袋', '2', '2021-03-14 11:23']
+2021-03-14 11:31:39,216 - INFO: ['箭毒木', '￥20.00', '棵', '1', '2021-03-14 11:23']
+2021-03-14 11:31:39,218 - INFO: ['风箱果树', '￥0.13', '棵', '1', '2021-03-14 11:23']
+2021-03-14 11:31:39,219 - INFO: ['木莲', '￥0.38', '棵', '2', '2021-03-14 11:23']
+2021-03-14 11:31:39,220 - INFO: ['六道木', '￥15.00', '棵', '2', '2021-03-14 11:23']
+2021-03-14 11:31:39,222 - INFO: ['刺桐', '￥3.00', '棵', '2', '2021-03-14 11:23']
+2021-03-14 11:31:39,223 - INFO: ['剑麻', '￥6.80', '棵', '1', '2021-03-14 11:23']
+...
+2021-03-14 11:31:44,379 - INFO: ['风流果', '￥8.50', '斤', '23', '2021-03-14 11:23']
+用时：6.285389s</code></pre>
+<p>多线程爬虫爬取效率提升非常可观，用时 6.2853s，爬取速度很快。</p>
+<h2 id="五、异步协程爬虫"><a href="#五、异步协程爬虫" class="headerlink" title="五、异步协程爬虫"></a>五、异步协程爬虫</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> aiohttp
+<span class="token keyword">import</span> asyncio
+<span class="token keyword">import</span> logging
+<span class="token keyword">from</span> zyf<span class="token punctuation">.</span>user_agent <span class="token keyword">import</span> UserAgent
+<span class="token keyword">from</span> lxml <span class="token keyword">import</span> etree
+<span class="token keyword">import</span> openpyxl
+<span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
+
+<span class="token comment" spellcheck="true"># 日志输出的基本配置</span>
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>INFO<span class="token punctuation">,</span> format<span class="token operator">=</span><span class="token string">'%(asctime)s - %(levelname)s: %(message)s'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 随机产生请求头</span>
+ua <span class="token operator">=</span> UserAgent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+wb <span class="token operator">=</span> openpyxl<span class="token punctuation">.</span>Workbook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>active
+sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'品名'</span><span class="token punctuation">,</span> <span class="token string">'最新报价'</span><span class="token punctuation">,</span> <span class="token string">'单位'</span><span class="token punctuation">,</span> <span class="token string">'报价数'</span><span class="token punctuation">,</span> <span class="token string">'报价时间'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+start <span class="token operator">=</span> datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Spider</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># self.semaphore = asyncio.Semaphore(6)  # 信号量，有时候需要控制协程数，防止爬的过快被反爬</span>
+        self<span class="token punctuation">.</span>header <span class="token operator">=</span> <span class="token punctuation">{</span>
+                <span class="token string">"Accept-Encoding"</span><span class="token punctuation">:</span> <span class="token string">"gzip"</span><span class="token punctuation">,</span>    <span class="token comment" spellcheck="true"># 使用gzip压缩传输数据让访问更快</span>
+                <span class="token string">"User-Agent"</span><span class="token punctuation">:</span> ua<span class="token punctuation">.</span>random
+            <span class="token punctuation">}</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">scrape</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># async with self.semaphore:  # 设置最大信号量，有时候需要控制协程数，防止爬的过快被反爬</span>
+        session <span class="token operator">=</span> aiohttp<span class="token punctuation">.</span>ClientSession<span class="token punctuation">(</span>headers<span class="token operator">=</span>self<span class="token punctuation">.</span>header<span class="token punctuation">,</span> connector<span class="token operator">=</span>aiohttp<span class="token punctuation">.</span>TCPConnector<span class="token punctuation">(</span>ssl<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        response <span class="token operator">=</span> <span class="token keyword">await</span> session<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        result <span class="token operator">=</span> <span class="token keyword">await</span> response<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">await</span> session<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">scrape_index</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> page<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        url <span class="token operator">=</span> f<span class="token string">'https://www.zhongnongwang.com/quote/product-htm-page-{page}.html'</span>
+        text <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>scrape<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        <span class="token keyword">await</span> self<span class="token punctuation">.</span>parse<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># Xpath定位提取数据</span>
+        html <span class="token operator">=</span> etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        items <span class="token operator">=</span> html<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'/html/body/div[10]/table/tr[@align="center"]'</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span>f<span class="token string">'该页有多少条信息：{len(items)}'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 一页有20条信息</span>
+        <span class="token comment" spellcheck="true"># 遍历提取出数据</span>
+        <span class="token keyword">for</span> item <span class="token keyword">in</span> items<span class="token punctuation">:</span>
+            name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 品名</span>
+            price <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[3]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 最新报价</span>
+            unit <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[4]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 单位</span>
+            nums <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[5]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 报价数</span>
+            time_ <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>item<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'.//td[6]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 报价时间</span>
+            sheet<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> price<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> time_<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 50页的数据</span>
+        scrape_index_tasks <span class="token operator">=</span> <span class="token punctuation">[</span>asyncio<span class="token punctuation">.</span>ensure_future<span class="token punctuation">(</span>self<span class="token punctuation">.</span>scrape_index<span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> page <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">51</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        loop <span class="token operator">=</span> asyncio<span class="token punctuation">.</span>get_event_loop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        tasks <span class="token operator">=</span> asyncio<span class="token punctuation">.</span>gather<span class="token punctuation">(</span><span class="token operator">*</span>scrape_index_tasks<span class="token punctuation">)</span>
+        loop<span class="token punctuation">.</span>run_until_complete<span class="token punctuation">(</span>tasks<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    spider <span class="token operator">=</span> Spider<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    spider<span class="token punctuation">.</span>main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">'data3.xlsx'</span><span class="token punctuation">)</span>
+    delta <span class="token operator">=</span> <span class="token punctuation">(</span>datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">.</span>total_seconds<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"用时：{:.3f}s"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>delta<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：</p>
+<pre><code>2021-03-14 11:43:37,704 - INFO: 该页有多少条信息：20
+2021-03-14 11:43:37,706 - INFO: ['猪油糕', '￥60.00', '公斤', '1', '2021-03-14 11:35']
+2021-03-14 11:43:37,707 - INFO: ['黄菜', '￥2000.00', '斤', '1', '2021-03-14 11:35']
+2021-03-14 11:43:37,709 - INFO: ['切糕脆', '￥68.19', '件', '1', '2021-03-14 11:35']
+2021-03-14 11:43:37,710 - INFO: ['醪糟酒酿', '￥2.70', '斤', '1', '2021-03-14 11:35']
+2021-03-14 11:43:37,711 - INFO: ['姜汁糖', '￥6.00', '斤', '1', '2021-03-14 11:35']
+...
+2021-03-14 11:43:40,240 - INFO: ['风味玫瑰李子', '￥1.60', '斤', '1', '2021-03-14 11:35']
+用时：3.826s</code></pre>
+<p>而到了协程异步爬虫，爬取速度更快，用时 3.826s 就爬取完 50 页数据，<strong>aiohttp + asyncio 异步爬虫竟恐怖如斯</strong>。异步爬虫在服务器能承受高并发的前提下增加并发数量，爬取效率提升是非常可观的，比多线程还要快一些。</p>
+<p>三种爬虫都将 50 页的数据爬取下来保存到了本地，结果如下：</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/image/image-20210314114630023.png"></p>
+<h2 id="六、总结回顾"><a href="#六、总结回顾" class="headerlink" title="六、总结回顾"></a>六、总结回顾</h2><p>今天演示了简单的单线程爬虫、多线程爬虫和协程异步爬虫。可以看到一般情况下异步爬虫速度最快，多线程爬虫稍慢一点，单线程爬虫速度较慢，必须上一个页面爬取完成才能继续爬取。</p>
+<p>但协程异步爬虫相对来说并不是那么好编写，数据抓取无法使用 request 库，只能使用aiohttp，而且爬取数据量大时，异步爬虫需要设置最大信号量来控制协程数，防止爬得过快被反爬。所以在实际编写 Python 爬虫时，我们一般都会使用多线程爬虫来提速，但必须注意的是网站一般都有 ip 访问频率限制，爬的过快可能会被封ip，所以一般我们在多线程提速的同时可以使用代理 ip 来并发地爬取数据。</p>
+<ul>
+<li>多线程(multithreading)：是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理或同时多线程处理器。在一个程序中，这些独立运行的程序片段叫作 “线程” (Thread），利用它编程的概念就叫作 “多线程处理”。</li>
+<li>异步(asynchronous)：为完成某个任务，不同程序单元之间过程中无需通信协调，也能完成任务的方式，不相关的程序单元之间可以是异步的。例如，爬虫下载网页。调度程序调用下载程序后，即可调度其他任务，而无需与该下载任务保持通信以协调行为。不同网页的下载、保存等操作都是无关的，也无需相互通知协调。这些异步操作的完成时刻并不确定。简言之，<strong>异步意味着无序</strong>。</li>
+<li>协程(coroutine)，又称微线程、纤程，协程是一种用户态的轻量级线程。协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈。因此协程能保留上一次调用时的状态，即所有局部状态的一个特定组合，每次过程重入时，就相当于进入上一次调用的状态。协程本质上是个单进程，协程相对于多进程来说，无需线程上下文切换的开销，无需原子操作锁定及同步的开销，编程模型也非常简单。我们可以使用协程来实现异步操作，比如在网络爬虫场景下，我们发出一个请求之后，需要等待一定的时间才能得到响应，但其实在这个等待过程中，程序可以干许多其他的事情，等到响应得到之后才切换回来继续处理，这样<strong>可以充分利用 CPU 和其他资源，这就是协程的优势</strong>。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/advanced/xian-cheng-xie-cheng-xing-neng-dui-bi/">https://zhangyafeii.gitee.io/python/advanced/xian-cheng-xie-cheng-xing-neng-dui-bi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/">
+                                    <span class="chip bg-color">进阶篇</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94/">
+                                    <span class="chip bg-color">线程协程性能对比</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2021-03-14T08-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-31-pian-asyncio-yi-bu-bian-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/31.jpg" class="responsive-img" alt="第31篇：asyncio异步编程">
+                        
+                        <span class="card-title">第31篇：asyncio异步编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. 协程协程不是计算机提供，程序员人为创造
+协程（Coroutine），也可以被称为微线程，是一种用户态内的上下文切换技术，其实就是一个线程实现代码块相互切换执行。例如：
+def func1():
+    print(1)
+    ...
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">异步编程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/pandas/pyecharts-ke-shi-hua-jiao-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/pandas-8.jpg" class="responsive-img" alt="进阶篇：pyecharts可视化教程（一）">
+                        
+                        <span class="card-title">进阶篇：pyecharts可视化教程（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            看 PyEcharts 名字就猜得到，PyEcharts = Python + Echarts。Echarts 是一个由百度开源的数据可视化工具，凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可，而 Python 就不用多说了。当
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/pandas/" class="post-category">
+                                    pandas
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/">
+                        <span class="chip bg-color">进阶篇</span>
+                    </a>
+                    
+                    <a href="/tags/pandas/">
+                        <span class="chip bg-color">pandas</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">
+                        <span class="chip bg-color">可视化</span>
+                    </a>
+                    
+                    <a href="/tags/pyecharts/">
+                        <span class="chip bg-color">pyecharts</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

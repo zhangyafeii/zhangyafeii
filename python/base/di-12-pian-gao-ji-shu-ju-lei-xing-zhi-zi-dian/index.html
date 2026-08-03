@@ -1,0 +1,1643 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第12篇：高级数据类型之字典, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="基础数据类型：
+
+int，整数类型（整形）
+float，浮点类型（浮点型）
+complex,复数类型
+bool，布尔类型
+str，字符串类型
+
+高级数据类型
+
+list，列表类型
+tuple，元组类型
+set，集合类型
+dict，字典类型
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第12篇：高级数据类型之字典 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1550230659,1798500020&fm=26&gp=0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第12篇：高级数据类型之字典
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                                <span class="chip bg-color">高级数据类型</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E5%85%B8/">
+                                <span class="chip bg-color">字典</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-17
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>基础数据类型：</p>
+<ul>
+<li><span style="color:gray">int，整数类型（整形）</span></li>
+<li><span style="color:gray">float，浮点类型（浮点型）</span></li>
+<li><span style="color:gray">complex,复数类型</span></li>
+<li><span style="color:gray">bool，布尔类型</span></li>
+<li><span style="color:gray">str，字符串类型</span></li>
+</ul>
+<p>高级数据类型</p>
+<ul>
+<li><span style="color:gray">list，列表类型</span></li>
+<li><span style="color:gray">tuple，元组类型</span></li>
+<li><span style="color:gray">set，集合类型</span></li>
+<li><strong>dict，字典类型</strong></li>
+</ul>
+<p>学习目标：掌握字典相关知识。</p>
+<p>迄今为止，我们已经为大家介绍了Python中的三种容器型数据类型，但是这些数据类型还不足以帮助我们解决所有的问题。例如，我们要保存一个人的信息，包括姓名、年龄、体重、单位地址、家庭住址、本人手机号、紧急联系人手机号等信息，你会发现我们之前学过的列表、元组和集合都不是最理想的选择。</p>
+<pre class="line-numbers language-python"><code class="language-python">person1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'王小二'</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'榆次区新建北路1258号'</span><span class="token punctuation">,</span> <span class="token string">'河北石家庄'</span><span class="token punctuation">,</span> <span class="token string">'139354028795'</span><span class="token punctuation">,</span> <span class="token string">'13800998877'</span><span class="token punctuation">]</span>
+person2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'王小二'</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'榆次区新建北路1258号'</span><span class="token punctuation">,</span> <span class="token string">'河北石家庄'</span><span class="token punctuation">,</span> <span class="token string">'139354028795'</span><span class="token punctuation">,</span> <span class="token string">'13800998877'</span><span class="token punctuation">]</span>
+person3 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'王小二'</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'榆次区新建北路1258号'</span><span class="token punctuation">,</span> <span class="token string">'河北石家庄'</span><span class="token punctuation">,</span> <span class="token string">'139354028795'</span><span class="token punctuation">,</span> <span class="token string">'13800998877'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>集合肯定是最不合适的，因为集合有去重特性，如果一个人的年龄和体重相同，那么集合中就会少一项信息；同理，如果这个人的家庭住址和单位地址是相同的，那么集合中又会少一项信息。另一方面，虽然列表和元组可以把一个人的所有信息都保存下来，但是当你想要获取这个人的手机号时，你得先知道他的手机号是列表或元组中的第6个还是第7个元素；当你想获取一个人的家庭住址时，你还得知道家庭住址是列表或元组中的第几项。总之，在遇到上述的场景时，列表、元组、字典都不是最合适的选择，我们还需字典（dictionary）类型，这种数据类型最适合把相关联的信息组装到一起，并且可以帮助我们解决程序中为真实事物建模的问题。</p>
+<p>说到字典这个词，大家一定不陌生，读小学的时候每个人基本上都有一本《新华字典》，如下图所示。</p>
+<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1734694519,822280154&amp;fm=26&amp;gp=0.jpg" style="zoom:150%;">
+
+<p>Python程序中的字典跟现实生活中的字典很像，它以键值对（键和值的组合）的方式把数据组织到一起，我们可以通过键找到与之对应的值并进行操作。就像《新华字典》中，每个字（键）都有与它对应的解释（值）一样，每个字和它的解释合在一起就是字典中的一个条目，而字典中通常包含了很多个这样的条目。</p>
+<h2 id="字典的定义"><a href="#字典的定义" class="headerlink" title="字典的定义"></a>字典的定义</h2><p>通过对比列表、元组和集合，我们来看一下字典的定义：</p>
+<ul>
+<li><p>列表（list），是一个<strong>有序</strong>且<strong>可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素可重复</strong>的元素。</p>
+</li>
+<li><p>元组（tuple），是一个<strong>有序</strong>且<strong>不可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素可重复</strong>的元素。</p>
+</li>
+<li><p>集合（set），是一个 <strong>无序</strong> 且<strong>可变</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>数据元素不可重复</strong>的元素。</p>
+</li>
+<li><p>字典（dict），是一个 <strong>有序</strong>、<strong>可变</strong>、元素只能是<strong>键值对</strong>的容器，在里面可以存放<strong>多个不同类型</strong>、<strong>键不可重复</strong>的元素。</p>
+</li>
+<li><p>字典的特点</p>
+<ul>
+<li>元素必须键值对</li>
+<li>键不重复，重复则会被覆盖</li>
+<li>有序（在Python3.6+字典就是有序了，之前的字典都是无序）</li>
+<li>数据元素可以改变</li>
+</ul>
+</li>
+<li><p>字典中对键值的要求：</p>
+<ul>
+<li>键：必须可哈希。 目前为止学到的可哈希的类型：int/bool/str/tuple；不可哈希的类型：list/set/dict。</li>
+<li>值：任意类型。</li>
+</ul>
+</li>
+<li><p>注意点</p>
+<ul>
+<li>字典的键和集合的元素在遇到  布尔值 和 1、0 时，需注意重复的情况。</li>
+</ul>
+</li>
+</ul>
+<h2 id="字典的创建"><a href="#字典的创建" class="headerlink" title="字典的创建"></a>字典的创建</h2><p>在Python中创建字典可以使用<code>{}</code>字面量语法，这一点跟上一节讲的集合是一样的。但是字典的<code>{}</code>中的元素是以键值对的形式存在的，每个元素由<code>:</code>分隔的两个值构成，<code>:</code>前面是键，<code>:</code>后面是值，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">xinhua <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'峘'</span><span class="token punctuation">:</span> <span class="token string">'与大山相连时显得较高的小山'</span><span class="token punctuation">,</span> <span class="token string">'洹'</span><span class="token punctuation">:</span> <span class="token string">'洹河，水名，又叫安阳河。在河南省安阳'</span><span class="token punctuation">,</span>
+    <span class="token string">'桓'</span><span class="token punctuation">:</span> <span class="token string">'鼓捣立在驿站、官署等建筑物旁作为标志的木柱，后称华表'</span><span class="token punctuation">,</span> <span class="token string">'幻'</span><span class="token punctuation">:</span> <span class="token string">'空虚的，不真实的'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>xinhua<span class="token punctuation">)</span>
+person <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'王小二'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token string">'weight'</span><span class="token punctuation">:</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'office'</span><span class="token punctuation">:</span> <span class="token string">'榆次区新建北路1258号'</span><span class="token punctuation">,</span> 
+    <span class="token string">'home'</span><span class="token punctuation">:</span> <span class="token string">'河北石家庄'</span><span class="token punctuation">,</span> <span class="token string">'tel'</span><span class="token punctuation">:</span> <span class="token string">'139354028795'</span><span class="token punctuation">,</span> <span class="token string">'econtact'</span><span class="token punctuation">:</span> <span class="token string">'13800998877'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上面的代码，相信大家已经看出来了，用字典来保存一个人的信息远远优于使用列表或元组，因为我们可以用<code>:</code>前面的键来表示条目的含义，而<code>:</code>后面就是这个条目所对应的值。</p>
+<p>当然，如果愿意，我们也可以使用内置函数<code>dict</code>或者是字典的生成式语法来创建字典，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建空字典</span>
+dict1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+dict2 <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># dict函数(构造器)中的每一组参数就是字典中的一组键值对</span>
+person <span class="token operator">=</span> dict<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">'王小二'</span><span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">22</span><span class="token punctuation">,</span> weight<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">,</span> home<span class="token operator">=</span><span class="token string">'榆次区新建北路'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'name': '王小二', 'age': 22, 'weight': 60, 'home': '榆次区新建北路'}</span>
+
+<span class="token comment" spellcheck="true"># 可以通过Python内置函数zip压缩两个序列并创建字典</span>
+items1 <span class="token operator">=</span> dict<span class="token punctuation">(</span>zip<span class="token punctuation">(</span><span class="token string">'ABCDE'</span><span class="token punctuation">,</span> <span class="token string">'12345'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>items1<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'A': '1', 'B': '2', 'C': '3', 'D': '4', 'E': '5'}</span>
+items2 <span class="token operator">=</span> dict<span class="token punctuation">(</span>zip<span class="token punctuation">(</span><span class="token string">'ABCDE'</span><span class="token punctuation">,</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>items2<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5}</span>
+
+<span class="token comment" spellcheck="true"># 用字典生成式语法创建字典</span>
+items3 <span class="token operator">=</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span> x <span class="token operator">**</span> <span class="token number">3</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>items3<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># {1: 1, 2: 8, 3: 27, 4: 64, 5: 125}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>想知道字典中一共有多少组键值对，仍然是使用<code>len</code>函数；如果想对字典进行遍历，可以用<code>for</code>循环，但是需要注意，<code>for</code>循环只是对字典的键进行了遍历，不过没关系，在讲完字典的运算后，我们可以通过字典的键获取到和这个键对应的值。</p>
+<pre class="line-numbers language-python"><code class="language-python">person <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'王小二'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token string">'weight'</span><span class="token punctuation">:</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'office'</span><span class="token punctuation">:</span> <span class="token string">'榆次区新建北路1258号'</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 4</span>
+<span class="token keyword">for</span> key <span class="token keyword">in</span> person<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="字典的方法"><a href="#字典的方法" class="headerlink" title="字典的方法"></a>字典的方法</h2><p>字典类型的方法基本上都跟字典的键值对操作相关，字典中常见的方法如下：</p>
+<ul>
+<li>添加<ul>
+<li>setdefault(key, value)：无此键则添加，有此键则不变</li>
+<li>dict[key] = value：无此键则添加，有此键则更新</li>
+</ul>
+</li>
+<li>删除<ul>
+<li>pop(key)：删除指定键对应的键值对，返回key对应的值</li>
+<li>popitem()，按顺序删除一个键值对，先进先出，返回这个键值对对应的二元组（key, value）</li>
+<li>del dict[key]：删除指定键对应的键值对，无返回值</li>
+</ul>
+</li>
+<li>更新<ul>
+<li>dict[key] = value：若key存在则修改为value</li>
+<li>update(dict2)：将dic2中的所有键值对覆盖添加（相同的键覆盖，不同的键值对添加）到dic中，dic2不变</li>
+</ul>
+</li>
+<li>查询<ul>
+<li>get(key, default=None)：如果指定的键key存在，则返回对应的值，否则返回default，default默认为空。</li>
+<li>keys()：获取字典所有的键，返回的是<code>高仿列表</code>，这个高仿的列表可以被循环显示，不能通过下标取值。</li>
+<li>values()：获取字典所有的值，返回的是<code>高仿列表</code>，这个高仿的列表可以被循环显示， 不能通过下标取值。</li>
+<li>items()：获取字典所有的键值对，返回的是<code>高仿列表</code>，列表中的元素为(key, value)形式的二元组，这个高仿的列表可以被循环显示，不能通过下标取值。</li>
+</ul>
+</li>
+<li>清空<ul>
+<li>clear()，清空字典</li>
+</ul>
+</li>
+</ul>
+<p>可以通过下面的例子来了解这些方法的使用。例如，我们要用一个字典来保存学生的信息，我们可以使用学生的学号作为字典中的键，通过学号做索引运算就可以得到对应的学生；我们可以把字典中键对应的值也做成一个字典，这样就可以用多组键值对分别存储学生的姓名、性别、年龄、籍贯等信息，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 字典中的值又是一个字典(嵌套的字典)</span>
+students <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token number">1001</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'狄仁杰'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token string">'place'</span><span class="token punctuation">:</span> <span class="token string">'山西大同'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">1002</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'白元芳'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token string">'place'</span><span class="token punctuation">:</span> <span class="token string">'河北保定'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">1003</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'武则天'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token string">'place'</span><span class="token punctuation">:</span> <span class="token string">'四川广元'</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true"># 使用get方法通过键获取对应的值，如果取不到不会引发KeyError异常而是返回None或设定的默认值</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">1002</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'name': '白元芳', 'sex': True, 'age': 23, 'place': '河北保定'}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">1005</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># None</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">1005</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'无名氏'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'name': '无名氏'}</span>
+
+<span class="token comment" spellcheck="true"># 获取字典中所有的键</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># dict_keys([1001, 1002, 1003])</span>
+<span class="token comment" spellcheck="true"># 获取字典中所有的值</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># dict_values([{...}, {...}, {...}])</span>
+<span class="token comment" spellcheck="true"># 获取字典中所有的键值对</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># dict_items([(1001, {...}), (1002, {....}), (1003, {...})])</span>
+<span class="token comment" spellcheck="true"># 对字典中所有的键值对进行循环遍历</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> students<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'--->'</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 使用pop方法通过键删除对应的键值对并返回该值</span>
+stu1 <span class="token operator">=</span> students<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">1002</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>stu1<span class="token punctuation">)</span>             <span class="token comment" spellcheck="true"># {'name': '白元芳', 'sex': True, 'age': 23, 'place': '河北保定'}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>students<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 2</span>
+<span class="token comment" spellcheck="true"># stu2 = students.pop(1005)    # KeyError: 1005</span>
+stu2 <span class="token operator">=</span> students<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">1005</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>stu2<span class="token punctuation">)</span>             <span class="token comment" spellcheck="true"># {}</span>
+
+<span class="token comment" spellcheck="true"># 使用popitem方法删除字典中最后一组键值对并返回对应的二元组</span>
+<span class="token comment" spellcheck="true"># 如果字典中没有元素，调用该方法将引发KeyError异常</span>
+key<span class="token punctuation">,</span> value <span class="token operator">=</span> students<span class="token punctuation">.</span>popitem<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 1003 {'name': '武则天', 'sex': False, 'age': 20, 'place': '四川广元'}</span>
+
+<span class="token comment" spellcheck="true"># setdefault可以更新字典中的键对应的值或向字典中存入新的键值对</span>
+<span class="token comment" spellcheck="true"># setdefault方法的第一个参数是键，第二个参数是键对应的值</span>
+<span class="token comment" spellcheck="true"># 如果这个键在字典中存在，更新这个键之后会返回原来与这个键对应的值</span>
+<span class="token comment" spellcheck="true"># 如果这个键在字典中不存在，方法将返回第二个参数的值，默认为None</span>
+result <span class="token operator">=</span> students<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span><span class="token number">1005</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'方启鹤'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># {'name': '方启鹤', 'sex': True}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># {1001: {...}, 1005: {...}}</span>
+
+<span class="token comment" spellcheck="true"># 使用update更新字典元素，相同的键会用新值覆盖掉旧值，不同的键会添加到字典中</span>
+others <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token number">1005</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'乔峰'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token string">'place'</span><span class="token punctuation">:</span> <span class="token string">'北京大兴'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">1010</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'王语嫣'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">19</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">1008</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'钟灵'</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+students<span class="token punctuation">.</span>update<span class="token punctuation">(</span>others<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># {1001: {...}, 1005: {...}, 1010: {...}, 1008: {...}}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>跟列表一样，从字典中删除元素也可以使用<code>del</code>关键字，在删除元素的时候如果指定的键索引不到对应的值，一样会引发<code>KeyError</code>异常，具体的做法如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'王大锤'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token string">'sex'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">}</span>
+<span class="token keyword">del</span> person<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># {'name': '王大锤', 'sex': True}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="字典的运算"><a href="#字典的运算" class="headerlink" title="字典的运算"></a>字典的运算</h2><p>对于字典类型来说，和集合类似，支持成员运算、索引运算，前者可以判定指定的键在不在字典中，后者可以通过键获取对应的值或者向字典中加入新的键值对。除此之外，python3.9还引入了并集运算。值得注意的是，字典的索引不同于列表的索引，列表中的元素因为有属于自己有序号，所以列表的索引是一个整数；字典中因为保存的是键值对，所以字典的索引是键值对中的键，通过索引操作可以修改原来的值或者向字典中存入新的键值对。需要<strong>特别提醒</strong>大家注意的是，<strong>字典中的键必须是不可变类型</strong>，例如整数（<code>int</code>）、浮点数（<code>float</code>）、字符串（<code>str</code>）、元组（<code>tuple</code>）等类型的值；显然，列表（<code>list</code>）和集合（<code>set</code>）是不能作为字典中的键的，当然字典类型本身也不能再作为字典中的键，因为字典也是可变类型，但是字典可以作为字典中的值。关于可变类型不能作为字典中的键的原因，我们在后面的课程中再为大家详细说明。这里，我们先看看下面的代码，了解一下字典的常见运算。</p>
+<p>字典的常见运算如下：</p>
+<ul>
+<li>成员运算<ul>
+<li>in：判断指定键是否在字典中存在，若存在返回True,否则返回False</li>
+<li>not in：判断指定键是否在字典中存在，若存在返回True,否则返回False</li>
+</ul>
+</li>
+<li>索引运算<ul>
+<li>dict[key]：获取指定key对应的value，和字典的get方法不同的是，若key不存在，会引发KeyError异常</li>
+<li>dict[key] = value：若key存在，则将key对应的值更新为value，否则添加键值对key和value</li>
+</ul>
+</li>
+<li>长度<ul>
+<li>len()：获取字典中元素的个数</li>
+</ul>
+</li>
+<li>并集<ul>
+<li>字典A <code>|</code> 字典B：返回两个字典的并集，结果中包含A和B所有的键，若字典A中不存在则添加，若存在则更新。</li>
+</ul>
+</li>
+</ul>
+<p>使用示例如下：</p>
+<pre class="line-numbers language-python"><code class="language-python">person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token string">'weight'</span><span class="token punctuation">:</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token string">'office'</span><span class="token punctuation">:</span> <span class="token string">'榆次区新建北路98号'</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true"># 成员运算 检查name和tel两个键在不在person字典中</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'name'</span> <span class="token keyword">in</span> person<span class="token punctuation">,</span> <span class="token string">'tel'</span> <span class="token keyword">in</span> person<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True False</span>
+
+<span class="token comment" spellcheck="true"># 索引运算 获取 通过age修将person字典中对应的值修改为25</span>
+<span class="token keyword">if</span> <span class="token string">'age'</span> <span class="token keyword">in</span> person<span class="token punctuation">:</span>
+    person<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">25</span>
+
+<span class="token comment" spellcheck="true"># 索引运算 添加和更新 通过索引操作向person字典中存入新的键值对</span>
+person<span class="token punctuation">[</span><span class="token string">'tel'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'13122334455'</span>
+person<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'你的男朋友是一个盖世英雄，他会踏着五彩祥云去娶你'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'name'</span> <span class="token keyword">in</span> person<span class="token punctuation">,</span> <span class="token string">'tel'</span> <span class="token keyword">in</span> person<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># True True</span>
+
+<span class="token comment" spellcheck="true"># 长度 检查person字典中键值对的数量</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 6</span>
+
+<span class="token comment" spellcheck="true"># 并集 python3.9引入</span>
+<span class="token comment" spellcheck="true"># person2 = {'home': '河北石家庄', 'age': 23, 'tel': '139354028795'}</span>
+<span class="token comment" spellcheck="true"># person3 = person | person2</span>
+<span class="token comment" spellcheck="true"># print(person3)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意，在通过索引运算获取字典中的值时，如指定的键没有在字典中，将会引发<code>KeyError</code>异常。</p>
+<h2 id="字典的循环遍历"><a href="#字典的循环遍历" class="headerlink" title="字典的循环遍历"></a>字典的循环遍历</h2><p>由于字典也属于是容器，内部可以包含多个键值对，可以通过循环对其中的：键、值、键值进行循环；</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 默认循环key</span>
+info <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"age"</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">"status"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"张亚飞"</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> item <span class="token keyword">in</span> info<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 所有键</span>
+
+<span class="token comment" spellcheck="true"># 循环所有key</span>
+info <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"age"</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">"status"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"张亚飞"</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> item <span class="token keyword">in</span> info<span class="token punctuation">.</span>key<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 循环所有value </span>
+info <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"age"</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">"status"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"张亚飞"</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> item <span class="token keyword">in</span> info<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 循环所有(key, value)</span>
+info <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"age"</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">"status"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"张亚飞"</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> info<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="字典的类型转换"><a href="#字典的类型转换" class="headerlink" title="字典的类型转换"></a>字典的类型转换</h2><p>只有列表里面嵌套二元组的数据格式可以转化为字典，语法为：<code>dict(data)</code>，字典转列表有三种：key转列表,value转列表，key和value同时转列表，格式为[<code>(key,value),...]</code>这样的格式。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 列表转字典，列表元素必须为二元组</span>
+v <span class="token operator">=</span> dict<span class="token punctuation">(</span> <span class="token punctuation">[</span> <span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">,</span> <span class="token string">"v1"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"k2"</span><span class="token punctuation">,</span> <span class="token string">"v2"</span><span class="token punctuation">]</span> <span class="token punctuation">]</span> <span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># { "k1":"v1", "k2":"v2" }</span>
+
+<span class="token comment" spellcheck="true"># 字典转列表</span>
+info <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">"age"</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">"status"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"张亚飞"</span> <span class="token punctuation">}</span>
+v1 <span class="token operator">=</span> list<span class="token punctuation">(</span>info<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># ["age","status","name"]</span>
+v2 <span class="token operator">=</span> list<span class="token punctuation">(</span>info<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># ["age","status","name"]</span>
+v3 <span class="token operator">=</span> list<span class="token punctuation">(</span>info<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># [12,True,"张亚飞"]</span>
+v4 <span class="token operator">=</span> list<span class="token punctuation">(</span>info<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># [ ("age",12), ("status",True), ("name","张亚飞") ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们已学了很多数据类型，在涉及多种数据类型之间的嵌套时，需注意一下几点：</p>
+<ul>
+<li><p>字典的键必须可哈希（list/set/dict不可哈希）。</p>
+</li>
+<li><p>字典的值可以是任意类型。</p>
+</li>
+<li><p>字典的键和集合的元素在遇到  布尔值 和 1、0 时，需注意重复的情况。</p>
+</li>
+</ul>
+<h2 id="字典生成式"><a href="#字典生成式" class="headerlink" title="字典生成式"></a>字典生成式</h2><pre class="line-numbers language-python"><code class="language-python">d <span class="token operator">=</span> <span class="token punctuation">{</span>key <span class="token punctuation">:</span> value <span class="token keyword">for</span> <span class="token punctuation">(</span>key<span class="token punctuation">,</span>value<span class="token punctuation">)</span> <span class="token keyword">in</span> iterable<span class="token punctuation">}</span> 其中iterable是一个可迭代的对象，比如list。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><p>示例1: for 循环遍历列表，将列表中小元组的key和value取出，作为字典中的key：value</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+
+students <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> f<span class="token string">'stu{i}'</span>
+    score <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    students<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> score
+<span class="token keyword">print</span><span class="token punctuation">(</span>students<span class="token punctuation">)</span>
+
+highscore <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> name<span class="token punctuation">.</span> score <span class="token keyword">in</span> students<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> score <span class="token operator">></span> <span class="token number">90</span><span class="token punctuation">:</span>
+        highscore<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> score
+<span class="token keyword">print</span><span class="token punctuation">(</span>highscore<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> score <span class="token keyword">for</span> name<span class="token punctuation">,</span> score <span class="token keyword">in</span> students<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">if</span> score <span class="token operator">></span> <span class="token number">90</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>示例2：字典的key和value值互换</p>
+<pre class="line-numbers language-python"><code class="language-python">dict1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span>
+dict2 <span class="token operator">=</span> <span class="token punctuation">{</span>v<span class="token punctuation">:</span> k <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> dict1<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict2<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># {1: 'a', 2: 'b', 3: 'c', 4: 'd'}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="知识扩展"><a href="#知识扩展" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="字典合并的几种方式"><a href="#字典合并的几种方式" class="headerlink" title="字典合并的几种方式"></a>字典合并的几种方式</h3><pre class="line-numbers language-python"><code class="language-python">d1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">}</span>
+d2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'gpa'</span><span class="token punctuation">:</span> <span class="token number">4.0</span><span class="token punctuation">,</span> <span class="token string">'is_single'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li><p>方式一</p>
+<pre class="line-numbers language-python"><code class="language-python">dnew <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> d1<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dnew<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> value
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> d2<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dnew<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> value
+<span class="token comment" spellcheck="true"># dnew == {'name': 'Tom', 'age': 20, 'gpa': 4.0, 'is_single': True}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>方式二</p>
+<pre class="line-numbers language-python"><code class="language-python">dnew <span class="token operator">=</span> d1<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+dnew<span class="token punctuation">.</span>update<span class="token punctuation">(</span>d2<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>方式三</p>
+<pre class="line-numbers language-python"><code class="language-python">dnew <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">**</span>d1<span class="token punctuation">,</span> <span class="token operator">**</span>d2<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>方式四</p>
+<pre class="line-numbers language-python"><code class="language-python">dnew <span class="token operator">=</span> dict<span class="token punctuation">(</span>d1<span class="token punctuation">,</span> <span class="token operator">**</span>d2<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>方式五</p>
+<pre class="line-numbers language-python"><code class="language-python">dnew <span class="token operator">=</span> d1 <span class="token operator">|</span> d2
+<span class="token comment" spellcheck="true"># dnew == {'name': 'Tom', 'age': 20, 'gpa': 4.0, 'is_single': True}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这种联合运算符实际上在Python中不是新的， 它可以用于“合并”两个集合， 集合是无序且没有索引的集合，要用花括号括起来。</p>
+<pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span>
+b <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span> a <span class="token operator">|</span> b <span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># {1, 2, 3, 4, 5}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="默认字典"><a href="#默认字典" class="headerlink" title="默认字典"></a>默认字典</h3><p>Python中通过Key访问字典，当Key不存在时，会引发‘KeyError’异常。为了避免这种情况的发生，可以使用collections类中的defaultdict()方法来为字典提供默认值.</p>
+<p>示例1：字符计数</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+s <span class="token operator">=</span> <span class="token string">'mississippi'</span>
+d <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> k <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> k <span class="token keyword">in</span> d<span class="token punctuation">:</span>
+        d<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        d<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># defaultdict(&lt;class 'int'>, {'m': 1, 'i': 4, 's': 4, 'p': 2})</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可用<code>dict.setdefault()</code>改进</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+s <span class="token operator">=</span> <span class="token string">'mississippi'</span>
+d <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> k <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+    d<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span>k<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    d<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># defaultdict(&lt;class 'int'>, {'m': 1, 'i': 4, 's': 4, 'p': 2})</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>进一步用默认字典<code>collections.defaultdict</code>改进，自动设置键和值</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+s <span class="token operator">=</span> <span class="token string">'mississippi'</span>
+d <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>int<span class="token punctuation">)</span>
+<span class="token keyword">for</span> k <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+    d<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># defaultdict(&lt;class 'int'>, {'m': 1, 'i': 4, 's': 4, 'p': 2})</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例2：分类</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+s <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'yellow'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'yellow'</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+d <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>list<span class="token punctuation">)</span>
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+    d<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># defaultdict(&lt;class 'list'>, {'yellow': [1, 3], 'blue': [2, 4], 'red': [1]})</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例3：构建set集合</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+s <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+d <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+    d<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># defaultdict(&lt;class 'set'>, {'red': {1, 3}, 'blue': {2, 4}})</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h3><h4 id="按key排序"><a href="#按key排序" class="headerlink" title="按key排序"></a>按key排序</h4><pre class="line-numbers language-python"><code class="language-python">dict1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span>
+l1 <span class="token operator">=</span> sorted<span class="token punctuation">(</span>dict1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>l1<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># ['a', 'b', 'c', 'd']</span>
+<span class="token keyword">for</span> key <span class="token keyword">in</span> l1<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> dict1<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+a 1
+b 2
+c 3
+d 4
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="按value排序"><a href="#按value排序" class="headerlink" title="按value排序"></a>按value排序</h4><pre class="line-numbers language-python"><code class="language-python">dict1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span>
+dict2 <span class="token operator">=</span> sorted<span class="token punctuation">(</span>dict1<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict2<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># [('a', 1), ('b', 2), ('c', 3), ('d', 4)]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="字典列表排序"><a href="#字典列表排序" class="headerlink" title="字典列表排序"></a>字典列表排序</h4><pre class="line-numbers language-python"><code class="language-python">lis <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> <span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"Taobao"</span><span class="token punctuation">,</span> <span class="token string">"age"</span> <span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">}</span><span class="token punctuation">,</span>  
+<span class="token punctuation">{</span> <span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"Runoob"</span><span class="token punctuation">,</span> <span class="token string">"age"</span> <span class="token punctuation">:</span> <span class="token number">7</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+<span class="token punctuation">{</span> <span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"Google"</span><span class="token punctuation">,</span> <span class="token string">"age"</span> <span class="token punctuation">:</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+<span class="token punctuation">{</span> <span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"Wiki"</span> <span class="token punctuation">,</span> <span class="token string">"age"</span> <span class="token punctuation">:</span> <span class="token number">200</span> <span class="token punctuation">}</span><span class="token punctuation">]</span> 
+
+<span class="token comment" spellcheck="true"># 通过 age 升序排序</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"列表通过 age 升序排序: "</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span>sorted<span class="token punctuation">(</span>lis<span class="token punctuation">,</span> key <span class="token operator">=</span> <span class="token keyword">lambda</span> i<span class="token punctuation">:</span> i<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"\r"</span><span class="token punctuation">)</span> 
+
+<span class="token comment" spellcheck="true"># 先按 age 排序，再按 name 排序</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"列表通过 age 和 name 排序: "</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span>sorted<span class="token punctuation">(</span>lis<span class="token punctuation">,</span> key <span class="token operator">=</span> <span class="token keyword">lambda</span> i<span class="token punctuation">:</span> <span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"\r"</span><span class="token punctuation">)</span> 
+
+<span class="token comment" spellcheck="true"># 按 age 降序排序</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"列表通过 age 降序排序: "</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span>sorted<span class="token punctuation">(</span>lis<span class="token punctuation">,</span> key <span class="token operator">=</span> <span class="token keyword">lambda</span> i<span class="token punctuation">:</span> i<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+列表通过 age 升序排序: 
+[{'name': 'Runoob', 'age': 7}, {'name': 'Taobao', 'age': 100}, {'name': 'Google', 'age': 100}, {'name': 'Wiki', 'age': 200}]
+
+列表通过 age 和 name 排序: 
+[{'name': 'Runoob', 'age': 7}, {'name': 'Google', 'age': 100}, {'name': 'Taobao', 'age': 100}, {'name': 'Wiki', 'age': 200}]
+
+列表通过 age 降序排序: 
+[{'name': 'Wiki', 'age': 200}, {'name': 'Taobao', 'age': 100}, {'name': 'Google', 'age': 100}, {'name': 'Runoob', 'age': 7}]
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="简单的总结"><a href="#简单的总结" class="headerlink" title="简单的总结"></a>简单的总结</h2><p>Python程序中的字典跟现实生活中字典非常像，允许我们<strong>以键值对的形式保存数据</strong>，再<strong>通过键索引对应的值</strong>。这是一种非常<strong>有利于数据检索</strong>的数据类型，底层原理我们在后续的课程中再研究。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-12-pian-gao-ji-shu-ju-lei-xing-zhi-zi-dian/">https://zhangyafeii.gitee.io/python/base/di-12-pian-gao-ji-shu-ju-lei-xing-zhi-zi-dian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                                    <span class="chip bg-color">高级数据类型</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E5%85%B8/">
+                                    <span class="chip bg-color">字典</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-17T10-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-13-pian-zi-dian-ji-he-zui-jia-lian-xi/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2492038503,2380829015&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第13篇：字典集合最佳练习">
+                        
+                        <span class="card-title">第13篇：字典集合最佳练习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            字典集合最佳练习练习：统计句子词频
+给出一个字符串，在程序中赋初值为一个句子，例如“To improve is to change;to be perfect is to change often.”,
+需要：计算句子中各字符出现的频数（通
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">高级数据类型</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BA%94%E7%94%A8/">
+                        <span class="chip bg-color">应用</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E5%85%B8/">
+                        <span class="chip bg-color">字典</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9B%86%E5%90%88/">
+                        <span class="chip bg-color">集合</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-11-pian-gao-ji-shu-ju-lei-xing-zhi-ji-he/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3985026006,2698075005&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第11篇：高级数据类型之集合">
+                        
+                        <span class="card-title">第11篇：高级数据类型之集合</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            基础数据类型：
+
+int，整数类型（整形）
+float，浮点类型（浮点型）
+complex,复数类型
+bool，布尔类型
+str，字符串类型
+
+高级数据类型
+
+list，列表类型
+tuple，元组类型
+set，集合类型
+dict，字典类型
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">高级数据类型</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9B%86%E5%90%88/">
+                        <span class="chip bg-color">集合</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

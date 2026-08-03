@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>飞凡空间</title>
+  
+  <subtitle>择善固执，守正待时</subtitle>
+  <link href="https://zhangyafeii.gitee.io/atom.xml" rel="self"/>
+  
+  <link href="https://zhangyafeii.gitee.io/"/>
+  <updated>2021-04-07T10:02:24.438Z</updated>
+  <id>https://zhangyafeii.gitee.io/</id>
+  
+  <author>
+    <name>张亚飞</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>爬虫实战：高清图片下载</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/pa-chong-shi-zhan-gao-qing-tu-pian-xia-zai/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/pa-chong-shi-zhan-gao-qing-tu-pian-xia-zai/</id>
+    <published>2021-04-06T12:00:01.000Z</published>
+    <updated>2021-04-07T10:02:24.438Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Hello，小伙子们，小姑娘们，我又要出新教程了！本次教程为Python爬虫实战：高清图片下载，主要针对刚学完Python基础的同学，或者想学习爬虫方向的年轻人，很合适作为爬虫入们教程，难度虽然不高，但小项目仍然蕴含有大智慧。&lt;/p&gt;
+&lt;h2 id=&quot;项目演示&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="网络爬虫" scheme="https://zhangyafeii.gitee.io/tags/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/"/>
+    
+    <category term="高清图片下载" scheme="https://zhangyafeii.gitee.io/tags/%E9%AB%98%E6%B8%85%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第31篇：asyncio异步编程</title>
+    <link href="https://zhangyafeii.gitee.io/python/base/di-31-pian-asyncio-yi-bu-bian-cheng/"/>
+    <id>https://zhangyafeii.gitee.io/python/base/di-31-pian-asyncio-yi-bu-bian-cheng/</id>
+    <published>2021-04-01T02:00:01.000Z</published>
+    <updated>2021-04-03T03:47:13.283Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-协程&quot;&gt;&lt;a href=&quot;#1-协程&quot; class=&quot;headerlink&quot; title=&quot;1. 协程&quot;&gt;&lt;/a&gt;1.</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="base" scheme="https://zhangyafeii.gitee.io/categories/Python/base/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="异步编程" scheme="https://zhangyafeii.gitee.io/tags/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：线程协程性能对比</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/xian-cheng-xie-cheng-xing-neng-dui-bi/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/xian-cheng-xie-cheng-xing-neng-dui-bi/</id>
+    <published>2021-03-14T00:00:01.000Z</published>
+    <updated>2021-03-14T08:03:23.462Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;文档相关代码：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="线程协程性能对比" scheme="https://zhangyafeii.gitee.io/tags/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：pyecharts可视化教程（一）</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/pyecharts-ke-shi-hua-jiao-cheng/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/pyecharts-ke-shi-hua-jiao-cheng/</id>
+    <published>2021-02-18T06:00:00.000Z</published>
+    <updated>2021-02-18T09:46:31.047Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;看 PyEcharts 名字就猜得到，PyEcharts = Python + Echarts。Echarts 是一个由百度开源的数据可视化工具，凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可，而 Python 就不用多说了。当 Python 遇到了</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="可视化" scheme="https://zhangyafeii.gitee.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    <category term="pyecharts" scheme="https://zhangyafeii.gitee.io/tags/pyecharts/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>案例篇：疫情数据可视化</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/yi-qing-shu-ju-ke-shi-hua/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/yi-qing-shu-ju-ke-shi-hua/</id>
+    <published>2021-02-18T02:00:00.000Z</published>
+    <updated>2021-02-23T07:21:37.031Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;2020年因为新冠疫情而变得特别，我们会看到很多网站都提供了多种疫情统计图，今天我们使用 Python 的 &lt;code&gt;pyecharts&lt;/code&gt; 框架来绘制一些比较常见的统计图。&lt;/p&gt;
+&lt;p&gt;本项目源码已上传至&lt;code&gt;gitee&lt;/code&gt;: &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="爬虫" scheme="https://zhangyafeii.gitee.io/tags/%E7%88%AC%E8%99%AB/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="案例篇" scheme="https://zhangyafeii.gitee.io/tags/%E6%A1%88%E4%BE%8B%E7%AF%87/"/>
+    
+    <category term="可视化" scheme="https://zhangyafeii.gitee.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    <category term="疫情数据" scheme="https://zhangyafeii.gitee.io/tags/%E7%96%AB%E6%83%85%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>案例篇：微博热搜数据爬取及动态图绘制</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/wei-bo-re-sou-shu-ju-pa-qu-ji-dong-tai-tu-hui-zhi/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/wei-bo-re-sou-shu-ju-pa-qu-ji-dong-tai-tu-hui-zhi/</id>
+    <published>2021-02-17T12:00:01.000Z</published>
+    <updated>2021-02-17T15:32:05.392Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本项目源码已上传至&lt;code&gt;gitee&lt;/code&gt;: &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="爬虫" scheme="https://zhangyafeii.gitee.io/tags/%E7%88%AC%E8%99%AB/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="案例篇" scheme="https://zhangyafeii.gitee.io/tags/%E6%A1%88%E4%BE%8B%E7%AF%87/"/>
+    
+    <category term="微博热搜" scheme="https://zhangyafeii.gitee.io/tags/%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C/"/>
+    
+    <category term="可视化" scheme="https://zhangyafeii.gitee.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第30篇：爬虫</title>
+    <link href="https://zhangyafeii.gitee.io/python/base/di-30-pian-pa-chong/"/>
+    <id>https://zhangyafeii.gitee.io/python/base/di-30-pian-pa-chong/</id>
+    <published>2021-02-14T02:00:01.000Z</published>
+    <updated>2021-04-03T04:01:58.006Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、爬虫基本原理&quot;&gt;&lt;a href=&quot;#一、爬虫基本原理&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="base" scheme="https://zhangyafeii.gitee.io/categories/Python/base/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="爬虫" scheme="https://zhangyafeii.gitee.io/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第29篇：常用标准库</title>
+    <link href="https://zhangyafeii.gitee.io/python/base/di-29-pian-chang-yong-biao-zhun-ku/"/>
+    <id>https://zhangyafeii.gitee.io/python/base/di-29-pian-chang-yong-biao-zhun-ku/</id>
+    <published>2021-02-10T02:00:01.000Z</published>
+    <updated>2021-02-10T15:01:53.292Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、struct：打包&quot;&gt;&lt;a href=&quot;#一、struct：打包&quot; class=&quot;headerlink&quot; title=&quot;一、struct：打包&quot;&gt;&lt;/a&gt;一、struct：打包&lt;/h2&gt;&lt;p&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="base" scheme="https://zhangyafeii.gitee.io/categories/Python/base/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="标准库" scheme="https://zhangyafeii.gitee.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：详解import机制</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/xiang-jie-import-ji-zhi/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/xiang-jie-import-ji-zhi/</id>
+    <published>2021-02-10T00:00:01.000Z</published>
+    <updated>2021-02-10T13:50:43.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;h3 id=&quot;1-1-什么是-import-机制？&quot;&gt;&lt;a href=&quot;#1-1-什么是-import-机制？&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="import机制" scheme="https://zhangyafeii.gitee.io/tags/import%E6%9C%BA%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第14篇：其他</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/di-14-pian-qi-ta/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/di-14-pian-qi-ta/</id>
+    <published>2021-02-07T12:00:01.000Z</published>
+    <updated>2021-02-07T15:12:45.939Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;相关配置&quot;&gt;&lt;a href=&quot;#相关配置&quot; class=&quot;headerlink&quot; title=&quot;相关配置&quot;&gt;&lt;/a&gt;相关配置&lt;/h2&gt;&lt;p&gt;本节介绍一些对 Pandas 的全局性的配置和设置，可以节省我们在使用过程中的一些重复操作。&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="相关配置" scheme="https://zhangyafeii.gitee.io/tags/%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="异常和警告" scheme="https://zhangyafeii.gitee.io/tags/%E5%BC%82%E5%B8%B8%E5%92%8C%E8%AD%A6%E5%91%8A/"/>
+    
+    <category term="常用错误" scheme="https://zhangyafeii.gitee.io/tags/%E5%B8%B8%E7%94%A8%E9%94%99%E8%AF%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo+Gitee搭建个人博客</title>
+    <link href="https://zhangyafeii.gitee.io/skill/ji-yu-gitee-hexo-da-jian-ge-ren-bo-ke/"/>
+    <id>https://zhangyafeii.gitee.io/skill/ji-yu-gitee-hexo-da-jian-ge-ren-bo-ke/</id>
+    <published>2021-02-01T00:00:00.000Z</published>
+    <updated>2021-02-01T15:16:34.146Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;搭建个人博客一般有三种方式，第一种是在现有的博客平台，如CSDN，博客园等搭建；第二种自己通过租云服务的方式，部署一些应用等，但数据库和应用的维护都是要靠自己，难免繁琐；第三种就是使用一些前端框架生成静态页面然后托管到&lt;code&gt;Gituhub&lt;/code&gt;或者&lt;code&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="skill" scheme="https://zhangyafeii.gitee.io/categories/skill/"/>
+    
+    
+    <category term="技能扩展" scheme="https://zhangyafeii.gitee.io/tags/%E6%8A%80%E8%83%BD%E6%89%A9%E5%B1%95/"/>
+    
+    <category term="Hexo" scheme="https://zhangyafeii.gitee.io/tags/Hexo/"/>
+    
+    <category term="Gitee" scheme="https://zhangyafeii.gitee.io/tags/Gitee/"/>
+    
+    <category term="博客" scheme="https://zhangyafeii.gitee.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：深入理解yield from</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/shen-ru-li-jie-yield-from/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/shen-ru-li-jie-yield-from/</id>
+    <published>2021-01-29T00:00:01.000Z</published>
+    <updated>2021-01-29T03:07:46.140Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;本节目录&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么要使用协程&lt;/li&gt;
+&lt;li&gt;yield from的用法详解&lt;/li&gt;
+&lt;li&gt;为什么要使用yield from&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;1-为什么要使用协程&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="生成器" scheme="https://zhangyafeii.gitee.io/tags/%E7%94%9F%E6%88%90%E5%99%A8/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="协程" scheme="https://zhangyafeii.gitee.io/tags/%E5%8D%8F%E7%A8%8B/"/>
+    
+    <category term="yield" scheme="https://zhangyafeii.gitee.io/tags/yield/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第27篇：ProtoBuf简明教程</title>
+    <link href="https://zhangyafeii.gitee.io/go/base/di-27-pian-protobuf-jian-ming-jiao-cheng/"/>
+    <id>https://zhangyafeii.gitee.io/go/base/di-27-pian-protobuf-jian-ming-jiao-cheng/</id>
+    <published>2021-01-27T00:00:00.000Z</published>
+    <updated>2021-01-27T03:52:39.567Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-Protocol-Buffers-简介&quot;&gt;&lt;a href=&quot;#1-Protocol-Buffers-简介&quot; class=&quot;headerlink&quot; title=&quot;1 Protocol Buffers 简介&quot;&gt;&lt;/a&gt;1 Protocol Buffers</summary>
+        
+      
+    
+    
+    
+    <category term="Go" scheme="https://zhangyafeii.gitee.io/categories/Go/"/>
+    
+    <category term="base" scheme="https://zhangyafeii.gitee.io/categories/Go/base/"/>
+    
+    
+    <category term="Go之路" scheme="https://zhangyafeii.gitee.io/tags/Go%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="Protobuf" scheme="https://zhangyafeii.gitee.io/tags/Protobuf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第26篇：Gin简明教程</title>
+    <link href="https://zhangyafeii.gitee.io/go/base/di-26-pian-gin-jian-ming-jiao-cheng/"/>
+    <id>https://zhangyafeii.gitee.io/go/base/di-26-pian-gin-jian-ming-jiao-cheng/</id>
+    <published>2021-01-26T00:00:00.000Z</published>
+    <updated>2021-01-27T03:46:58.719Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Gin-简介&quot;&gt;&lt;a href=&quot;#Gin-简介&quot; class=&quot;headerlink&quot; title=&quot;Gin 简介&quot;&gt;&lt;/a&gt;Gin 简介&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Gin is a HTTP web framework written in</summary>
+        
+      
+    
+    
+    
+    <category term="Go" scheme="https://zhangyafeii.gitee.io/categories/Go/"/>
+    
+    <category term="base" scheme="https://zhangyafeii.gitee.io/categories/Go/base/"/>
+    
+    
+    <category term="Go之路" scheme="https://zhangyafeii.gitee.io/tags/Go%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="Gin" scheme="https://zhangyafeii.gitee.io/tags/Gin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：Python迭代器深入理解</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/python-die-dai-qi-shen-ru-li-jie/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/python-die-dai-qi-shen-ru-li-jie/</id>
+    <published>2021-01-23T14:00:01.000Z</published>
+    <updated>2021-01-23T04:16:56.115Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、可迭代对象-Iterable&quot;&gt;&lt;a href=&quot;#一、可迭代对象-Iterable&quot; class=&quot;headerlink&quot; title=&quot;一、可迭代对象 Iterable&quot;&gt;&lt;/a&gt;一、可迭代对象 Iterable&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;可迭代对象</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="迭代器" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pandas和SQL操作语句对照</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/pandas-he-sql-cao-zuo-yu-ju-dui-zhao/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/pandas-he-sql-cao-zuo-yu-ju-dui-zhao/</id>
+    <published>2021-01-21T12:00:01.000Z</published>
+    <updated>2021-01-21T15:02:35.803Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;SQL的神奇之处在于它容易学习，而它容易学习的原因是代码语法非常直观。另一方面，Pandas不是那么直观，特别是如果像我一样首先从SQL开始。就我个人而言，我发现真正有用的是思考如何在SQL中操作数据，然后在Pandas中复制它。所以如果你想更加精通Pandas，我强烈建议</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="SQL" scheme="https://zhangyafeii.gitee.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：并发编程相关概念理解</title>
+    <link href="https://zhangyafeii.gitee.io/python/advanced/bing-fa-bian-cheng-xiang-guan-gai-nian-li-jie/"/>
+    <id>https://zhangyafeii.gitee.io/python/advanced/bing-fa-bian-cheng-xiang-guan-gai-nian-li-jie/</id>
+    <published>2021-01-14T14:00:01.000Z</published>
+    <updated>2021-01-14T14:07:56.642Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;并发编程是编程语言学习中非常重要的知识，但是这块知识中一些概念确实相当难理解，一些概念区分起来很难，比如并发和并行，同步和异步，阻塞和非阻塞，但是这些概念却很重要。因此在此把它总结下来。&lt;/p&gt;
+&lt;h2 id=&quot;一、并发与并行&quot;&gt;&lt;a href=&quot;#一、并发与并行&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Python/Advanced/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="并发编程" scheme="https://zhangyafeii.gitee.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="并发与并行" scheme="https://zhangyafeii.gitee.io/tags/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C/"/>
+    
+    <category term="同步与异步" scheme="https://zhangyafeii.gitee.io/tags/%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/"/>
+    
+    <category term="阻塞与非阻塞" scheme="https://zhangyafeii.gitee.io/tags/%E9%98%BB%E5%A1%9E%E4%B8%8E%E9%9D%9E%E9%98%BB%E5%A1%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>轻松玩转pandas</title>
+    <link href="https://zhangyafeii.gitee.io/python/pandas/qing-song-wan-zhuan-pandas/"/>
+    <id>https://zhangyafeii.gitee.io/python/pandas/qing-song-wan-zhuan-pandas/</id>
+    <published>2021-01-13T00:00:00.000Z</published>
+    <updated>2021-03-14T08:53:25.511Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;center&gt;&lt;h2&gt;轻松玩转pandas&lt;/h2&gt;&lt;/center&gt;
+
+&lt;img src=&quot;https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/logo.jpg&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangyafeii.gitee.io/categories/Python/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/categories/Python/pandas/"/>
+    
+    
+    <category term="Python之路" scheme="https://zhangyafeii.gitee.io/tags/Python%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="目录" scheme="https://zhangyafeii.gitee.io/tags/%E7%9B%AE%E5%BD%95/"/>
+    
+    <category term="pandas" scheme="https://zhangyafeii.gitee.io/tags/pandas/"/>
+    
+    <category term="数据分析" scheme="https://zhangyafeii.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：字符串拼接性能及原理</title>
+    <link href="https://zhangyafeii.gitee.io/go/advanced/zi-fu-chuan-pin-jie-xing-neng-ji-yuan-li/"/>
+    <id>https://zhangyafeii.gitee.io/go/advanced/zi-fu-chuan-pin-jie-xing-neng-ji-yuan-li/</id>
+    <published>2021-01-13T00:00:00.000Z</published>
+    <updated>2021-01-06T12:53:07.805Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、字符串高效拼接&quot;&gt;&lt;a href=&quot;#一、字符串高效拼接&quot; class=&quot;headerlink&quot; title=&quot;一、字符串高效拼接&quot;&gt;&lt;/a&gt;一、字符串高效拼接&lt;/h2&gt;&lt;p&gt;在 Go 语言中，字符串(string)</summary>
+        
+      
+    
+    
+    
+    <category term="Go" scheme="https://zhangyafeii.gitee.io/categories/Go/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Go/Advanced/"/>
+    
+    
+    <category term="Go之路" scheme="https://zhangyafeii.gitee.io/tags/Go%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="字符串拼接" scheme="https://zhangyafeii.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5/"/>
+    
+    <category term="高性能编程" scheme="https://zhangyafeii.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶篇：提高反射性能</title>
+    <link href="https://zhangyafeii.gitee.io/go/advanced/ti-gao-fan-she-xing-neng/"/>
+    <id>https://zhangyafeii.gitee.io/go/advanced/ti-gao-fan-she-xing-neng/</id>
+    <published>2021-01-12T00:00:00.000Z</published>
+    <updated>2021-01-06T12:52:56.035Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、反射的用途&quot;&gt;&lt;a href=&quot;#一、反射的用途&quot; class=&quot;headerlink&quot; title=&quot;一、反射的用途&quot;&gt;&lt;/a&gt;一、反射的用途&lt;/h2&gt;&lt;p&gt;标准库 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Go" scheme="https://zhangyafeii.gitee.io/categories/Go/"/>
+    
+    <category term="Advanced" scheme="https://zhangyafeii.gitee.io/categories/Go/Advanced/"/>
+    
+    
+    <category term="Go之路" scheme="https://zhangyafeii.gitee.io/tags/Go%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="反射" scheme="https://zhangyafeii.gitee.io/tags/%E5%8F%8D%E5%B0%84/"/>
+    
+    <category term="进阶篇" scheme="https://zhangyafeii.gitee.io/tags/%E8%BF%9B%E9%98%B6%E7%AF%87/"/>
+    
+    <category term="高性能编程" scheme="https://zhangyafeii.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+</feed>

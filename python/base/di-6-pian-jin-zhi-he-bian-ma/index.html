@@ -1,0 +1,1505 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第6篇：进制和编码, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="学习目标：讲解计算机中一些必备的常识知识，让同学们了解一些常见名词背后的含义（重在理解）。
+本节概要：
+
+进制
+单位
+编码
+小结
+
+进制计算机中底层所有的数据都是以 010101的形式存在（图片、文本、视频等）。
+进制介绍
+二进制：0、1、">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第6篇：进制和编码 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035018590,3242921127&fm=26&gp=0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第6篇：进制和编码
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%9B%E5%88%B6%E5%92%8C%E7%BC%96%E7%A0%81/">
+                                <span class="chip bg-color">进制和编码</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-13
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    9 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>学习目标</strong>：讲解计算机中一些必备的常识知识，让同学们了解一些常见名词背后的含义（重在理解）。</p>
+<p><strong>本节概要</strong>：</p>
+<ul>
+<li>进制</li>
+<li>单位</li>
+<li>编码</li>
+<li>小结</li>
+</ul>
+<h2 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h2><p>计算机中底层所有的数据都是以 <code>010101</code>的形式存在（图片、文本、视频等）。</p>
+<h3 id="进制介绍"><a href="#进制介绍" class="headerlink" title="进制介绍"></a>进制介绍</h3><ul>
+<li><p>二进制：0、1、10</p>
+</li>
+<li><p>八进制：逢8进1</p>
+</li>
+<li><p>十进制：逢10进1</p>
+</li>
+<li><p>十六进制：逢16进1</p>
+</li>
+</ul>
+<img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/image-20201025174321969.png" alt="image-20201025174321969" style="zoom: 50%;">
+
+<h3 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h3><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/image-20201025180124802.png" alt="image-20201025180124802" style="zoom:50%;">
+
+<pre class="line-numbers language-python"><code class="language-python">v1 <span class="token operator">=</span> bin<span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 十进制转换为二进制</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># "0b11001"</span>
+
+v2 <span class="token operator">=</span> oct<span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 十进制转换为八进制</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># "0o27"</span>
+
+v3 <span class="token operator">=</span> hex<span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 十进制转换为十六进制</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># "0x1c"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">i1 <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token string">"0b11001"</span><span class="token punctuation">,</span>base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 25</span>
+
+i2 <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token string">"0o27"</span><span class="token punctuation">,</span>base<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 23 </span>
+
+i3 <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token string">"0x1c"</span><span class="token punctuation">,</span>base<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 28 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token triple-quoted-string string">""" 十进制转换成其他进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'十进制：'</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'二进制:'</span><span class="token punctuation">,</span> bin<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#  100</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'八进制:'</span><span class="token punctuation">,</span> oct<span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 11</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'十六进制:'</span><span class="token punctuation">,</span> hex<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># a</span>
+
+<span class="token triple-quoted-string string">""" 其他进制转换成十进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'0b10'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 2</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'11'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 9</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'11'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 17</span>
+
+<span class="token triple-quoted-string string">""" 二进制转换成八进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>oct<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'100'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0o4</span>
+<span class="token triple-quoted-string string">""" 二进制转换成十六进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hex<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'100'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0x4</span>
+<span class="token triple-quoted-string string">""" 八进制转换成二进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>bin<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'10'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0b1000</span>
+<span class="token triple-quoted-string string">""" 八进制转换成十六进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hex<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'10'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0x4</span>
+<span class="token triple-quoted-string string">""" 十六进制转换成二进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>bin<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'10'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0b10000</span>
+<span class="token triple-quoted-string string">""" 十六进制转换成八进制 """</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hex<span class="token punctuation">(</span>int<span class="token punctuation">(</span><span class="token string">'10'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 0x10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p>由于计算机中本质上所有的东西以为二进制存储和操作的，为了方便对于二进制值大小的表示，所以就搞了一些单位。</p>
+<ul>
+<li><p>b（bit），位</p>
+<pre><code>1，1位
+10，2位
+111，3位
+1001，4位</code></pre>
+</li>
+<li><p>B（byte），字节</p>
+<pre><code>8位是一个字节。
+
+10010110，1个字节
+10010110 10010110，2个字节</code></pre>
+</li>
+<li><p>KB（kilobyte），千字节</p>
+<pre><code>1024个字节就是1个千字节。
+
+10010110 11010110  10010111 .. ，1KB
+1KB = 1024B= 1024 * 8 b</code></pre>
+</li>
+<li><p>M（Megabyte），兆</p>
+<pre><code>1024KB就是1M
+1M= 1024KB = 1024 * 1024 B = 1024 * 1024 * 8 b</code></pre>
+</li>
+<li><p>G（Gigabyte），千兆</p>
+<pre><code>1024M就是1G
+1 G=  1024 M=  1024 *1024KB =  1024 * 1024 * 1024 B =  1024 * 1024 * 1024 * 8 b</code></pre>
+</li>
+<li><p>T（Terabyte），万亿字节</p>
+<pre><code>1024个G就是1T</code></pre>
+</li>
+<li><p>其他更大单位 PB/EB/ZB/YB/BB/NB/DB 不再赘述。</p>
+</li>
+</ul>
+<p><strong>做个小练习</strong>：</p>
+<ul>
+<li><p>假设1个汉字需要2个字节(2B=16位来表示，如：1000101011001100)，那么1G流量可以通过网络传输多少汉字呢？（计算机传输本质上也是二进制）</p>
+<pre><code>1G = 1024M = 1024 * 1024 KB = 1024 * 1024 * 1024 / 2 B
+1024 * 1024 * 1024 / 2 = ?</code></pre>
+</li>
+<li><p>假设1个汉字需要2个字节(2B=16位来表示，如：1000101011001100)，那么500G硬盘可以存储多少个汉字？</p>
+<pre><code>500G = 500 * 1024M = 500 * 1024 * 1024 KB = 500 * 1024 * 1024 * 1024 / 2 B
+500 * 1024 * 1024 * 1024 / 2 = ?</code></pre>
+</li>
+</ul>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>编码，文字和二进制之间的一个对照表。</p>
+<h3 id="ASCII编码"><a href="#ASCII编码" class="headerlink" title="ASCII编码"></a>ASCII编码</h3><ul>
+<li>ASCII（American Standard Code for Information Interchange，美国信息互换标准代码，ASCⅡ）是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。</li>
+<li>ASCII规定使用1个字节来表示字母与二进制的对应关系。</li>
+</ul>
+<pre><code>00000000
+00000001    w
+00000010    B
+00000011    a
+...
+11111111
+
+2**8 = 256</code></pre>
+<center><b>ASCII对照表</b></center>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="http://ascii.911cha.com/">http://ascii.911cha.com/</a></li>
+</ul>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/image-20201026111741235.png" alt="image-20201026111741235"></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/image-20201026111752410.png" alt="image-20201026111752410"></p>
+<h3 id="gb-2312编码"><a href="#gb-2312编码" class="headerlink" title="gb-2312编码"></a>gb-2312编码</h3><ul>
+<li><p><code>gb-2312</code>编码，由国家信息标准委员会制作（1980年）。</p>
+</li>
+<li><p><code>gbk</code>编码，对gb2312进行扩展，包含了中日韩等文字（1995年）。</p>
+</li>
+<li><p>在与二进制做对应关系时，由如下逻辑：</p>
+<ul>
+<li>单字节表示，用一个字节表示对应关系。2**8 = 256</li>
+<li>双字节表示，用两个字节表示对应关系。2**16 = 65536中可能性，目前只用了2万多。</li>
+</ul>
+</li>
+<li><p>问题：如果我用<code>gbk</code>编码来编写一个中文，转换成二进制的话用几个字节表示？答：2个字节</p>
+</li>
+</ul>
+<h3 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h3><ul>
+<li><p><code>unicode</code>也被称为万国码，为全球的每个文字都分配了一个码位（二进制表示）。</p>
+</li>
+<li><p>ucs2 </p>
+<pre><code>用固定的2个字节去表示一个文字。
+
+00000000 00000000     我
+...
+
+2**16 = 65535</code></pre>
+</li>
+<li><p>ucs4</p>
+<pre><code>用固定的4个字节去表示一个文字。
+00000000 00000000 00000000 00000000  我
+...
+2**32 = 4294967296</code></pre>
+</li>
+<li><p><code>unicode</code>官网：<a target="_blank" rel="noopener" href="http://www.unicode.org/charts/">http://www.unicode.org/charts/</a></p>
+<ul>
+<li>中文：<a target="_blank" rel="noopener" href="https://unicode-table.com/en/#cjk-unified-ideographs">https://unicode-table.com/en/#cjk-unified-ideographs</a></li>
+<li>表情：<a target="_blank" rel="noopener" href="https://unicode-table.com/en/#emoticons">https://unicode-table.com/en/#emoticons</a><ul>
+<li><a target="_blank" rel="noopener" href="https://emojipedia.org/">https://emojipedia.org/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>文字     十六进制            二进制 
+ ˂         02C2             1011000010
+ ȧ        0227           1000100111
+ ȧ        0227         00000010 00100111                       ucs2
+ ȧ        0227         00000000 00000000 00000010 00100111     ucs4
+
+ 乐         4E50           1001110 01010000
+ 乔       4E54           1001110 01010100
+ 乔       4E54         01001110 01010100                       ucs2
+ 乔       4E54         00000000 00000000 01001110 01010100     ucs4
+ 王       738b           1110011 10001011
+
+ 😆      1F606        11111011000000110
+ 😆      1F606        00000000 00000001 11110110 00000110      ucs4
+ 😂      1F602        1 11110110 00000010           </code></pre>
+<p>无论是ucs2和ucs4都有缺点：浪费空间？</p>
+<pre class="line-numbers language-python"><code class="language-python">文字     十六进制     二进制
+A        <span class="token number">0041</span>      <span class="token number">01000001</span>
+A        <span class="token number">0041</span>      <span class="token number">00000000</span> <span class="token number">01000001</span>
+A        <span class="token number">0041</span>      <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">01000001</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>unicode</code>的应用：在文件存储和网络传输时，不会直接使用<code>unicode</code>，而在内存中会<code>unicode</code>。</p>
+<h3 id="utf-8编码"><a href="#utf-8编码" class="headerlink" title="utf-8编码"></a>utf-8编码</h3><ul>
+<li><p>包含所有文字和二进制的对应关系，全球应用最为广泛的一种编码（站在巨人的肩膀上功成名就）。</p>
+</li>
+<li><p>本质上：<code>utf-8</code>是对<code>unicode</code>的压缩，用尽量少的二进制去与文字进行对应。</p>
+</li>
+</ul>
+<pre><code>  unicode码位范围            utf-8      
+   0000 ~ 007F              用1个字节表示
+   0080 ~ 07FF              用2个字节表示
+   0800 ~ FFFF              用3个字节表示
+  10000 ~ 10FFFF            用4个字节表示</code></pre>
+<p>具体压缩的流程：</p>
+<ul>
+<li><p>第一步：选择转换模板</p>
+<pre><code>  码位范围（十六进制）                转换模板
+   0000 ~ 007F              0XXXXXXX
+   0080 ~ 07FF              110XXXXX 10XXXXXX
+   0800 ~ FFFF              1110XXXX 10XXXXXX 10XXXXXX
+  10000 ~ 10FFFF            11110XXX 10XXXXXX 10XXXXXX 10XXXXXX
+
+  例如：
+      "B"  对应的unicode码位为 0042，那么他应该选择的一个模板。
+           0XXXXXXX    1000010
+           01000010
+      "ǣ"  对应的unicode码位为 01E3，则应该选择第二个模板。
+      "张" 对应的unicode码位为 5F20，则应该选择第三个模板。
+      "亚" 对应的unicode码位为 4E9A，则应该选择第三个模板。
+      "飞" 对应的unicode码位为 98DE，则应该选择第三个模板。
+      😆  对应的unicode码位为 1F606，则应该选择第四个模板。            
+
+注意：一般中文都使用第三个模板（3个字节），这也就是平时大家说中文在utf-8中会占3个字节的原因了。</code></pre>
+</li>
+<li><p>第二步：在模板中填入数据</p>
+<pre><code>- "张"  -&gt;  5F20  -&gt;  101 111100 100000
+- 根据模板去套入数据
+    1110XXXX 10XXXXXX 10XXXXXX
+    1110XXXX 10XXXXXX 10100000
+    1110XXXX 10111100 10100110
+    11100101 10101101 10100110
+在UTF-8编码中 ”张“  11100101 10101101 10100110
+
+- 😆  -&gt;  1F606  -&gt;  11111 011000 000110
+- 根据模板去套入数据
+    11110000 10011111 10011000 10000110</code></pre>
+</li>
+</ul>
+<h3 id="Python相关编码"><a href="#Python相关编码" class="headerlink" title="Python相关编码"></a>Python相关编码</h3><pre><code>字符串（str）     "夫轻诺必寡信"             unicode处理               一般在内存
+字节（byte）      b"\xe5\xa4\xab\..." utf-8编码 or gbk编码       一般用于文件或网络处理</code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token triple-quoted-string string">""" utf-8和gbk """</span>
+v1 <span class="token operator">=</span> <span class="token string">"张"</span>
+
+v2 <span class="token operator">=</span> <span class="token string">"张"</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+v2 <span class="token operator">=</span> <span class="token string">"张"</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"gbk"</span><span class="token punctuation">)</span>
+name <span class="token operator">=</span> <span class="token string">'陈月'</span>
+
+<span class="token comment" spellcheck="true"># 字符串编码为二进制</span>
+name_utf8 <span class="token operator">=</span> name<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>name_utf8<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># \xe9\x99\x88</span>
+name_gbk <span class="token operator">=</span> name<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'gbk'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>name_gbk<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 二进制解码为字符串</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>name_utf8<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>name_gbk<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'gbk'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将一个字符串写入到一个文件中。</p>
+<pre class="line-numbers language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">"功高不自居，名高不自誉，位高不自傲"</span>
+data <span class="token operator">=</span> text<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 打开一个文件</span>
+file_object <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"log.txt"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"wb"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 在文件中写内容</span>
+file_object<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 关闭文件</span>
+file_object<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章的知识点属于理解为主，了解这些基础之后有利于后面知识点的学习，接下来对本节所有的知识点进行归纳总结：</p>
+<ol>
+<li><p>计算机上所有的东西最终都会转换成为二进制再去运行。</p>
+</li>
+<li><p>ascii编码、<code>unicode</code>字符集、<code>utf-8</code>编码本质上都是字符与二进制的关系。</p>
+<ul>
+<li><code>ascii</code>，字符和二进制的对照表。</li>
+<li><code>unicode</code>，字符和二进制（码位）的对照表。</li>
+<li><code>utf-8</code>，对<code>unicode</code>字符集的码位进行压缩处理，间接也维护了字符和二进制的对照表。</li>
+</ul>
+</li>
+<li><p>ucs2和ucs4指的是使用多少个字节来表示<code>unicode</code>字符集的码位。</p>
+</li>
+<li><p>目前最广泛的编码为：<code>utf-8</code>，他可以表示所有的字符且存储或网络传输也不会浪费资源（对码位进行压缩了）。</p>
+</li>
+<li><p>二进制、八进制、十进制、十六进制其实就是进位的时机不同。</p>
+</li>
+<li><p>基于Python实现二进制、八进制、十进制、十六进制之间的转换。</p>
+</li>
+<li><p>一个字节8位</p>
+</li>
+<li><p>计算机中常见单位b/B/KB/M/G的关系。</p>
+</li>
+<li><p>汉字，用<code>gbk</code>编码需要用2个字节；用<code>utf-8</code>编码需要用3个字节。</p>
+</li>
+<li><p>基于Python实现将字符串转换为字节（<code>utf-8</code>编码）</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 字符串类型</span>
+name <span class="token operator">=</span> <span class="token string">"张亚飞"</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 张亚飞</span>
+<span class="token comment" spellcheck="true"># 字符串转换为字节类型</span>
+data <span class="token operator">=</span> name<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># b'\xe5\xbc\xa0\xe4\xba\x9a\xe9\xa3\x9e'</span>
+
+<span class="token comment" spellcheck="true"># 把字节转换为字符串</span>
+old <span class="token operator">=</span> data<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>old<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>基于Python实现将字符串转换为字节（<code>gbk</code>编码）</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 字符串类型</span>
+name <span class="token operator">=</span> <span class="token string">"张亚飞"</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 张亚飞</span>
+<span class="token comment" spellcheck="true"># 字符串转换为字节类型</span>
+data <span class="token operator">=</span> name<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"gbk"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># print(data) # b'\xe5\xbc\xa0\xe4\xba\x9a\xe9\xa3\x9e'  utf8，中文3个字节 </span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># b'\xd5\xc5\xd1\xc7\xb7\xc9'                gbk，中文2个字节</span>
+
+<span class="token comment" spellcheck="true"># 把字节转换为字符串</span>
+old <span class="token operator">=</span> data<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">"gbk"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>old<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-6-pian-jin-zhi-he-bian-ma/">https://zhangyafeii.gitee.io/python/base/di-6-pian-jin-zhi-he-bian-ma/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%9B%E5%88%B6%E5%92%8C%E7%BC%96%E7%A0%81/">
+                                    <span class="chip bg-color">进制和编码</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-13T13-13-13',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-7-pian-python-ji-chu-shu-ju-lei-xing/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=512325932,1619516313&amp;fm=15&amp;gp=0.jpg" class="responsive-img" alt="第7篇：Python基础数据类型">
+                        
+                        <span class="card-title">第7篇：Python基础数据类型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：掌握整型、布尔类型、字符串的必备知识。
+基础数据类型：
+
+int，整数类型（整形）
+float，浮点类型（浮点型）
+complex,复数类型
+bool，布尔类型
+str，字符串类型
+
+高级数据类型：
+
+list，列表类型
+tupl
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">基础数据类型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-5-pian-gong-gu-lian-xi/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3931952457,947699859&amp;fm=15&amp;gp=0.jpg" class="responsive-img" alt="第5篇：巩固练习">
+                        
+                        <span class="card-title">第5篇：巩固练习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学完前面的几个章节后，我觉得有必要在这里带大家做一些练习来巩固之前所学的知识，虽然迄今为止我们学习的内容只是Python的冰山一角，但是这些内容已经足够我们来构建程序中的逻辑。对于编程语言的初学者来说，在学习了Python的核心语言元素（变
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A9%E5%9B%BA%E7%BB%83%E4%B9%A0/">
+                        <span class="chip bg-color">巩固练习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

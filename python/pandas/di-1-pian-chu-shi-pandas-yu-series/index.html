@@ -1,0 +1,2110 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第1篇：初识pandas与Series, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="教程文档和源码已上传至git仓库：https://gitee.com/zhangyafeii/easy-pandas
+第1部分：pandas概览pandas 是 Python 的核心数据分析支持库，提供了快速、灵活、明确的数据结构，旨在简单">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第1篇：初识pandas与Series | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/pandas-1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第1篇：初识pandas与Series
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/pandas/">
+                                <span class="chip bg-color">pandas</span>
+                            </a>
+                        
+                            <a href="/tags/Series/">
+                                <span class="chip bg-color">Series</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/pandas/" class="post-category">
+                                pandas
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-06
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    25 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>教程文档和源码已上传至git仓库：<a target="_blank" rel="noopener" href="https://gitee.com/zhangyafeii/easy-pandas">https://gitee.com/zhangyafeii/easy-pandas</a></p>
+<h2 id="第1部分：pandas概览"><a href="#第1部分：pandas概览" class="headerlink" title="第1部分：pandas概览"></a>第1部分：pandas概览</h2><p>pandas 是 Python 的核心数据分析支持库，提供了快速、灵活、明确的数据结构，旨在简单、直观地处理关系型、标记型数据。pandas 的目标是成为 Python 数据分析实践与实战的必备高级工具，其长远目标是成为最强大、最灵活、可以支持任何语言的开源数据分析工具。经过多年不懈的努力，pandas 离这个目标已经越来越近了。</p>
+<p><strong>pandas 适用于处理以下类型的数据：</strong></p>
+<ul>
+<li>与 SQL 或 Excel 表类似的，含异构列的表格数据;</li>
+<li>有序和无序（非固定频率）的时间序列数据;</li>
+<li>带行列标签的矩阵数据，包括同构或异构型数据;</li>
+<li>任意其它形式的观测、统计数据集, 数据转入 pandas 数据结构时不必事先标记。<br>pandas 的主要数据结构是 Series（一维数据）与 DataFrame（二维数据），这两种数据结构足以处理金融、统计、社会科学、工程等领域里的大多数典型用例。对于 R 用户，DataFrame 提供了比 R 语言 data.frame 更丰富的功能。pandas 基于 NumPy 开发，可以与其它第三方科学计算支持库完美集成。</li>
+</ul>
+<p><strong>pandas 就像一把万能瑞士军刀，下面仅列出了它的部分优势：</strong></p>
+<ul>
+<li>处理浮点与非浮点数据里的缺失数据，表示为 NaN；</li>
+<li>大小可变：插入或删除 DataFrame 等多维对象的列；</li>
+<li>自动、显式数据对齐：显式地将对象与一组标签对齐，也可以忽略标签，在 Series、DataFrame 计算时自动与数据对齐；</li>
+<li>强大、灵活的分组（group by）功能：拆分-应用-组合数据集，聚合、转换数据；</li>
+<li>把 Python 和 NumPy 数据结构里不规则、不同索引的数据轻松地转换为 DataFrame 对象；</li>
+<li>基于智能标签，对大型数据集进行切片、花式索引、子集分解等操作；</li>
+<li>直观地合并（merge）、<strong>连接（join）</strong>数据集；</li>
+<li>灵活地重塑（reshape）、<strong>透视（pivot）</strong>数据集；</li>
+<li>轴支持结构化标签：一个刻度支持多个标签；</li>
+<li>成熟的 IO 工具：读取文本文件（CSV 等支持分隔符的文件）、Excel 文件、数据库等来源的数据，利用超快的 HDF5 格式保存 / 加载数据；</li>
+<li>时间序列：支持日期范围生成、频率转换、移动窗口统计、移动窗口线性回归、日期位移等时间序列功能。<br>这些功能主要是为了解决其它编程语言、科研环境的痛点。处理数据一般分为几个阶段：数据整理与清洗、数据分析与建模、数据可视化与制表，pandas 是处理数据的理想工具。</li>
+</ul>
+<p><strong>其它说明：</strong></p>
+<ul>
+<li>pandas 速度很快。pandas 的很多底层算法都用 Cython 优化过。然而，为了保持通用性，必然要牺牲一些性能，如果专注某一功能，完全可以开发出比 pandas 更快的专用工具。</li>
+<li>pandas 是 statsmodels 的依赖项，因此，pandas 也是 Python 中统计计算生态系统的重要组成部分。</li>
+<li>pandas 已广泛应用于金融领域。</li>
+</ul>
+<h2 id="第2部分：数据结构"><a href="#第2部分：数据结构" class="headerlink" title="第2部分：数据结构"></a>第2部分：数据结构</h2><p>pandas两大核心数据结构：<strong>Series</strong>和<strong>DataFrame</strong>。 </p>
+<table>
+<thead>
+<tr>
+<th align="center">维数</th>
+<th align="center">名称</th>
+<th align="center">描述</th>
+<th align="center">数据表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Series</td>
+<td align="center">带标签的一维同构数组</td>
+<td align="center">一列或一行</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">DataFrame</td>
+<td align="center">带标签的，大小可变的，二维异构表</td>
+<td align="center">一个sheet表或一个table</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Series是一种一维数据结构，每一个元素都带有一个索引，其中索引可以为数字或字符串。其基本数据结构为索引列和数据列。</li>
+<li>Dataframe是一种二维数据结构，数据以表格形式（与excel类似）存储，有对应的行和列。其基本数据结构为索引列和多列数据，即Dataframe的由多个Series构成。</li>
+</ul>
+<p>pandas 数据结构就像是低维数据的容器。比如，DataFrame 是 Series 的容器，Series 则是标量的容器。使用这种方式，可以在容器中以字典的形式插入或删除对象。</p>
+<p>此外，通用 API 函数的默认操作要顾及时间序列与截面数据集的方向。多维数组存储二维或三维数据时，编写函数要注意数据集的方向，这对用户来说是一种负担；如果不考虑 C 或 Fortran 中连续性对性能的影响，一般情况下，不同的轴在程序里其实没有什么区别。pandas 里，轴的概念主要是为了给数据赋予更直观的语义，即用“更恰当”的方式表示数据集的方向。这样做可以让用户编写数据转换函数时，少费点脑子。</p>
+<p>处理 DataFrame 等表格数据时，index（行）或 columns（列）比 axis 0 和 axis 1 更直观。用这种方式迭代 DataFrame 的列，代码更易读易懂：</p>
+<p><strong>大小可变和数据复制</strong></p>
+<p>pandas 所有数据结构的值都是可变的，但数据结构的大小并非都是可变的，比如，Series 的长度不可改变，但 DataFrame 里就可以插入列。</p>
+<p>pandas 里，绝大多数方法都不改变原始的输入数据，而是复制数据，生成新的对象。 一般来说，原始输入数据不变更稳妥。</p>
+<h3 id="相关模块导入"><a href="#相关模块导入" class="headerlink" title="相关模块导入"></a>相关模块导入</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="查看pandas版本"><a href="#查看pandas版本" class="headerlink" title="查看pandas版本"></a>查看pandas版本</h3><pre class="line-numbers language-python"><code class="language-python">pd<span class="token punctuation">.</span>__version__<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>'1.1.3'</code></pre>
+<h3 id="构建一个DataFrame"><a href="#构建一个DataFrame" class="headerlink" title="构建一个DataFrame"></a>构建一个DataFrame</h3><pre class="line-numbers language-python"><code class="language-python">index <span class="token operator">=</span> pd<span class="token punctuation">.</span>Index<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"name"</span><span class="token punctuation">)</span>
+data <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">"age"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"BeiJing"</span><span class="token punctuation">,</span> <span class="token string">"ShangHai"</span><span class="token punctuation">,</span> <span class="token string">"GuangZhou"</span><span class="token punctuation">,</span> <span class="token string">"ShenZhen"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+user_info <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span> index<span class="token operator">=</span>index<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="查看数据及其类型"><a href="#查看数据及其类型" class="headerlink" title="查看数据及其类型"></a>查看数据及其类型</h3><pre class="line-numbers language-python"><code class="language-python">user_info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">age</th>
+<th align="right">city</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">name</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="right">Tom</td>
+<td align="right">18</td>
+<td align="right">BeiJing</td>
+</tr>
+<tr>
+<td align="right">Bob</td>
+<td align="right">30</td>
+<td align="right">ShangHai</td>
+</tr>
+<tr>
+<td align="right">Mary</td>
+<td align="right">25</td>
+<td align="right">GuangZhou</td>
+</tr>
+<tr>
+<td align="right">James</td>
+<td align="right">40</td>
+<td align="right">ShenZhen</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python"><code class="language-python">type<span class="token punctuation">(</span>user_info<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># pandas.core.frame.DataFrame</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>pandas.core.frame.DataFrame</code></pre>
+<h3 id="查看某列数据及其类型"><a href="#查看某列数据及其类型" class="headerlink" title="查看某列数据及其类型"></a>查看某列数据及其类型</h3><pre class="line-numbers language-python"><code class="language-python">user_info<span class="token punctuation">.</span>age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      30
+Mary     25
+James    40
+Name: age, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">type<span class="token punctuation">(</span>user_info<span class="token punctuation">.</span>age<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># pandas.core.series.Series</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>pandas.core.series.Series</code></pre>
+<h3 id="查看某行数据及其类型"><a href="#查看某行数据及其类型" class="headerlink" title="查看某行数据及其类型"></a>查看某行数据及其类型</h3><pre class="line-numbers language-python"><code class="language-python">user_info<span class="token punctuation">.</span>loc<span class="token punctuation">[</span><span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>age          18
+city    BeiJing
+Name: Tom, dtype: object</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">type<span class="token punctuation">(</span>user_info<span class="token punctuation">.</span>loc<span class="token punctuation">[</span><span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># pandas.core.series.Series</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>pandas.core.series.Series</code></pre>
+<h2 id="第3部分：Series"><a href="#第3部分：Series" class="headerlink" title="第3部分：Series"></a>第3部分：Series</h2><p><strong>Series</strong>是一个带有<strong>名称</strong>和<strong>索引</strong>的一维数组，但与传统数组中元素类型必须相同不一样的是，Series中的元素类型可以不同，在<strong>Series</strong>中包含的数据类型可以是整数、浮点、字符串、Python对象等，这一点与Python中的列表比较类似，但与列表不同的是，列表只能通过数字索引取值，而<strong>Series</strong>可以通过自定义索引取值，从这一点来看<strong>Series</strong>与字典类似。</p>
+<pre class="line-numbers language-python"><code class="language-python">pandas<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span>None<span class="token punctuation">,</span> index<span class="token operator">=</span>None<span class="token punctuation">,</span> dtype<span class="token operator">=</span>None<span class="token punctuation">,</span> name<span class="token operator">=</span>None<span class="token punctuation">,</span> copy<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>参数解释：</p>
+<ul>
+<li>data：支持以下数据类型：</li>
+<li>Python 字典</li>
+<li>多维数组</li>
+<li>标量值（如，5）</li>
+<li>index：索引，类似数组或列表，值必须是可哈希的，并且与“data”具有相同的长度。允许使用非唯一索引值。将默认为RangeIndex（0，1，2，…，n）（如果未提供）。如果Index和字典同时提供，index将会覆盖字典的keys。</li>
+<li>dtype: str，numpy.d类型，或ExtensionType，可选输出序列的数据类型。如果未指定，则将从“data”推断。</li>
+<li>name：Series的名称。</li>
+<li>copy: bool，默认为False,是否对输入数据进行复制。</li>
+</ul>
+<h3 id="1-Series的创建"><a href="#1-Series的创建" class="headerlink" title="1. Series的创建"></a>1. Series的创建</h3><h4 id="方式一：通过列表或数组方式创建"><a href="#方式一：通过列表或数组方式创建" class="headerlink" title="方式一：通过列表或数组方式创建"></a>方式一：通过列表或数组方式创建</h4><pre class="line-numbers language-python"><code class="language-python">user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>0    18
+1    30
+2    25
+3    40
+dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>index <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 加索引</span>
+user_age<span class="token punctuation">.</span>index<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"name"</span>  <span class="token comment" spellcheck="true"># 索引加名字</span>
+user_age<span class="token punctuation">.</span>name<span class="token operator">=</span><span class="token string">"user_age_info"</span>  <span class="token comment" spellcheck="true"># series加名字</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'user_age_info'</span><span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<h4 id="方式二：通过字典方式创建"><a href="#方式二：通过字典方式创建" class="headerlink" title="方式二：通过字典方式创建"></a>方式二：通过字典方式创建</h4><pre class="line-numbers language-python"><code class="language-python">data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Tom"</span><span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">:</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">}</span>
+user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"user_age_info"</span><span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre><code>Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<p><strong>注意</strong>：data 为字典，且未设置 index 参数时，如果 Python 版本 &gt;= 3.6 且 pandas 版本 &gt;= 0.23，Series 按字典的插入顺序排序索引。</p>
+<p>Python &lt; 3.6 或 pandas &lt; 0.23，且未设置 index 参数时，Series 按字母顺序排序字典的键（key）列表。</p>
+<p><strong>手动指定数据类型</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Tom"</span><span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">:</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">}</span>
+user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"user_age_info"</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>float<span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Name: user_age_info, dtype: float64</code></pre>
+<h4 id="方式三：通过标量值创建"><a href="#方式三：通过标量值创建" class="headerlink" title="方式三：通过标量值创建"></a>方式三：通过标量值创建</h4><p>data 是标量值时，必须提供索引。Series 按索引长度重复该标量值。</p>
+<pre class="line-numbers language-python"><code class="language-python">pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">.</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>a    5.0
+b    5.0
+c    5.0
+d    5.0
+e    5.0
+dtype: float64</code></pre>
+<p><strong>查看Series所有属性和方法</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token punctuation">[</span>attr <span class="token keyword">for</span> attr <span class="token keyword">in</span> dir<span class="token punctuation">(</span>user_age<span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token operator">not</span> attr<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'_'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>['Bob',
+ 'James',
+ 'Mary',
+ 'T',
+ 'Tom',
+ 'abs',
+ 'add',
+ 'add_prefix',
+ 'add_suffix',
+ 'agg',
+...
+]</code></pre>
+<h3 id="2-Series属性"><a href="#2-Series属性" class="headerlink" title="2. Series属性"></a>2. Series属性</h3><p>Series常见的属性包含：</p>
+<ul>
+<li>shape: Series的形状</li>
+<li>index: Series的索引</li>
+<li>values: Series的数据值。ndarray类型</li>
+<li>name: Series的名称</li>
+<li>dtype: Series的数据类型</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>shape<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>(4,)</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>index<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Index(['Tom', 'Bob', 'Mary', 'James'], dtype='object')</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>values<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>array([18., 30., 25., 40.])</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>'user_age_info'</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>dtype<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>dtype('float64')</code></pre>
+<p>对于一个Series，其中最常用的属性为<strong>值（values），索引（index），名字（name），类型（dtype）。</strong></p>
+<h3 id="3-Series的方法"><a href="#3-Series的方法" class="headerlink" title="3. Series的方法"></a>3. Series的方法</h3><h4 id="3-1-基本方法"><a href="#3-1-基本方法" class="headerlink" title="3.1 基本方法"></a>3.1 基本方法</h4><ul>
+<li>head(n): 查看Series的前n个元素，默认n为5。</li>
+<li>tail(n): 查看Series的后n个元素，默认n为5。</li>
+<li>unique(): 返回Series中不重复的元素。</li>
+<li>nunique(dropna=False)：返回Series中不重复的元素个数。</li>
+<li>isna(): 判断元素是否是缺失值。</li>
+<li>isnull(): 和isna()功能相同。</li>
+<li>dropna(inplace=False)：删除缺失值。</li>
+<li>isin(values)：成员运算，values为set或者list-like类型，判断series中每个元素是否是values的成员。</li>
+<li>sort_index(ascending=False, inplace=False): 对索引排序</li>
+<li>sort_values(ascending=False, inplace=False)：对值排序。</li>
+<li>idmax(): 返回最大值的索引。</li>
+<li>idmin(): 返回最小值的索引。</li>
+<li>nlargest(): 返回n个最大的值。</li>
+<li>nsmallest(): 返回n个最小的值。</li>
+<li>count(): 返回非缺失值元素个数。</li>
+<li>value_counts(ascending=False,dropna=True)：统计数据频率。</li>
+<li>clip(lower, upper, inplace=False): 对Series在lower-upper范围进行截断，小于lower的替换为lower,大于upper的替换为upper。</li>
+<li>replace(to_replace, value=None, inplace=False): 对Series中指定值进行替换。</li>
+<li>where(cond, other=np.nan, inplace=False)： 对不满足cond的元素替换为other。</li>
+<li>add_prefix(prefix): 统一加前缀。</li>
+<li>add_suffix(suffix): 统一加后缀。</li>
+<li>reset_index(drop=False, name=None, inplace=False): 重置索引，当drop为False时返回DataFrame。</li>
+<li>to_frame(name=None):将Series转换为DataFrame。</li>
+<li>append(to_append, ignore_index=False, verify_integrity=False)：将两个Series进行合并。</li>
+</ul>
+<p><strong>创建数据表</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">81</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> None<span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">,</span> <span class="token string">"Kobe"</span><span class="token punctuation">,</span> <span class="token string">"Ming"</span><span class="token punctuation">,</span> <span class="token string">"Rose"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'user_age_info'</span><span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Rose      NaN
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-1-查看前（后）n个元素"><a href="#3-1-1-查看前（后）n个元素" class="headerlink" title="3.1.1 查看前（后）n个元素"></a>3.1.1 查看前（后）n个元素</h5><p><strong>查看前5个元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Name: user_age_info, dtype: float64</code></pre>
+<p><strong>查看后5个元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>tail<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Rose      NaN
+Name: user_age_info, dtype: float64</code></pre>
+<p><strong>指定查看个数</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom     18.0
+Bob     30.0
+Mary    25.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>tail<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Kobe    81.0
+Ming    40.0
+Rose     NaN
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-2-查看数据的基本信息"><a href="#3-1-2-查看数据的基本信息" class="headerlink" title="3.1.2 查看数据的基本信息"></a>3.1.2 查看数据的基本信息</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>describe<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 查看Series基本统计信息</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>count     6.000000
+mean     39.000000
+std      22.289011
+min      18.000000
+25%      26.250000
+50%      35.000000
+75%      40.000000
+max      81.000000
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>describe<span class="token punctuation">(</span>percentiles<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token number">05</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token number">75</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token number">95</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 可以自己选择分位数</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>count     6.000000
+mean     39.000000
+std      22.289011
+min      18.000000
+5%       19.750000
+25%      26.250000
+50%      35.000000
+75%      40.000000
+95%      70.750000
+max      81.000000
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 查看非缺失值元素个数</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>6</code></pre>
+<h5 id="3-1-3-数据去重"><a href="#3-1-3-数据去重" class="headerlink" title="3.1.3 数据去重"></a>3.1.3 数据去重</h5><p><strong>查看所有用户不重复的年龄</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>array([18., 30., 25., 40., 81., nan])</code></pre>
+<p><strong>查看所有用户不重复的年龄个数</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>nunique<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 默认不包含缺失值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>5</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>nunique<span class="token punctuation">(</span>dropna<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 包含缺失值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>6</code></pre>
+<h5 id="3-1-4-删除缺失值"><a href="#3-1-4-删除缺失值" class="headerlink" title="3.1.4 删除缺失值"></a>3.1.4 删除缺失值</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>isna<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 查看元素是否是缺失值</span>
+<span class="token comment" spellcheck="true"># user_age.isnull()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>Tom      False
+Bob      False
+Mary     False
+James    False
+Kobe     False
+Ming     False
+Rose      True
+Name: user_age_info, dtype: bool</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 删除缺失值，返回删除后的结果</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age  <span class="token comment" spellcheck="true"># 默认不修改原始数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Rose      NaN
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 在原始数据的基础上删除缺失值，可以设置inplace参数为True</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-5-成员运算"><a href="#3-1-5-成员运算" class="headerlink" title="3.1.5 成员运算"></a>3.1.5 成员运算</h5><p><strong>查看用户的年龄是否小于60</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>isin<span class="token punctuation">(</span>list<span class="token punctuation">(</span>range<span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom       True
+Bob       True
+Mary      True
+James     True
+Kobe     False
+Ming      True
+Name: user_age_info, dtype: bool</code></pre>
+<h5 id="3-1-6-排序"><a href="#3-1-6-排序" class="headerlink" title="3.1.6 排序"></a>3.1.6 排序</h5><p><strong>对用户名进行排序</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sort_index<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 默认升序，从小到大</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sort_index<span class="token punctuation">(</span>ascending<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 逆序</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Ming     40.0
+Mary     25.0
+Kobe     81.0
+James    40.0
+Bob      30.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age   <span class="token comment" spellcheck="true"># 原始数据并未修改</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Bob      30.0
+Mary     25.0
+James    40.0
+Kobe     81.0
+Ming     40.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sort_index<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 修改原始数据</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<p><strong>对年龄进行排序</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 默认升序，从小到大</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Tom      18.0
+Mary     25.0
+Bob      30.0
+James    40.0
+Ming     40.0
+Kobe     81.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span>ascending<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Kobe     81.0
+Ming     40.0
+James    40.0
+Bob      30.0
+Mary     25.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-7-统计数据频率"><a href="#3-1-7-统计数据频率" class="headerlink" title="3.1.7 统计数据频率"></a>3.1.7 统计数据频率</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 不包含缺失值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>40.0    2
+18.0    1
+25.0    1
+81.0    1
+30.0    1
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 查看非缺失值个数</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>6</code></pre>
+<h5 id="3-1-8-获取最大-小-值及其索引"><a href="#3-1-8-获取最大-小-值及其索引" class="headerlink" title="3.1.8 获取最大(小)值及其索引"></a>3.1.8 获取最大(小)值及其索引</h5><p><strong>idxmax函数返回最大值所在索引，当存在多个最大值时，返回第一个最大值的索引，idxmin功能类似</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>idxmax<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>'Kobe'</code></pre>
+<p><strong>nlargest函数返回前几个大的元素值，nsmallest功能类似</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>nlargest<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Kobe     81.0
+James    40.0
+Ming     40.0
+Bob      30.0
+Mary     25.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>nlargest<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Kobe     81.0
+James    40.0
+Ming     40.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-9-对元素值进行替换"><a href="#3-1-9-对元素值进行替换" class="headerlink" title="3.1.9 对元素值进行替换"></a>3.1.9 对元素值进行替换</h5><p><strong>clip是对超过或者低于某些值的数进行截断和补齐</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>clip<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     40.0
+Mary     25.0
+Ming     40.0
+Tom      20.0
+Name: user_age_info, dtype: float64</code></pre>
+<p><strong>replace是对某些值进行替换</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      25.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token number">18</span><span class="token punctuation">:</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      25.0
+Name: user_age_info, dtype: float64</code></pre>
+<p><strong>where 将不满足条件的元素替换为指定值,默认为np.nan</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>where<span class="token punctuation">(</span>user_age <span class="token operator">></span> <span class="token number">30</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob       NaN
+James    40.0
+Kobe     81.0
+Mary      NaN
+Ming     40.0
+Tom       NaN
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>where<span class="token punctuation">(</span>user_age <span class="token operator">></span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     30.0
+Ming     40.0
+Tom      30.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-10-应用函数-元素迭代"><a href="#3-1-10-应用函数-元素迭代" class="headerlink" title="3.1.10 应用函数 /元素迭代"></a>3.1.10 应用函数 <code>/</code>元素迭代</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      31.0
+James    41.0
+Kobe     82.0
+Mary     26.0
+Ming     41.0
+Tom      19.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age <span class="token operator">+</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      31.0
+James    41.0
+Kobe     82.0
+Mary     26.0
+Ming     41.0
+Tom      19.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>apply<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      31.0
+James    41.0
+Kobe     82.0
+Mary     26.0
+Ming     41.0
+Tom      19.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>apply<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x <span class="token operator">%</span> <span class="token number">7</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      3.0
+James    6.0
+Kobe     5.0
+Mary     5.0
+Ming     6.0
+Tom      5.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-11-统一添加前-后缀"><a href="#3-1-11-统一添加前-后缀" class="headerlink" title="3.1.11 统一添加前/后缀"></a>3.1.11 统一添加前/后缀</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>add_prefix<span class="token punctuation">(</span><span class="token string">'user-'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>user-Bob      30.0
+user-James    40.0
+user-Kobe     81.0
+user-Mary     25.0
+user-Ming     40.0
+user-Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>add_suffix<span class="token punctuation">(</span><span class="token string">'-age'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob-age      30.0
+James-age    40.0
+Kobe-age     81.0
+Mary-age     25.0
+Ming-age     40.0
+Tom-age      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<h5 id="3-1-12-Series转为DataFrame"><a href="#3-1-12-Series转为DataFrame" class="headerlink" title="3.1.12 Series转为DataFrame"></a>3.1.12 Series转为DataFrame</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 方法1：重置索引，索引转换为新的一列，默认列名为index</span>
+user_age<span class="token punctuation">.</span>reset_index<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>user_age_info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bob</td>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>James</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kobe</td>
+      <td>81.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mary</td>
+      <td>25.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ming</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Tom</td>
+      <td>18.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 方式2：to_frame</span>
+user_age<span class="token punctuation">.</span>to_frame<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_age_info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Bob</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>James</th>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Kobe</th>
+      <td>81.0</td>
+    </tr>
+    <tr>
+      <th>Mary</th>
+      <td>25.0</td>
+    </tr>
+    <tr>
+      <th>Ming</th>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Tom</th>
+      <td>18.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h5 id="3-1-13-Series合并"><a href="#3-1-13-Series合并" class="headerlink" title="3.1.13 Series合并"></a>3.1.13 Series合并</h5><pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age2 <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"张三"</span><span class="token punctuation">:</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token string">"李四"</span><span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token string">"王五"</span><span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"user_age_info2"</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>float<span class="token punctuation">)</span>
+user_age2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code>张三    21.0
+李四    30.0
+王五    40.0
+Name: user_age_info2, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>append<span class="token punctuation">(</span>user_age2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 返回合并之后的Series</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+张三       21.0
+李四       30.0
+王五       40.0
+dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age  <span class="token comment" spellcheck="true"># 不修改自身</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     25.0
+Ming     40.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<h4 id="3-2-数字类型方法"><a href="#3-2-数字类型方法" class="headerlink" title="3.2 数字类型方法"></a>3.2 数字类型方法</h4><ul>
+<li>max(): 最大值</li>
+<li>min(): 最小值</li>
+<li>sum(): 和</li>
+<li>var(): 方差</li>
+<li>std(): 标准差</li>
+<li>median(): 中位数</li>
+<li>mean(): 平均值</li>
+<li>mad(): 平均绝对偏差,每个数据点与平均值之间的平均距离。</li>
+<li>abs(): 绝对值</li>
+<li>quantile(): 分位数函数</li>
+<li>cummax(): 累计最大值</li>
+<li>cumsum(): 累计和</li>
+<li>cumprod(): 累计乘积</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>max<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 最大值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>81.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>min<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 最小值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>18.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>sum<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 和</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>234.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>var<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 方差</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>496.8</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 标准差</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>22.289010745208053</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>median<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 中位数</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>35.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 平均值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>39.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>mad<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 平均绝对偏差</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>14.666666666666666</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>quantile<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 默认q=0.5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>35.0</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>quantile<span class="token punctuation">(</span><span class="token number">0.25</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 指定q</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>26.25</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>cummax<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 累计最大值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    40.0
+Kobe     81.0
+Mary     81.0
+Ming     81.0
+Tom      81.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>cummin<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 累计最小值</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      30.0
+James    30.0
+Kobe     30.0
+Mary     25.0
+Ming     25.0
+Tom      18.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>cumsum<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 累计和</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob       30.0
+James     70.0
+Kobe     151.0
+Mary     176.0
+Ming     216.0
+Tom      234.0
+Name: user_age_info, dtype: float64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>cumprod<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 连乘积</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>Bob      3.000000e+01
+James    1.200000e+03
+Kobe     9.720000e+04
+Mary     2.430000e+06
+Ming     9.720000e+07
+Tom      1.749600e+09
+Name: user_age_info, dtype: float64</code></pre>
+<h4 id="3-3-字符串类型方法"><a href="#3-3-字符串类型方法" class="headerlink" title="3.3 字符串类型方法"></a>3.3 字符串类型方法</h4><p>pandas中字符串类型Series通过Series.str.方法进行调用，常用的方法如下：</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95.png" alt="字符串类型方法"></p>
+<p>通过以上我们可以知道，pandas中字符串Series几乎具有Python字符串所有的功能，从这里就可以看出pandas的强大之处了。<br>关于字符串类型的方法，我们将在之后文本数据处理章节中进行介绍。</p>
+<h4 id="3-4-分类数据方法"><a href="#3-4-分类数据方法" class="headerlink" title="3.4 分类数据方法"></a>3.4 分类数据方法</h4><p>分类数据直白来说就是取值为有限的，或者说是固定数量的可能值。例如：性别、血型，通过Series.cat.方法名来调用。具体使用将在后面分类数据处理章节进行详细介绍。</p>
+<h4 id="3-5-时间序列数据方法"><a href="#3-5-时间序列数据方法" class="headerlink" title="3.5 时间序列数据方法"></a>3.5 时间序列数据方法</h4><p>关于时间数据类型，pandas中也对其有针对性的处理方法。时间数据类型通过Series.dt.方法名来调用。具体使用将在后面时间数据处理章节进行详细介绍。</p>
+<h4 id="3-6-画图"><a href="#3-6-画图" class="headerlink" title="3.6 画图"></a>3.6 画图</h4><p>Series.plot(参数)，参数如下:<br><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python/blog/series_plot.png" alt="plot参数"></p>
+<p>官方文档：<a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.plot.html">http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.plot.html</a></p>
+<h3 id="4-Series的增删改查"><a href="#4-Series的增删改查" class="headerlink" title="4. Series的增删改查"></a>4. Series的增删改查</h3><h4 id="4-1-访问数据元素"><a href="#4-1-访问数据元素" class="headerlink" title="4.1 访问数据元素"></a>4.1 访问数据元素</h4><p>访问Series数据元素有3种方式：</p>
+<ul>
+<li>索引</li>
+<li>序号</li>
+<li>布尔</li>
+</ul>
+<p><strong>创建一个Series</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">name <span class="token operator">=</span> pd<span class="token punctuation">.</span>Index<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Mary"</span><span class="token punctuation">,</span> <span class="token string">"James"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"name"</span><span class="token punctuation">)</span>
+user_age <span class="token operator">=</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token operator">=</span>name<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"user_age_info"</span><span class="token punctuation">)</span>
+user_age<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<p><strong>按索引查找</strong></p>
+<p><strong>按索引查找单个指定元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>Tom  <span class="token comment" spellcheck="true"># 点访问属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>18</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token string">'Tom'</span><span class="token punctuation">]</span>  <span class="token comment" spellcheck="true"># 取索引值为Tom的元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>18</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Tom'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>18</code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># user_age['Kobe']  # 会报错</span>
+user_age<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Kobe'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># get方式不会报错</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Kobe'</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 不存在的key可以设置默认值b</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>30</code></pre>
+<p><strong>按索引数组查找多个元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token string">'James'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<p><strong>按序号查找</strong></p>
+<p><strong>按序号查找指定元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token comment" spellcheck="true"># 第一个元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>18</code></pre>
+<p><strong>按序号数组查找多个元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span>  <span class="token comment" spellcheck="true"># 查找序号为1和3的数据元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Bob      30
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<p><strong>按序号切片查找多个元素</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>   <span class="token comment" spellcheck="true"># 查找前3个元素，即序号为0,1,2的元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom     18
+Bob     30
+Mary    25
+Name: user_age_info, dtype: int64</code></pre>
+<p><strong>布尔查找</strong></p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span>user_age <span class="token operator">></span> <span class="token number">30</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 查找所有年龄大于30的元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<h4 id="4-2-添加数据元素"><a href="#4-2-添加数据元素" class="headerlink" title="4.2 添加数据元素"></a>4.2 添加数据元素</h4><p>pandas中添加数据元素的方法与字典类似，可以直接通过<code>[索引] = value</code>进行添加。如果想要添加多个元素，可以将其转换为Series，采用上面介绍的append方法对其进行合并。</p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      30
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token string">'Wade'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">39</span>
+user_age<span class="token punctuation">[</span><span class="token string">'Michael'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">50</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom        18
+Bob        30
+Mary       25
+James      40
+Wade       39
+Michael    50
+Name: user_age_info, dtype: int64</code></pre>
+<h4 id="4-3-修改数据元素"><a href="#4-3-修改数据元素" class="headerlink" title="4.3 修改数据元素"></a>4.3 修改数据元素</h4><p>pandas的Series对数据元素进行修改，可以直接使用<code>Series[索引/序号] = new_value</code>zip样的方式。</p>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token string">'Wade'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">38</span>  <span class="token comment" spellcheck="true"># 按索引修改</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom        18
+Bob        30
+Mary       25
+James      40
+Wade       38
+Michael    50
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>30</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">35</span>  <span class="token comment" spellcheck="true"># 按序号修改</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom        18
+Bob        35
+Mary       25
+James      40
+Wade       38
+Michael    50
+Name: user_age_info, dtype: int64</code></pre>
+<h4 id="4-4-删除数据元素"><a href="#4-4-删除数据元素" class="headerlink" title="4.4 删除数据元素"></a>4.4 删除数据元素</h4><p>pandas中想要删除Series的数据元素，我们可以采用<code>del Series[索引]</code>这样的方法，当然，也可以使用内置的drop方法对其进行删除。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">del</span> user_age<span class="token punctuation">[</span><span class="token string">'Wade'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom        18
+Bob        35
+Mary       25
+James      40
+Michael    50
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token string">'Michael'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 不会改变原始数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      35
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom        18
+Bob        35
+Mary       25
+James      40
+Michael    50
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token string">'Michael'</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 改变原始数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Tom      18
+Bob      35
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 一次性删除多个元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">user_age<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>name
+Mary     25
+James    40
+Name: user_age_info, dtype: int64</code></pre>
+<h2 id="简单小结"><a href="#简单小结" class="headerlink" title="简单小结"></a>简单小结</h2><p>本节内容到这里就结束了，本节第1部分首先带大家了解了pandas的主要应用场景及特点；第2部分主要介绍了pandas的两种基本数据结构，Series和DataFram的特点及基本使用方法。第3部分针对Series这种数据结构进行详细的介绍，分别从Series的创建、属性、方法和增删改查四个方面进行说明。如果你认真学习了以上内容，相信你已经对pandas有了一个初步的了解，并已经掌握了Series的基本使用。下一节将介绍pandas第二大数据结构DataFrame，继续加油，相信你学完这两种数据结构，将来无论面对如何复杂的情形，都会处乱不惊，心态就一个字：稳。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/pandas/di-1-pian-chu-shi-pandas-yu-series/">https://zhangyafeii.gitee.io/python/pandas/di-1-pian-chu-shi-pandas-yu-series/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/pandas/">
+                                    <span class="chip bg-color">pandas</span>
+                                </a>
+                            
+                                <a href="/tags/Series/">
+                                    <span class="chip bg-color">Series</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2021-01-06T20-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/base/di-24-pian-http-bian-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/24.jpg" class="responsive-img" alt="第24篇：http编程">
+                        
+                        <span class="card-title">第24篇：http编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、web工作流程
+Web服务器的工作原理可以简单地归纳为
+客户机通过TCP/IP协议建立到服务器的TCP连接
+客户端向服务器发送HTTP协议请求包，请求服务器里的资源文档
+服务器向客户机发送HTTP协议应答包，如果请求的资源包含有动态语言
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">网络编程</span>
+                    </a>
+                    
+                    <a href="/tags/http/">
+                        <span class="chip bg-color">http</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/go/base/di-23-pian-socket-bian-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/23.jpg" class="responsive-img" alt="第23篇：socket编程">
+                        
+                        <span class="card-title">第23篇：socket编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、互联网协议介绍互联网的核心是一系列协议，总称为”互联网协议”（Internet Protocol Suite），正是这一些协议规定了电脑如何连接和组网。我们理解了这些协议，就理解了互联网的原理。由于这些协议太过庞大和复杂，没有办法在这里
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">网络编程</span>
+                    </a>
+                    
+                    <a href="/tags/socket/">
+                        <span class="chip bg-color">socket</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

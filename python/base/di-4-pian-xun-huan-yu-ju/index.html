@@ -1,0 +1,1569 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第4篇：循环语句, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="本节目标：掌握Python循环语句的知识点及应用
+循环结构就是程序中控制某条或某些指令重复执行的结构。在Python中构造循环结构有两种做法，一种是for-in循环，一种是while循环。
+while循环语法格式while 判断条件(con">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第4篇：循环语句 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://static.runoob.com/images/mix/wallpaper.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第4篇：循环语句
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">
+                                <span class="chip bg-color">循环语句</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-11
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>本节目标</strong>：掌握Python循环语句的知识点及应用</p>
+<p>循环结构就是程序中控制某条或某些指令重复执行的结构。在Python中构造循环结构有两种做法，一种是<code>for-in</code>循环，一种是<code>while</code>循环。</p>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">while</span> 判断条件<span class="token punctuation">(</span>condition<span class="token punctuation">)</span>：<span class="token comment" spellcheck="true"># 自动将表达式的值会直接转为布尔类型 即会判断 bool(表达式) 的值</span>
+    执行语句<span class="token punctuation">(</span>statements<span class="token punctuation">)</span>……   <span class="token comment" spellcheck="true"># 当值为True时，会执行循环体，否则退出循环</span>
+
+<span class="token keyword">while</span> 条件<span class="token punctuation">:</span>
+    条件满足的时候执行的事情<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>while的循环的基本格式为<code>while</code>后加一个空格，然后加一个判断条件，判断条件的值为布尔类型，若为True，则执行循环体的执行语句，反之，循环结束，不执行循环体。</p>
+</li>
+<li><p>判断条件可以是任何类型的条件表达式，任何非零、非空的值均为True。</p>
+</li>
+<li><p>注意冒号和缩进</p>
+</li>
+<li><p>执行流程</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2013/11/886A6E10-58F1-4A9B-8640-02DBEFF0EF9A.jpg"></p>
+</li>
+</ul>
+<h4 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h4><p>请实现一个用户登录系统，如果密码错误则反复提示让用户重新输入，直到输入正确才停止。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"开始运行超级无敌系统"</span><span class="token punctuation">)</span>
+
+flag <span class="token operator">=</span> <span class="token boolean">True</span>
+<span class="token keyword">while</span> flag<span class="token punctuation">:</span>
+    user <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">"请输入用户名："</span><span class="token punctuation">)</span>
+    pwd <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">"请输入密码："</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user <span class="token operator">==</span> <span class="token string">"zhangyafei"</span> <span class="token operator">and</span> pwd <span class="token operator">==</span> <span class="token string">"666666"</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"登录成功"</span><span class="token punctuation">)</span>
+        flag <span class="token operator">=</span> <span class="token boolean">False</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"用户名或密码错误"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"系统结束"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>知识点：通过改变表达式的真假可以控制循环体是否执行和跳出循环</p>
+<h4 id="break"><a href="#break" class="headerlink" title="break"></a>break</h4><p>break，用于在while循环中帮你终止循环，跳出整个循环体，即使表达式的值为真。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"开始运行系统"</span><span class="token punctuation">)</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    user <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">"请输入用户名："</span><span class="token punctuation">)</span>
+    pwd <span class="token operator">=</span>  input<span class="token punctuation">(</span><span class="token string">"请输入密码："</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user <span class="token operator">==</span> <span class="token string">'zhangyafei'</span> <span class="token operator">and</span> pwd <span class="token operator">=</span> <span class="token string">"666666"</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"登录成功"</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"用户名或密码错误，请重新登录"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"系统结束"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以，以后写代码时候，想要结束循环可以通过两种方式实现了，即：条件判断 和 break关键字，两种在使用时无好坏之分，只要能实现功能就行。</p>
+<h4 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h4><p>continue，在循环中用于 结束本次循环，开始下一次循环。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 打印1-10中的奇数</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"开始"</span><span class="token punctuation">)</span>
+i <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">continue</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"结束"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于break和continue都是放在循环语句中用于控制循环过程的，一旦遇到break就跳出整个循环体，停止所有循环，一旦遇到continue就停止本次循环，开始下次循环。当然，通过如果没有了break和continue，我们用while条件的判断以及其他协助也能完成很多功能，有了break和continue可以在一定程度上简化我们的代码逻辑。</p>
+<h4 id="while-else"><a href="#while-else" class="headerlink" title="while else"></a>while else</h4><ul>
+<li><p>基本格式</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">while</span> <span class="token operator">&lt;</span>expr<span class="token operator">></span><span class="token punctuation">(</span>条件表达式<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token operator">&lt;</span>statement<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token operator">></span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token operator">&lt;</span>additional_statement<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>else执行的时机</p>
+<ul>
+<li>当while循环是因为表达式的布尔值为假终止循环时，执行else，可以理解为while正常结束循环，要执行else。</li>
+<li>当while循环是因为break终止循环时的时候，不执行else，可以理解为while异常结束循环，不执行else。</li>
+</ul>
+</li>
+<li><p>示例：提示用户输入用户名和密码 输入正确打印其输入正确 最多输三次 若超过三次 则提示重试</p>
+<pre class="line-numbers language-python"><code class="language-python">num <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> num <span class="token operator">&lt;=</span> <span class="token number">3</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'请输入用户名：'</span><span class="token punctuation">)</span>
+    pwd <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'请输入密码：'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> name <span class="token operator">==</span> <span class="token string">'保国'</span> <span class="token operator">and</span> pwd <span class="token operator">==</span> <span class="token string">'55555'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'输入正确'</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'用户名或密码错误，请重新输入，还剩{3 - num}次机会'</span><span class="token punctuation">)</span>
+    num <span class="token operator">+=</span> <span class="token number">1</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 当while根据条件语句正常结束循环的时候，执行else</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'输入用户名和密码次数超过三次，请一小时后重试。'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>示例：猜数字游戏。规则是计算机出一个1到100之间的随机数，玩家输入自己猜的数字，计算机给出对应的提示信息（大一点、小一点或猜对了），如果玩家猜中了数字，计算机提示用户一共猜了多少次，游戏结束，否则游戏继续。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+
+answer <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+counter <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    counter <span class="token operator">+=</span> <span class="token number">1</span>
+    number <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'请输入数字【1-100】: '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> number <span class="token operator">&lt;</span> answer<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{number} 小了，请重新输入'</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> number <span class="token operator">></span> answer<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{number} 大了，请重新输入'</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'恭喜你猜对了!'</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'你总共猜了{counter}次'</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> counter <span class="token operator">></span> <span class="token number">7</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'你的智商余额明显不足'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的代码中使用了<code>break</code>关键字来提前终止循环，需要注意的是<code>break</code>只能终止它所在的那个循环，这一点在使用嵌套的循环结构（下面会讲到）需要引起注意。除了<code>break</code>之外，还有另一个关键字是<code>continue</code>，它可以用来放弃本次循环后续的代码直接让循环进入下一轮。</p>
+</li>
+</ul>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><h4 id="语法格式-1"><a href="#语法格式-1" class="headerlink" title="语法格式"></a>语法格式</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> <span class="token operator">&lt;</span>variable<span class="token operator">></span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>sequence<span class="token operator">></span><span class="token punctuation">:</span>
+    <span class="token operator">&lt;</span>statements<span class="token operator">></span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token operator">&lt;</span>statements<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>for循环又称<code>for-in</code>循环，基本语法格式为for+空格+序列的元素+in+序列+冒号，下面统一缩进的代码块为循环体。</p>
+</li>
+<li><p>序列表示Python中的容器，包含字符串、列表、元组、字典、集合等。</p>
+</li>
+<li><p>执行流程</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2013/11/A71EC47E-BC53-4923-8F88-B027937EE2FF.jpg"></p>
+</li>
+</ul>
+<h4 id="循环示例"><a href="#循环示例" class="headerlink" title="循环示例"></a>循环示例</h4><ul>
+<li><p>循环字符串</p>
+<pre class="line-numbers language-python"><code class="language-python">motto <span class="token operator">=</span> <span class="token string">'Life is short, I use Python!'</span>
+<span class="token keyword">for</span> ch <span class="token keyword">in</span> motto<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>循环列表</p>
+<pre class="line-numbers language-python"><code class="language-python">names <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'乔丹'</span><span class="token punctuation">,</span> <span class="token string">'科比'</span><span class="token punctuation">,</span> <span class="token string">'詹姆斯'</span><span class="token punctuation">,</span> <span class="token string">'奥尼尔'</span><span class="token punctuation">,</span> <span class="token string">'邓肯'</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>循环元组</p>
+<pre class="line-numbers language-python"><code class="language-python">names <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'乔丹'</span><span class="token punctuation">,</span> <span class="token string">'科比'</span><span class="token punctuation">,</span> <span class="token string">'詹姆斯'</span><span class="token punctuation">,</span> <span class="token string">'奥尼尔'</span><span class="token punctuation">,</span> <span class="token string">'邓肯'</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>循环字典</p>
+<pre class="line-numbers language-python"><code class="language-python">names <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'控卫'</span><span class="token punctuation">:</span> <span class="token string">'乔丹'</span><span class="token punctuation">,</span> <span class="token string">'分位'</span><span class="token punctuation">:</span> <span class="token string">'科比'</span><span class="token punctuation">,</span> <span class="token string">'小前锋'</span><span class="token punctuation">:</span> <span class="token string">'詹姆斯'</span><span class="token punctuation">,</span> <span class="token string">'中锋'</span><span class="token punctuation">:</span> <span class="token string">'奥尼尔'</span><span class="token punctuation">,</span> <span class="token string">'大前锋'</span><span class="token punctuation">:</span> <span class="token string">'邓肯'</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> postion <span class="token keyword">in</span> names<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>postion<span class="token punctuation">,</span> names<span class="token punctuation">[</span>postion<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> postion<span class="token punctuation">,</span> name <span class="token keyword">in</span> names<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>postion<span class="token punctuation">,</span> names<span class="token punctuation">[</span>postion<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>循环集合</p>
+<pre class="line-numbers language-python"><code class="language-python">names <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'乔丹'</span><span class="token punctuation">,</span> <span class="token string">'科比'</span><span class="token punctuation">,</span> <span class="token string">'詹姆斯'</span><span class="token punctuation">,</span> <span class="token string">'奥尼尔'</span><span class="token punctuation">,</span> <span class="token string">'邓肯'</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="break、continue和else"><a href="#break、continue和else" class="headerlink" title="break、continue和else"></a>break、continue和else</h4><p>for循环中的break、continue和else用法和while循环中一样，break是跳出整个循环，continue是跳出当前循环，else是当for循环是因为break跳出循环时，不执行else语句，反之，执行else语句。</p>
+<p>示例：输入两个正整数，计算它们的最大公约数和最小公倍数。</p>
+<blockquote>
+<p><strong>提示</strong>：两个数的最大公约数是两个数的公共因子中最大的那个数；两个数的最小公倍数则是能够同时被两个数整除的最小的那个数。    </p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python">x <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'x = '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'y = '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 如果x大于y就交换x和y的值</span>
+<span class="token keyword">if</span> x <span class="token operator">></span> y<span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 通过下面的操作将y的值赋给x, 将x的值赋给y</span>
+    x<span class="token punctuation">,</span> y <span class="token operator">=</span> y<span class="token punctuation">,</span> x
+<span class="token comment" spellcheck="true"># 从两个数中较的数开始做递减的循环</span>
+<span class="token keyword">for</span> factor <span class="token keyword">in</span> range<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">%</span> factor <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">and</span> y <span class="token operator">%</span> factor <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{x}和{y}的最大公约数是{factor}'</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{x}和{y}的最小公倍数是{x * y // factor}'</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="range"><a href="#range" class="headerlink" title="range"></a>range</h4><ul>
+<li><p>语法格式</p>
+<pre class="line-numbers language-python"><code class="language-python">range<span class="token punctuation">(</span>start<span class="token punctuation">,</span> stop<span class="token punctuation">[</span><span class="token punctuation">,</span> step<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>参数说明：</p>
+<ul>
+<li>start: 计数从 start 开始。默认是从 0 开始。例如range（5）等价于range（0， 5）;</li>
+<li>stop: 计数到 stop 结束，但不包括 stop。例如：range（0， 5） 是[0, 1, 2, 3, 4]没有5</li>
+<li>step：步长，默认为1。例如：range（0， 5） 等价于 range(0, 5, 1)</li>
+</ul>
+</li>
+<li><p>示例1：下面代码中计算1~100求和的结果。</p>
+<pre class="line-numbers language-python"><code class="language-python">sum <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    sum <span class="token operator">+=</span> x
+<span class="token keyword">print</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要说明的是上面代码中的<code>range(1, 101)</code>可以用来构造一个从1到100的范围，当我们把这样一个范围放到<code>for-in</code>循环中，就可以通过前面的循环变量<code>x</code>依次取出从1到100的整数。当然，<code>range</code>的用法非常灵活，下面给出了一个例子：</p>
+<ul>
+<li><code>range(101)</code>：可以用来产生0到100范围的整数，需要注意的是取不到101。</li>
+<li><code>range(1, 101)</code>：可以用来产生1到100范围的整数，相当于前面是闭区间后面是开区间。</li>
+<li><code>range(1, 101, 2)</code>：可以用来产生1到100的奇数，其中2是步长，即每次数值递增的值。</li>
+<li><code>range(100, 0, -2)</code>：可以用来产生100到1的偶数，其中-2是步长，即每次数字递减的值。</li>
+</ul>
+</li>
+<li><p>示例2：实现1-100之间的偶数求和。</p>
+<pre class="line-numbers language-python"><code class="language-python">sum <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    sum <span class="token operator">+=</span> x
+<span class="token keyword">print</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当然，也可以通过在循环中使用分支结构的方式来实现相同的功能，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">sum <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        sum <span class="token operator">+=</span> x
+<span class="token keyword">print</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>在for循环中使用range和容器相结合</p>
+<pre class="line-numbers language-python"><code class="language-python">sites <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Baidu"</span><span class="token punctuation">,</span> <span class="token string">"Google"</span><span class="token punctuation">,</span><span class="token string">"Xiaomi"</span><span class="token punctuation">,</span><span class="token string">"Taobao"</span><span class="token punctuation">,</span> <span class="token string">'Tencent'</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>sites<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> sites<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+输出：
+    <span class="token number">0</span> Baidu
+    <span class="token number">1</span> Google
+    <span class="token number">2</span> Xiaomi
+    <span class="token number">3</span> Taobao
+    <span class="token number">4</span> Tencent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="循环嵌套"><a href="#循环嵌套" class="headerlink" title="循环嵌套"></a>循环嵌套</h3><h4 id="7-3-1-while循环嵌套"><a href="#7-3-1-while循环嵌套" class="headerlink" title="7.3.1 while循环嵌套"></a>7.3.1 while循环嵌套</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">while</span> expression<span class="token punctuation">:</span>
+   <span class="token keyword">while</span> expression<span class="token punctuation">:</span>
+      statement<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+   statement<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+<span class="token keyword">while</span> 条件<span class="token punctuation">:</span>
+    条件满足的时候做的事情<span class="token number">1</span>
+    条件满足的时候做的事情<span class="token number">2</span>
+    。。。。
+    <span class="token keyword">while</span> 条件<span class="token number">2</span><span class="token punctuation">:</span>
+        条件<span class="token number">2</span> 满足的时候做的事情。。。。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例：99乘法表</p>
+<pre class="line-numbers language-python"><code class="language-python">i <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> i <span class="token operator">&lt;=</span> <span class="token number">9</span><span class="token punctuation">:</span>
+    j <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">while</span> j <span class="token operator">&lt;=</span> i<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{i}*{j}={i*j:&lt;2}'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">' '</span><span class="token punctuation">)</span>
+        j <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    i <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token number">1</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token number">2</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">2</span>  <span class="token number">2</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">4</span>
+<span class="token number">3</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">3</span>  <span class="token number">3</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">6</span>  <span class="token number">3</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">9</span>
+<span class="token number">4</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">4</span>  <span class="token number">4</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">8</span>  <span class="token number">4</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">12</span> <span class="token number">4</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">16</span>
+<span class="token number">5</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">5</span>  <span class="token number">5</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">10</span> <span class="token number">5</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">15</span> <span class="token number">5</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">20</span> <span class="token number">5</span><span class="token operator">*</span><span class="token number">5</span><span class="token operator">=</span><span class="token number">25</span>
+<span class="token number">6</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">6</span>  <span class="token number">6</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">12</span> <span class="token number">6</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">18</span> <span class="token number">6</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">24</span> <span class="token number">6</span><span class="token operator">*</span><span class="token number">5</span><span class="token operator">=</span><span class="token number">30</span> <span class="token number">6</span><span class="token operator">*</span><span class="token number">6</span><span class="token operator">=</span><span class="token number">36</span>
+<span class="token number">7</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">7</span>  <span class="token number">7</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">14</span> <span class="token number">7</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">21</span> <span class="token number">7</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">28</span> <span class="token number">7</span><span class="token operator">*</span><span class="token number">5</span><span class="token operator">=</span><span class="token number">35</span> <span class="token number">7</span><span class="token operator">*</span><span class="token number">6</span><span class="token operator">=</span><span class="token number">42</span> <span class="token number">7</span><span class="token operator">*</span><span class="token number">7</span><span class="token operator">=</span><span class="token number">49</span>
+<span class="token number">8</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">8</span>  <span class="token number">8</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">16</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">24</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">32</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">5</span><span class="token operator">=</span><span class="token number">40</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">6</span><span class="token operator">=</span><span class="token number">48</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">7</span><span class="token operator">=</span><span class="token number">56</span> <span class="token number">8</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">=</span><span class="token number">64</span>
+<span class="token number">9</span><span class="token operator">*</span><span class="token number">1</span><span class="token operator">=</span><span class="token number">9</span>  <span class="token number">9</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">=</span><span class="token number">18</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">3</span><span class="token operator">=</span><span class="token number">27</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">=</span><span class="token number">36</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">5</span><span class="token operator">=</span><span class="token number">45</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">6</span><span class="token operator">=</span><span class="token number">54</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">7</span><span class="token operator">=</span><span class="token number">63</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">=</span><span class="token number">72</span> <span class="token number">9</span><span class="token operator">*</span><span class="token number">9</span><span class="token operator">=</span><span class="token number">81</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="7-3-2-for循环嵌套"><a href="#7-3-2-for循环嵌套" class="headerlink" title="7.3.2 for循环嵌套"></a>7.3.2 for循环嵌套</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> iterating_var <span class="token keyword">in</span> sequence<span class="token punctuation">:</span>
+   <span class="token keyword">for</span> iterating_var <span class="token keyword">in</span> sequence<span class="token punctuation">:</span>
+      statements<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+   statements<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例：99乘法表</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{i}*{j}={i*j:&lt;2}'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">' '</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出</p>
+<pre><code>1*1=1
+2*1=2  2*2=4
+3*1=3  3*2=6  3*3=9
+4*1=4  4*2=8  4*3=12 4*4=16
+5*1=5  5*2=10 5*3=15 5*4=20 5*5=25
+6*1=6  6*2=12 6*3=18 6*4=24 6*5=30 6*6=36
+7*1=7  7*2=14 7*3=21 7*4=28 7*5=35 7*6=42 7*7=49
+8*1=8  8*2=16 8*3=24 8*4=32 8*5=40 8*6=48 8*7=56 8*8=64
+9*1=9  9*2=18 9*3=27 9*4=36 9*5=45 9*6=54 9*7=63 9*8=72 9*9=81</code></pre>
+<h3 id="简单小结"><a href="#简单小结" class="headerlink" title="简单小结"></a>简单小结</h3><p>经过上面的学习，知道了Python中有<code>while</code>和<code>for</code>循环两种循环语句，那么这两种循环语句有什么区别或者说具体应用场景有什么不同呢？</p>
+<ul>
+<li>如果明确的知道循环执行的次数或者要对一个容器进行迭代，那么我们推荐使用<code>for-in</code>循环，</li>
+<li>如果要构造不知道具体循环次数的循环结构，我们推荐使用<code>while</code>循环。<code>while</code>循环通过一个能够产生或转换出<code>bool</code>值的表达式来控制循环，表达式的值为<code>True</code>则继续循环；表达式的值为<code>False</code>则结束循环。</li>
+</ul>
+<h3 id="最佳练习"><a href="#最佳练习" class="headerlink" title="最佳练习"></a>最佳练习</h3><h4 id="练习1：输入一个正整数判断是不是素数。"><a href="#练习1：输入一个正整数判断是不是素数。" class="headerlink" title="练习1：输入一个正整数判断是不是素数。"></a>练习1：输入一个正整数判断是不是素数。</h4><blockquote>
+<p><strong>提示</strong>：素数指的是只能被1和自身整除的大于1的整数。</p>
+</blockquote>
+<p>参考答案1：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> math <span class="token keyword">import</span> sqrt
+
+num <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'请输入一个正整数: '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+end <span class="token operator">=</span> int<span class="token punctuation">(</span>sqrt<span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">)</span>
+is_prime <span class="token operator">=</span> <span class="token boolean">True</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> end <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> num <span class="token operator">%</span> x <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        is_prime <span class="token operator">=</span> <span class="token boolean">False</span>
+        <span class="token keyword">break</span>
+<span class="token keyword">if</span> is_prime <span class="token operator">and</span> num <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%d是素数'</span> <span class="token operator">%</span> num<span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%d不是素数'</span> <span class="token operator">%</span> num<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考答案2：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> math <span class="token keyword">import</span> sqrt
+
+num <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'请输入一个正整数: '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> num <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'1是素数'</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    end <span class="token operator">=</span> int<span class="token punctuation">(</span>sqrt<span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> end <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> num <span class="token operator">%</span> x <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num}不是素数'</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num}是素数'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="练习2：打印如下所示三角形图案"><a href="#练习2：打印如下所示三角形图案" class="headerlink" title="练习2：打印如下所示三角形图案"></a>练习2：打印如下所示三角形图案</h4><pre><code>*
+**
+***
+****
+*****</code></pre>
+<pre><code>    *
+   **
+  ***
+ ****
+*****</code></pre>
+<pre><code>    *
+   ***
+  *****
+ *******
+*********</code></pre>
+<p>参考答案：</p>
+<pre class="line-numbers language-python"><code class="language-python">row <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'请输入行数: '</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> j <span class="token operator">&lt;</span> row <span class="token operator">-</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>row <span class="token operator">-</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="练习3：猜数字游戏【限制次数】"><a href="#练习3：猜数字游戏【限制次数】" class="headerlink" title="练习3：猜数字游戏【限制次数】"></a>练习3：猜数字游戏【限制次数】</h4><blockquote>
+<p><b>要求：</b>随机生成一个1-100的数字，允许用户最多尝试10次，10次都没猜对的话，就直接退出，如果猜对了，打印恭喜信息并退出。</p>
+</blockquote>
+<p>参考答案：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+
+num <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 随机生成一个1-100的整数</span>
+times <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> times <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">:</span>
+    num2 <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">'请输入数字【1-100】（共10次机会）：'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> num2 <span class="token operator">==</span> num<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'恭喜你，猜对了。'</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">elif</span> num2 <span class="token operator">&lt;</span> num<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 小了，请重新输入,您还剩{10 - times}次机会'</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 大了，请重新输入，您还剩{10 - times}次机会'</span><span class="token punctuation">)</span>
+    times <span class="token operator">+=</span> <span class="token number">1</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'很遗憾，您已经浪费了太多机会了，下次再来吧！'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="练习4：猜数字游戏升级版"><a href="#练习4：猜数字游戏升级版" class="headerlink" title="练习4：猜数字游戏升级版"></a>练习4：猜数字游戏升级版</h4><blockquote>
+<p><b>要求</b>：允许用户最多尝试5次，每尝试5次后，如果还没猜对，就问用户是否还想继续玩，如果回答Y，就继续让其猜5次，以此往复，如果回答N，就退出程序，如何猜对了，就直接退出。</p>
+</blockquote>
+<p>参考答案：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+
+num <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 随机生成一个1-100的整数</span>
+
+total_times<span class="token punctuation">,</span> times <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> times <span class="token operator">></span> total_times<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'很遗憾，您的机会已经使用完了！'</span><span class="token punctuation">)</span>
+        res <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'还想玩【回复Y】退出并查看正确数字【回复N】:'</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> res <span class="token operator">==</span> <span class="token string">'Y'</span><span class="token punctuation">:</span>
+            times <span class="token operator">=</span> <span class="token number">1</span>
+            <span class="token keyword">continue</span>
+        <span class="token keyword">elif</span> res <span class="token operator">==</span> <span class="token string">'N'</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'已退出，正确数字是{num},欢迎下次再来!'</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+    num2 <span class="token operator">=</span> int<span class="token punctuation">(</span>input<span class="token punctuation">(</span>f<span class="token string">'请输入数字【1-100】（共{total_times}次机会）：'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>total_times<span class="token punctuation">,</span> times<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> num2 <span class="token operator">==</span> num<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'恭喜你，猜对了。'</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">elif</span> num2 <span class="token operator">&lt;</span> num<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> times <span class="token operator">!=</span> total_times<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 小了，请重新输入,您还剩{total_times - times}次机会'</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 小了'</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> times <span class="token operator">!=</span> total_times<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 大了，请重新输入，您还剩{total_times - times}次机会'</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{num2} 大了'</span><span class="token punctuation">)</span>
+    times <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-4-pian-xun-huan-yu-ju/">https://zhangyafeii.gitee.io/python/base/di-4-pian-xun-huan-yu-ju/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">
+                                    <span class="chip bg-color">循环语句</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-11T11-11-11',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-5-pian-gong-gu-lian-xi/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3931952457,947699859&amp;fm=15&amp;gp=0.jpg" class="responsive-img" alt="第5篇：巩固练习">
+                        
+                        <span class="card-title">第5篇：巩固练习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学完前面的几个章节后，我觉得有必要在这里带大家做一些练习来巩固之前所学的知识，虽然迄今为止我们学习的内容只是Python的冰山一角，但是这些内容已经足够我们来构建程序中的逻辑。对于编程语言的初学者来说，在学习了Python的核心语言元素（变
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A9%E5%9B%BA%E7%BB%83%E4%B9%A0/">
+                        <span class="chip bg-color">巩固练习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-3-pian-tiao-jian-yu-ju/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=565401483,2049167720&amp;fm=11&amp;gp=0.jpg" class="responsive-img" alt="第3篇：条件语句">
+                        
+                        <span class="card-title">第3篇：条件语句</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本节目标：掌握Python条件语句的知识点及应用
+条件语句的定义Python 条件语句是通过一条或多条语句的执行结果（True 或者 False）来决定执行的代码块。
+可以通过下图来简单了解条件语句的执行过程:
+
+代码执行过程
+
+条件语句的
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/">
+                        <span class="chip bg-color">条件语句</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

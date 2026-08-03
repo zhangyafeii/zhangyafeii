@@ -1,0 +1,1893 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第27篇：装饰器, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="学习目标：掌握装饰器相关知识点
+今天来学函数的第二个高阶应用，装饰器，装饰器属于Python的核心特色，学了这两个高阶功能，我们就可以做更多事情了。
+装饰器是Python中用一个函数装饰另外一个函数或类并可以在不改变函数或方法的调用方式的情">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第27篇：装饰器 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/27.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第27篇：装饰器
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/">
+                                <span class="chip bg-color">装饰器</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-27
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>学习目标</strong>：掌握装饰器相关知识点</p>
+<p>今天来学函数的第二个高阶应用，<strong>装饰器</strong>，装饰器属于Python的核心特色，学了这两个高阶功能，我们就可以做更多事情了。</p>
+<p><strong>装饰器是Python中</strong>用一个函数装饰另外一个函数或类并可以在不改变函数或方法的调用方式的情况下，为其提供额外功能<strong>的语法现象。</strong>装饰器本身是一个函数<strong>，只不过该函数可以具有特殊的含义，它的参数是被装饰的函数或类，它的返回值是一个带有装饰功能的函数。装饰器用来</strong>装饰函数或类<strong>，</strong>使用装饰器可以在函数执行前和执行后添加相应操作**。换句话说，装饰器通过返回包装对象实现间接调用,以此在函数执行前或执行后插入额外逻辑。很显然，装饰器是一个高阶函数，它的参数和返回值都是函数。下面我们先通过一个简单的例子来说明装饰器的写法和作用。</p>
+<h3 id="一、案例引入"><a href="#一、案例引入" class="headerlink" title="一、案例引入"></a>一、案例引入</h3><p><strong>示例1</strong>：我们假设你的程序实现了<code>say_hello()</code>和<code>say_goodbye()</code>两个函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">say_goodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># bug here</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    say_hello<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    say_goodbye<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是在实际调用中，我们发现程序出错了，上面的代码打印了两个hello。经过调试你发现是<code>say_goodbye()</code>出错了。老板要求调用每个方法前都要记录进入函数的名称，比如这样：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span><span class="token punctuation">:</span> Enter say_hello<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Hello!
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span><span class="token punctuation">:</span> Enter say_goodbye<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Goodbye!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>好，小A是个毕业生，他是这样实现的。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter say_hello()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">say_goodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter say_goodbye()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    say_hello<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    say_goodbye<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>很low吧？ 嗯是的。小B工作有一段时间了，他告诉小A可以这样写。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> inspect
+    caller_name <span class="token operator">=</span> inspect<span class="token punctuation">.</span>stack<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter {}()"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>caller_name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    debug<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">say_goodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    debug<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"goodbye!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    say_hello<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    say_goodbye<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>是不是好一点？那当然，但是每个业务函数里都要调用一下<code>debug()</code>函数，是不是很难受？万一老板说say相关的函数不用debug，do相关的才需要呢？</p>
+<p>那么装饰器这时候应该登场了。</p>
+<blockquote>
+<p>装饰器本质上是一个Python函数，它可以让其他函数在不需要做任何代码变动的前提下增加额外功能，装饰器的返回值也是一个函数对象。它经常用于有切面需求的场景，比如：插入日志、性能测试、事务处理、缓存、权限校验等场景。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码并继续重用。</p>
+</blockquote>
+<p>概括的讲，装饰器的作用就是<strong>为已经存在的函数或对象添加额外的功能</strong>。</p>
+<p>在早些时候 (Python Version &lt; 2.4，2004年以前)，为一个函数添加额外功能的写法是这样的。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">debug</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter {}()"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> wrapper
+
+<span class="token keyword">def</span> <span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span>
+
+say_hello <span class="token operator">=</span> debug<span class="token punctuation">(</span>say_hello<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 添加功能并保持原函数名不变</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的debug函数其实已经是一个装饰器了，它对原函数做了包装并返回了另外一个函数，额外添加了一些功能。因为这样写实在不太优雅，在后面版本的Python中支持了@语法糖，下面代码等同于早期的写法。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">debug</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter {}()"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> wrapper
+
+@debug
+<span class="token keyword">def</span> <span class="token function">say_hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这是最简单的装饰器，但是有一个问题，如果被装饰的函数需要传入参数，那么这个装饰器就坏了。因为返回的函数并不能接受参数，你可以指定装饰器函数<code>wrapper</code>接受和原函数一样的参数，比如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">debug</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 指定宇宙无敌参数</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[DEBUG]: enter {}()"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Prepare and say...'</span><span class="token punctuation">,</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> wrapper  <span class="token comment" spellcheck="true"># 返回</span>
+
+@debug
+<span class="token keyword">def</span> <span class="token function">say</span><span class="token punctuation">(</span>something<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello {}!"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>something<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    say<span class="token punctuation">(</span><span class="token string">'你好啊'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样你就解决了一个问题，但又多了N个问题。因为函数有千千万，你只管你自己的函数，别人的函数参数是什么样子，鬼知道？还好Python提供了可变参数<code>*args</code>和关键字参数<code>**kwargs</code>，有了这两个参数，装饰器就可以用于任意目标函数了。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">debug</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 指定宇宙无敌参数</span>
+        <span class="token keyword">print</span> <span class="token string">"[DEBUG]: enter {}()"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">'Prepare and say...'</span><span class="token punctuation">,</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> wrapper  <span class="token comment" spellcheck="true"># 返回</span>
+
+@debug
+<span class="token keyword">def</span> <span class="token function">say</span><span class="token punctuation">(</span>something<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"hello {}!"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>something<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>至此，你已完全掌握初级的装饰器写法。</p>
+<p><strong>示例2</strong>：:假设已经有名为<code>downlaod</code>和<code>upload</code>的两个函数，分别用于文件的上传和下载，下面的代码用休眠一段随机时间的方式模拟了下载和上传需要花费的时间，并没有联网做上传下载。</p>
+<blockquote>
+<p><strong>说明</strong>：用Python语言实现联网的上传下载也很简单，继续你的学习，这个环节很快就会来到。</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+<span class="token keyword">import</span> time
+
+
+<span class="token keyword">def</span> <span class="token function">download</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始下载{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}下载完成.'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">upload</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始上传{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}上传完成.'</span><span class="token punctuation">)</span>
+
+
+download<span class="token punctuation">(</span><span class="token string">'MySQL从删库到跑路.avi'</span><span class="token punctuation">)</span>
+upload<span class="token punctuation">(</span><span class="token string">'Python从入门到住院.pdf'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在我们希望知道调用<code>download</code>和<code>upload</code>函数做文件上传下载到底用了多少时间，这个应该如何实现呢？相信很多小伙伴已经想到了，我们可以在函数开始执行的时候记录一个时间，在函数调用结束后记录一个时间，两个时间相减就可以计算出下载或上传的时间，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+download<span class="token punctuation">(</span><span class="token string">'MySQL从删库到跑路.avi'</span><span class="token punctuation">)</span>
+end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'花费时间: {end - start:.3f}秒'</span><span class="token punctuation">)</span>
+start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+upload<span class="token punctuation">(</span><span class="token string">'Python从入门到住院.pdf'</span><span class="token punctuation">)</span>
+end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'花费时间: {end - start:.3f}秒'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上面的代码，我们可以得到下载和上传花费的时间，但不知道大家是否注意到，上面记录时间、计算和显示执行时间的代码都是重复代码。有编程经验的人都知道，<strong>重复的代码是万恶之源</strong>，那么有没有办法在不写重复代码的前提下，用一种简单优雅的方式记录下函数的执行时间呢？在Python中，装饰器就是解决这类问题的最佳选择。我们可以把记录函数执行时间的功能封装到一个装饰器中，在有需要的地方直接使用这个装饰器就可以了。</p>
+<h3 id="二、普通装饰器"><a href="#二、普通装饰器" class="headerlink" title="二、普通装饰器"></a>二、普通装饰器</h3><p>将上文示例中的代码进行一下修改，如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+
+<span class="token comment" spellcheck="true"># 定义装饰器函数，它的参数是被装饰的函数或类</span>
+<span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 定义一个带装饰功能（记录被装饰函数的执行时间）的函数</span>
+    <span class="token comment" spellcheck="true"># 因为不知道被装饰的函数有怎样的参数所以使用*args和**kwargs接收所有参数</span>
+    <span class="token comment" spellcheck="true"># 在Python中函数可以嵌套的定义（函数中可以再定义函数）</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 在执行被装饰的函数之前记录开始时间</span>
+        start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 执行被装饰的函数并获取返回值</span>
+        result <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 在执行被装饰的函数之后记录结束时间</span>
+        end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 计算和显示被装饰函数的执行时间</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{func.__name__}执行时间: {end - start:.3f}秒'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 返回被装饰函数的返回值（装饰器通常不会改变被装饰函数的执行结果）</span>
+        <span class="token keyword">return</span> result
+
+    <span class="token comment" spellcheck="true"># 返回带装饰功能的wrapper函数</span>
+    <span class="token keyword">return</span> wrapper<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用上面的装饰器函数有两种方式，第一种方式就是直接调用装饰器函数，传入被装饰的函数并获得返回值，我们可以用这个返回值直接覆盖原来的函数，那么在调用时就已经获得了装饰器提供的额外的功能（记录执行时间），大家可以试试下面的代码就明白了。</p>
+<pre class="line-numbers language-python"><code class="language-python">download <span class="token operator">=</span> record_time<span class="token punctuation">(</span>download<span class="token punctuation">)</span>
+upload <span class="token operator">=</span> record_time<span class="token punctuation">(</span>upload<span class="token punctuation">)</span>
+download<span class="token punctuation">(</span><span class="token string">'MySQL从删库到跑路.avi'</span><span class="token punctuation">)</span>
+upload<span class="token punctuation">(</span><span class="token string">'Python从入门到住院.pdf'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的代码中已经没有重复代码了，虽然写装饰器会花费一些心思，但是这是一个一劳永逸的骚操作，如果还有其他的函数也需要记录执行时间，按照上面的代码如法炮制即可。</p>
+<p>在Python中，使用装饰器很有更为便捷的<strong>语法糖</strong>（编程语言中添加的某种语法，这种语法对语言的功能没有影响，但是使用更加方法，代码的可读性也更强），可以用<code>@装饰器函数</code>将装饰器函数直接放在被装饰的函数上，效果跟上面的代码相同，下面是完整的代码。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+<span class="token keyword">import</span> time
+
+
+<span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        result <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{func.__name__}执行时间: {end - start:.3f}秒'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+
+    <span class="token keyword">return</span> wrapper
+
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">download</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始下载{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}下载完成.'</span><span class="token punctuation">)</span>
+
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">upload</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始上传{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}上传完成.'</span><span class="token punctuation">)</span>
+
+
+download<span class="token punctuation">(</span><span class="token string">'MySQL从删库到跑路.avi'</span><span class="token punctuation">)</span>
+upload<span class="token punctuation">(</span><span class="token string">'Python从入门到住院.pdf'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的代码，我们通过装饰器语法糖为<code>download</code>和<code>upload</code>函数添加了装饰器，这样调用<code>download</code>和<code>upload</code>函数时，会记录下函数的执行时间。事实上，被装饰后的<code>download</code>和<code>upload</code>函数是我们在装饰器<code>record_time</code>中返回的<code>wrapper</code>函数，调用它们其实就是在调用<code>wrapper</code>函数，所以拥有了记录函数执行时间的功能。</p>
+<h3 id="三、多个装饰器"><a href="#三、多个装饰器" class="headerlink" title="三、多个装饰器"></a>三、多个装饰器</h3><p>多个装饰器同时修饰一个函数的的情况你能想到他们的执行顺序是什么样子的吗？看看下面的代码你就知道了。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 定义函数： 完成包裹数据</span>
+<span class="token keyword">def</span> <span class="token function">makeBold</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"-----1-----"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">"&lt;b>"</span> <span class="token operator">+</span> fn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/b>"</span>
+
+    <span class="token keyword">return</span> wrapped
+
+
+<span class="token comment" spellcheck="true"># 定义函数： 完成包裹数据</span>
+<span class="token keyword">def</span> <span class="token function">makeItalic</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"-------2-----"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">"&lt;i>"</span> <span class="token operator">+</span> fn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/i>"</span>
+
+    <span class="token keyword">return</span> wrapped
+
+
+@makeBold       <span class="token comment" spellcheck="true"># makeBold(makeItalic(test)</span>
+@makeItalic  <span class="token comment" spellcheck="true"># # makeItalic(test</span>
+<span class="token keyword">def</span> <span class="token function">test3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"-------3------"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">"hello world"</span>
+
+test<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+-----1-----
+-------2-----
+-------3------
+&lt;b>&lt;i>hello world&lt;/i>&lt;/b>
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从上面的代码可以看出，多个装饰器同时修饰一个函数时，内函数执行顺序是从上往下（从最外层到最内层）以此执行。下面再来看一个例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 定义函数： 完成包裹数据</span>
+<span class="token keyword">def</span> <span class="token function">makeBold</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'进入 makeBold 装饰器 -1'</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"makeBold开始装饰 1"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">"&lt;b>"</span> <span class="token operator">+</span> fn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/b>"</span>
+
+    <span class="token keyword">return</span> wrapped
+
+
+<span class="token comment" spellcheck="true"># 定义函数： 完成包裹数据</span>
+<span class="token keyword">def</span> <span class="token function">makeItalic</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'进入 makeItalic 装饰器 -2'</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"makeItalic开始装饰 2"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">"&lt;i>"</span> <span class="token operator">+</span> fn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/i>"</span>
+
+    <span class="token keyword">return</span> wrapped
+
+<span class="token comment" spellcheck="true"># 只要python解释器执行到了这个代码,那么就会自动的进行装饰,而不是等到调用的时候才装饰的</span>
+@makeBold
+@makeItalic
+<span class="token keyword">def</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"执行test函数内容逻辑 - 3"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">"hello world"</span>
+
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>test<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+进入 makeItalic 装饰器 -2
+进入 makeBold 装饰器 -1
+makeBold开始装饰 1
+makeItalic开始装饰 2
+执行test函数内容逻辑 - 3
+&lt;b>&lt;i>hello world&lt;/i>&lt;/b>
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们发现多个装饰器修饰一个函数时，多个装饰器外函数执行顺序和内函数执行顺序居然是相反的，外函数是从下往上（由内向外）顺序执行，这个是为什么呢？其实仔细想想，当Python解释器执行到<code>@makeBold</code>这一行代码时，会把其转化为<code>makeBold(makeItalic(test))</code>，两个装饰器函数会在这里执行，先会执行内层装饰器，后执行外层装饰器，而<code>test()</code>这个过程相当于开始执行装饰器返回值内函数，执行顺序从外层装饰器到内层装饰器。即<strong>多个装饰器的外函数在Python解释器执行到对应代码时会执行，内函数会有被装饰函数执行（加括号）时执行，执行顺序是外函数由内向外执行，内涵数由外向内执行。</strong></p>
+<h3 id="四、被装饰函数的参数"><a href="#四、被装饰函数的参数" class="headerlink" title="四、被装饰函数的参数"></a>四、被装饰函数的参数</h3><p>那么装饰器修饰被装饰函数时，被装饰函数的参数如何处理呢？我们分三种情况来分析。</p>
+<ul>
+<li><p>情况1：被装饰函数无参数</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>  def record_time(func):<br>      def wrapper():<br>          start_time = time.time()<br>          func()<br>          end_time = time.time()<br>          print(‘spend is {}’.format(end_time - start_time))</p>
+<pre><code>  return wrapper</code></pre>
+<p>  @record_time       # 得到闭包函数record_time, func = record_time(func)<br>  def func():<br>      print(‘func do something!’)<br>      time.sleep(1)</p>
+<p>  func()<br>  “””<br>  func do something!<br>  spend is 1.0044233798980713<br>  “””</p>
+<pre><code>
+- 情况2：有指定个数参数
+
+```python
+import time
+
+def record_time(func):
+    def wrapper(a, b):
+        start_time = time.time()
+        func(a, b)
+        end_time = time.time()
+        print('spend is {}'.format(end_time - start_time))
+
+    return wrapper
+
+
+@record_time       # 得到闭包函数record_time, add = record_time(add)
+def add(a, b):
+    print(a + b)
+    time.sleep(1)
+
+
+add(3, 4)
+"""
+7
+spend is 1.0194220542907715
+"""</code></pre>
+<ul>
+<li><p>不定长参数</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>  def record_time(func):<br>      def wrapper(<em>args, **kwargs):<br>          start_time = time.time()<br>          func(*args, *</em>kwargs)<br>          end_time = time.time()<br>          print(‘spend is {}’.format(end_time - start_time))</p>
+<pre><code>  return wrapper</code></pre>
+<p>  @record_time       # 得到闭包函数record_time, add = record_time(add)<br>  def add(*args):<br>      num_sum = sum(num for num in args)<br>      print(f’{args} sum is {num_sum}’)<br>      time.sleep(1)</p>
+<p>  add(1,2,3)<br>  add(2,3,4,5)<br>  “””<br>  (1, 2, 3) sum is 6<br>  spend is 1.0004258155822754<br>  (2, 3, 4, 5) sum is 14<br>  spend is 1.0004265308380127<br>  “””</p>
+<pre><code>
+通常情况下，推荐大家用第三种写法。
+
+### 五、被装饰函数带有返回值
+
+当被装饰函数带有返回值的情况如何处理呢？下面的例子告诉你答案。
+
+```python
+def outer(outertionName):
+  print("-----outer---1----")
+
+  def inner():
+      print("----inner---1--")
+      ret = outertionName()
+      print("---inner---2---")
+      return ret
+
+  print("----outer---2---")
+  return inner
+
+
+@outer
+def func():
+  print("---func----")
+  return "haha"
+
+
+ret = func()
+print(f"func return value is {ret}")
+
+"""
+-----outer---1----
+----outer---2---
+----inner---1--
+---func----
+---inner---2---
+func return value is haha
+"""</code></pre>
+<h3 id="六、带有参数的装饰器"><a href="#六、带有参数的装饰器" class="headerlink" title="六、带有参数的装饰器"></a>六、带有参数的装饰器</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+<span class="token keyword">def</span> <span class="token function">time_logger</span><span class="token punctuation">(</span>flag<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            func<span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+            end_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'spend is {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>end_time <span class="token operator">-</span> start_time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> flag<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'将此操作保留至日志'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> wrapper
+    <span class="token keyword">return</span> record_time
+
+
+@time_logger<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 得到闭包函数record_time,add = record_time(add)</span>
+<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+
+add<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+将此操作保留至日志
+7
+spend is 1.0813958644866943
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="七、类装饰器"><a href="#七、类装饰器" class="headerlink" title="七、类装饰器"></a>七、类装饰器</h3><ul>
+<li><p>普通类装饰器</p>
+<p>示例：记录一个函数的执行时间，用类装饰器实现</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>  class RecordTime(object):<br>      def <strong>init</strong>(self, func):<br>          self._func = func</p>
+<pre><code>  def __call__(self):
+      start_time = time.time()
+      self._func()
+      end_time = time.time()
+      print('spend is {}'.format(end_time - start_time))</code></pre>
+<p>  @RecordTime  # bar = RecordTime(bar)<br>  def func():<br>      print(‘func..’)<br>      time.sleep(2)</p>
+<p>  func()<br>  “””<br>  func..<br>  spend is 2.0018553733825684<br>  “””</p>
+<pre><code>
+- 多个类装饰器
+
+示例：在eat函数执行之前执行洗手，执行之后执行洗碗操作，用两个类装饰器实现
+
+```python
+import time
+
+
+class WashHands(object):
+    def __init__(self, func):
+        self._func = func
+
+    def __call__(self):
+        print('wash hands ...')
+        return self._func()
+
+class WashDishes(object):
+    def __init__(self, func):
+        self._func = func
+
+    def __call__(self):
+        ret = self._func()
+        print('wash the dishes ...')
+        return ret
+
+@WashHands
+@WashDishes
+def eat():
+    print('start eating ...')
+    time.sleep(2)
+
+
+eat()
+"""
+wash hands ...
+start eating ...
+wash the dishes ...
+"""</code></pre>
+<ul>
+<li><p>带参数的类装饰器</p>
+<p><strong>类装饰器函数本身也可以参数化</strong>，简单的说就是通过我们的装饰器也是可以通过调用者传入的参数来定制的，这个知识点我们在后面用上它的时候再为大家讲解。除了可以用函数来定义装饰器之外，通过定义类的方式也可以定义装饰器。如果一个类中有名为<code>__call__</code>的魔术方法，那么这个类的对象就可以像函数一样调用，这就意味着这个对象可以像装饰器一样工作，代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+<span class="token keyword">import</span> time
+<span class="token keyword">from</span> functools <span class="token keyword">import</span> wraps
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>  class RecordTime:<br>      def <strong>init</strong>(self, num=4):<br>          self.num = num</p>
+<pre><code>  def __call__(self, func):
+      @wraps(func)
+      def wrapper(*args, **kwargs):
+          start = time.time()
+          result = func(*args, **kwargs)
+          end = time.time()
+          print(f'{func.__name__}执行时间: {round(end - start, self.num)}秒')
+          return result
+
+      return wrapper</code></pre>
+<h1 id="使用装饰器语法糖添加装饰器"><a href="#使用装饰器语法糖添加装饰器" class="headerlink" title="使用装饰器语法糖添加装饰器"></a>使用装饰器语法糖添加装饰器</h1><p>  @RecordTime(num=3)<br>  def download(filename):<br>      print(f’开始下载{filename}.’)<br>      time.sleep(random.randint(2, 6))<br>      print(f’{filename}下载完成.’)</p>
+<p>  def upload(filename):<br>      print(f’开始上传{filename}.’)<br>      time.sleep(random.randint(4, 8))<br>      print(f’{filename}上传完成.’)</p>
+<h1 id="直接创建对象并调用对象传入被装饰的函数"><a href="#直接创建对象并调用对象传入被装饰的函数" class="headerlink" title="直接创建对象并调用对象传入被装饰的函数"></a>直接创建对象并调用对象传入被装饰的函数</h1><p>  upload = RecordTime()(upload)<br>  download(‘MySQL从删库到跑路.avi’)<br>  upload(‘Python从入门到住院.pdf’)<br>  “””<br>  开始下载MySQL从删库到跑路.avi.<br>  MySQL从删库到跑路.avi下载完成.<br>  download执行时间: 2.001秒<br>  开始上传Python从入门到住院.pdf.<br>  Python从入门到住院.pdf上传完成.<br>  upload执行时间: 5.0002秒<br>  “””</p>
+<pre><code>
+上面的代码演示了两种添加装饰器的方式，由于`RecordTime`是一个类，所以需要先创建对象，才能把对象当成装饰器来使用，所以提醒大家注意`RecordTime`后面的圆括号，那是调用构造器创建对象的语法。如果为`RecordTime`类添加一个`__init__`方法，就可以实现对装饰器的参数化。使用装饰器还可以装饰一个类，为其提供额外的功能，这个知识点也等我们用到的时候再做讲解。
+
+### 八、装饰器作用在类上
+
+除了可以用在方法上,其实python的装饰器也可以作用于类上,在不改变类的情况下,给类增加一些额外的功能.
+
+```python
+# 下面是一个重写了特殊方法 __getattribute__ 的类装饰器，可以打印日志:
+def log_getattribute(cls):
+  origin_getattribute = cls.__getattribute__
+
+  def new_getattribute(self, name):
+      print('greeting:', name)
+      return origin_getattribute(self, name)
+
+  cls.__getattribute__ = new_getattribute
+  return cls
+
+
+# 应用
+@log_getattribute
+class A:
+  def __init__(self, x):
+      self.x = x
+
+  def spam(self):
+      pass
+
+
+if __name__ == '__main__':
+  a = A('x')
+  print(a.x)
+  print(a.spam())
+  """
+  greeting: x
+  x
+  greeting: spam
+  None
+  """</code></pre>
+<h3 id="九、保留原对象指定属性信息"><a href="#九、保留原对象指定属性信息" class="headerlink" title="九、保留原对象指定属性信息"></a>九、保留原对象指定属性信息</h3><p>以上书写装饰器的方式有什么问题吗？看下面一个例子。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+
+<span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        end_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'spend is {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>end_time <span class="token operator">-</span> start_time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> wrapper
+
+<span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'func ...'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'decorator before name is '</span><span class="token punctuation">,</span> func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'func ...'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'decorator after name is '</span><span class="token punctuation">,</span> func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+decorator before name is  func
+decorator after name is  wrapper
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由此可以看出,装饰器会对原函数的元信息进行更改,可以使用wraps,进行原函数信息的添加</p>
+<p>注解:wraps本身也是一个装饰器,他能把函数的元信息拷贝到装饰器函数中使得装饰器函数与原函数有一样的元信息。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">from</span> functools <span class="token keyword">import</span> wraps
+
+<span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    @wraps<span class="token punctuation">(</span>func<span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        end_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'spend is {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>end_time <span class="token operator">-</span> start_time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> wrapper
+
+<span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'func ...'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'decorator before name is '</span><span class="token punctuation">,</span> func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'func ...'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'decorator after name is '</span><span class="token punctuation">,</span> func<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+decorator before name is  func
+decorator after name is  func
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="十、取消装饰器的作用"><a href="#十、取消装饰器的作用" class="headerlink" title="十、取消装饰器的作用"></a>十、取消装饰器的作用</h3><p>如果希望取消装饰器的作用，那么在定义装饰器函数的时候，需要做一些额外的工作。Python标准库<code>functools</code>模块的<code>wraps</code>函数也是一个装饰器，我们将它放在<code>wrapper</code>函数上，这个装饰器可以帮我们保留被装饰之前的函数，这样在需要取消装饰器时，可以通过被装饰函数的<code>__wrapped__</code>属性获得被装饰之前的函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> random
+<span class="token keyword">import</span> time
+
+<span class="token keyword">from</span> functools <span class="token keyword">import</span> wraps
+
+
+<span class="token keyword">def</span> <span class="token function">record_time</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    @wraps<span class="token punctuation">(</span>func<span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        result <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{func.__name__}执行时间: {end - start:.3f}秒'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+
+    <span class="token keyword">return</span> wrapper
+
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">download</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始下载{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}下载完成.'</span><span class="token punctuation">)</span>
+
+
+@record_time
+<span class="token keyword">def</span> <span class="token function">upload</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'开始上传{filename}.'</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'{filename}上传完成.'</span><span class="token punctuation">)</span>
+
+
+download<span class="token punctuation">(</span><span class="token string">'MySQL从删库到跑路.avi'</span><span class="token punctuation">)</span>
+upload<span class="token punctuation">(</span><span class="token string">'Python从入门到住院.pdf'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 取消装饰器</span>
+download<span class="token punctuation">.</span>__wrapped__<span class="token punctuation">(</span><span class="token string">'MySQL必知必会.pdf'</span><span class="token punctuation">)</span>
+upload <span class="token operator">=</span> upload<span class="token punctuation">.</span>__wrapped__
+upload<span class="token punctuation">(</span><span class="token string">'Python从新手到大师.pdf'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="十一、常用的内置装饰器"><a href="#十一、常用的内置装饰器" class="headerlink" title="十一、常用的内置装饰器"></a>十一、常用的内置装饰器</h3><ol>
+<li><p><strong>property</strong></p>
+<p>@property 可以把一个实例方法变成其同名属性，以支持实例访问，它返回的是一个property属性</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> math
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>   class Circle:<br>       def <strong>init</strong>(self, radius):  # 圆的半径radius<br>           self.radius = radius</p>
+<pre><code>   @property
+   def area(self):
+       return math.pi * self.radius ** 2  # 计算面积
+
+   @property
+   def perimeter(self):
+       return 2 * math.pi * self.radius  # 计算周长</code></pre>
+<h1 id="我们可以通过实例访问到类中属性"><a href="#我们可以通过实例访问到类中属性" class="headerlink" title="我们可以通过实例访问到类中属性"></a>我们可以通过实例访问到类中属性</h1><p>   circle = Circle(10)<br>   print(circle.radius)</p>
+<h1 id="通过-property装饰后的方法也可以像访问数据属性一样去访问area-会触发一个函数的执行-动态计算出一个值；"><a href="#通过-property装饰后的方法也可以像访问数据属性一样去访问area-会触发一个函数的执行-动态计算出一个值；" class="headerlink" title="通过@property装饰后的方法也可以像访问数据属性一样去访问area,会触发一个函数的执行,动态计算出一个值；"></a>通过@property装饰后的方法也可以像访问数据属性一样去访问area,会触发一个函数的执行,动态计算出一个值；</h1><p>   print(circle.area)<br>   print(circle.perimeter)<br>   “””<br>   10<br>   314.1592653589793<br>   62.83185307179586<br>   “””</p>
+<pre><code>
+一个property对象还具有`setter`、`deleter `可用作装饰器；`setter`是设置属性值。`deleter`用于删除属性值。而官方文档中给出了getter用于获取属性信息，但是实际使用中可以直接通过property获取属性信息
+
+```python
+class C:
+    def __init__(self):
+        self._x = None
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+
+
+# 实例化类
+c = C()
+# 为属性进行赋值
+c.x = 100
+# 输出属性值
+print(c.x) # 100
+# 删除属性
+del c.x</code></pre>
+<p>总结：使用property：在设置属性时，可以对值对进检查，设置发生时，可以 修改设置的值，获取属性时，可以动态地计算值。</p>
+<ol start="2">
+<li><p><strong>classmethod</strong></p>
+<p>修饰的方法不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    number <span class="token operator">=</span> <span class="token number">10</span>
+
+    @classmethod
+    <span class="token keyword">def</span> <span class="token function">get_a</span><span class="token punctuation">(</span>cls<span class="token punctuation">)</span><span class="token punctuation">:</span>     <span class="token comment" spellcheck="true">#cls 接收的是当前类，类在使用时会将自身传入到类方法的第一个参数</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'这是类本身：'</span><span class="token punctuation">,</span>cls<span class="token punctuation">)</span><span class="token comment" spellcheck="true"># 如果子类调用，则传入的是子类</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'这是类属性:'</span><span class="token punctuation">,</span>cls<span class="token punctuation">.</span>number<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    number <span class="token operator">=</span> <span class="token number">20</span>
+    <span class="token keyword">pass</span>
+
+<span class="token comment" spellcheck="true"># 调用类方法 不需要实例化可以执行调用类方法</span>
+A<span class="token punctuation">.</span>get_a<span class="token punctuation">(</span><span class="token punctuation">)</span>
+B<span class="token punctuation">.</span>get_a<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+这是类本身： &lt;class '__main__.A'>
+这是类属性: 10
+这是类本身： &lt;class '__main__.B'>
+这是类属性: 20
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>staticmethod</strong></p>
+<p><code>@staticmethod</code>：改变一个方法为静态方法，静态方法不需要传递隐性的第一参数，静态方法的本质类型就是一个函数 一个静态方法可以直接通过类进行调用，也可以通过实例进行调用</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> time
+
+<span class="token keyword">class</span> <span class="token class-name">Date</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> year<span class="token punctuation">,</span> month<span class="token punctuation">,</span> day<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>year <span class="token operator">=</span> year
+        self<span class="token punctuation">.</span>month <span class="token operator">=</span> month
+        self<span class="token punctuation">.</span>day <span class="token operator">=</span> day
+
+    @staticmethod
+    <span class="token keyword">def</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 用Date.now()的形式去产生实例,该实例用的是当前时间</span>
+        t <span class="token operator">=</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 获取结构化的时间格式</span>
+        <span class="token keyword">return</span> Date<span class="token punctuation">(</span>t<span class="token punctuation">.</span>tm_year<span class="token punctuation">,</span> t<span class="token punctuation">.</span>tm_mon<span class="token punctuation">,</span> t<span class="token punctuation">.</span>tm_mday<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 新建实例并且返回</span>
+
+    @staticmethod
+    <span class="token keyword">def</span> <span class="token function">tomorrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 用Date.tomorrow()的形式去产生实例,该实例用的是明天的时间</span>
+        t <span class="token operator">=</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">86400</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Date<span class="token punctuation">(</span>t<span class="token punctuation">.</span>tm_year<span class="token punctuation">,</span> t<span class="token punctuation">.</span>tm_mon<span class="token punctuation">,</span> t<span class="token punctuation">.</span>tm_mday<span class="token punctuation">)</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>   a = Date(‘1987’, 11, 27)  # 自己定义时间<br>   print(a.year, a.month, a.day)<br>   b = Date.now()  # 采用当前时间<br>   print(b.year, b.month, b.day)<br>   c = Date.tomorrow()  # 采用明天的时间<br>   print(c.year, c.month, c.day)</p>
+<p>   “””<br>   1987 11 27<br>   2020 12 17<br>   2020 12 18<br>   “””</p>
+<pre><code>
+### 简单的总结
+
+闭包和装饰器是Python中的特色语法，装饰器是闭包可以通过装饰器来增强现有的类或函数，这是一种非常有用的编程技巧。</code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-27-pian-zhuang-shi-qi/">https://zhangyafeii.gitee.io/python/base/di-27-pian-zhuang-shi-qi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/">
+                                    <span class="chip bg-color">装饰器</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-27T10-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/base/di-7-pian-qie-pian-de-di-ceng-shi-xian/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/7.jpg" class="responsive-img" alt="第7篇：切片的底层实现">
+                        
+                        <span class="card-title">第7篇：切片的底层实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            切片是 Go 中的一种基本的数据结构，使用这种结构可以用来管理数据集合。切片的设计想法是由动态数组概念而来，为了开发者可以更加方便的使一个数据结构可以自动增加和减少。但是切片本身并不是动态数据或者数组指针。切片常见的操作有 reslice、
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            <a href="/categories/Go/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="chip bg-color">引用数据类型</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%87%E7%89%87/">
+                        <span class="chip bg-color">切片</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">
+                        <span class="chip bg-color">底层实现</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-28-pian-die-dai-qi-he-sheng-cheng-qi/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/28.jpg" class="responsive-img" alt="第28篇：迭代器和生成器">
+                        
+                        <span class="card-title">第28篇：迭代器和生成器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：把可迭代对象、迭代器和生成器的概念和用法掌握
+在了解Python的数据结构时，容器(container)、可迭代对象(iterable)、迭代器(iterator)、生成器(generator)、列表/集合/字典推导式(list,
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">可迭代对象</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+                        <span class="chip bg-color">迭代器</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%94%9F%E6%88%90%E5%99%A8/">
+                        <span class="chip bg-color">生成器</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

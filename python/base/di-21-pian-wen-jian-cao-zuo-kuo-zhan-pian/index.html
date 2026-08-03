@@ -1,0 +1,1918 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第21篇：文件操作扩展, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="学习目标：了解常见的csv、excel、ini文件的相关操作，熟悉文件压缩的方法，掌握路径相关的概念和操作。不要求记住每一种文件的具体操作方法，但要做好笔记，以备将来查阅。
+一、CSV文件1. CSV文件介绍CSV（Comma Separa">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第21篇：文件操作扩展 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第21篇：文件操作扩展
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                                <span class="chip bg-color">文件操作</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-22
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    22 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>学习目标</strong>：了解常见的<code>csv</code>、<code>excel</code>、<code>ini</code>文件的相关操作，熟悉文件压缩的方法，掌握路径相关的概念和操作。不要求记住每一种文件的具体操作方法，但要做好笔记，以备将来查阅。</p>
+<h3 id="一、CSV文件"><a href="#一、CSV文件" class="headerlink" title="一、CSV文件"></a>一、CSV文件</h3><h4 id="1-CSV文件介绍"><a href="#1-CSV文件介绍" class="headerlink" title="1. CSV文件介绍"></a>1. CSV文件介绍</h4><p>CSV（Comma Separated Values）全称逗号分隔值文件是一种简单、通用的文件格式，被广泛的应用于应用程序（数据库、电子表格等）数据的导入和导出以及异构系统之间的数据交换。因为CSV是纯文本文件，不管是什么操作系统和编程语言都是可以处理纯文本的，而且很多编程语言中都提供了对读写CSV文件的支持，因此CSV格式在数据处理和数据科学中被广泛应用。</p>
+<p>CSV文件有以下特点：</p>
+<ol>
+<li>纯文本，使用某种字符集（如<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ASCII">ASCII</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Unicode">Unicode</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GB2312">GB2312</a>）等）；</li>
+<li>由一条条的记录组成（典型的是每行一条记录）；</li>
+<li>每条记录被分隔符（如逗号、分号、制表符等）分隔为字段（列）；</li>
+<li>每条记录都有同样的字段序列。</li>
+</ol>
+<p>CSV文件可以使用文本编辑器或类似于Excel电子表格这类工具打开和编辑，当使用Excel这类电子表格打开CSV文件时，你甚至感觉不到CSV和Excel文件的区别。很多数据库系统都支持将数据导出到CSV文件中，当然也支持从CSV文件中读入数据保存到数据库中，这些内容并不是我们这里讨论的重点。</p>
+<h4 id="2-将数据写入CSV文件"><a href="#2-将数据写入CSV文件" class="headerlink" title="2. 将数据写入CSV文件"></a>2. 将数据写入CSV文件</h4><p>现有五个学生三门课程的考试成绩需要保存到一个CSV文件中，要达成这个目标，可以使用Python标准库中的<code>csv</code>模块，该模块的<code>writer</code>函数会返回一个<code>csvwriter</code>对象，通过该对象的<code>writerow</code>或<code>writerows</code>方法就可以将数据写入到CSV文件中，具体的代码如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> csv
+<span class="token keyword">import</span> random
+
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'scores.csv'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> file<span class="token punctuation">:</span>
+    writer <span class="token operator">=</span> csv<span class="token punctuation">.</span>writer<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+    writer<span class="token punctuation">.</span>writerow<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'姓名'</span><span class="token punctuation">,</span> <span class="token string">'语文'</span><span class="token punctuation">,</span> <span class="token string">'数学'</span><span class="token punctuation">,</span> <span class="token string">'英语'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    names <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'关羽'</span><span class="token punctuation">,</span> <span class="token string">'张飞'</span><span class="token punctuation">,</span> <span class="token string">'赵云'</span><span class="token punctuation">,</span> <span class="token string">'马超'</span><span class="token punctuation">,</span> <span class="token string">'黄忠'</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        verbal <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+        math <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+        english <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+        writer<span class="token punctuation">.</span>writerow<span class="token punctuation">(</span><span class="token punctuation">[</span>names<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> verbal<span class="token punctuation">,</span> math<span class="token punctuation">,</span> english<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要说明的是上面的<code>writer</code>函数，该函数除了传入要写入数据的文件对象外，还可以<code>dialect</code>参数，它表示CSV文件的方言，默认值是<code>excel</code>。除此之外，还可以通过<code>delimiter</code>、<code>quotechar</code>、<code>quoting</code>参数来指定分隔符（默认是逗号）、包围值的字符（默认是双引号）以及包围的方式。其中，包围值的字符主要用于当字段中有特殊符号时，通过添加包围值的字符可以避免二义性。大家可以尝试将上面第5行代码修改为下面的代码，看看生成的CSV文件到底有什么区别。</p>
+<pre class="line-numbers language-python"><code class="language-python">writer <span class="token operator">=</span> csv<span class="token punctuation">.</span>writer<span class="token punctuation">(</span>file<span class="token punctuation">,</span> delimiter<span class="token operator">=</span><span class="token string">'|'</span><span class="token punctuation">,</span> quoting<span class="token operator">=</span>csv<span class="token punctuation">.</span>QUOTE_ALL<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-从CSV文件读取数据"><a href="#3-从CSV文件读取数据" class="headerlink" title="3. 从CSV文件读取数据"></a>3. 从CSV文件读取数据</h4><p>如果要读取刚才创建的CSV文件，可以使用下面的代码，通过<code>csv</code>模块的<code>reader</code>函数可以创建出<code>csvreader</code>对象，该对象是一个迭代器，可以通过<code>next</code>函数或<code>for-in</code>循环读取到文件中的数据。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> csv
+
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'scores.csv'</span><span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> file<span class="token punctuation">:</span>
+    reader <span class="token operator">=</span> csv<span class="token punctuation">.</span>reader<span class="token punctuation">(</span>file<span class="token punctuation">,</span> delimiter<span class="token operator">=</span><span class="token string">'|'</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> reader<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>reader<span class="token punctuation">.</span>line_num<span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">'\t'</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> elem <span class="token keyword">in</span> line<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>elem<span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">'\t'</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>注意</strong>：上面的代码对<code>csvreader</code>对象做<code>for</code>循环时，每次会取出一个列表对象，该列表对象包含了一行中所有的字段。</p>
+</blockquote>
+<h4 id="4-练习题案例"><a href="#4-练习题案例" class="headerlink" title="4. 练习题案例"></a>4. 练习题案例</h4><p>当然，利用上一节学过的Python的内置文件读写函数也可以完成对csv文件的读写操作，请看下面的示例。</p>
+<p><strong>要求</strong>：下载文档中的所有图片且以用户名为图片名称存储。</p>
+<pre><code>ID,用户名,头像
+26044585,Hush,https://hbimg.huabanimg.com/51d46dc32abe7ac7f83b94c67bb88cacc46869954f478-aP4Q3V
+19318369,柒十一,https://hbimg.huabanimg.com/703fdb063bdc37b11033ef794f9b3a7adfa01fd21a6d1-wTFbnO
+15529690,Law344,https://hbimg.huabanimg.com/b438d8c61ed2abf50ca94e00f257ca7a223e3b364b471-xrzoQd
+18311394,Jennah·,https://hbimg.huabanimg.com/4edba1ed6a71797f52355aa1de5af961b85bf824cb71-px1nZz
+18009711,可洛爱画画,https://hbimg.huabanimg.com/03331ef39b5c7687f5cc47dbcbafd974403c962ae88ce-Co8AUI
+30574436,花姑凉~,https://hbimg.huabanimg.com/2f5b657edb9497ff8c41132e18000edb082d158c2404-8rYHbw
+17740339,小巫師,https://hbimg.huabanimg.com/dbc6fd49f1915545cc42c1a1492a418dbaebd2c21bb9-9aDqgl
+18741964,桐末tonmo,https://hbimg.huabanimg.com/b60cee303f62aaa592292f45a1ed8d5be9873b2ed5c-gAJehO
+30535005,TANGZHIQI,https://hbimg.huabanimg.com/bbd08ee168d54665bf9b07899a5c4a4d6bc1eb8af77a4-8Gz3K1
+31078743,你的老杨,https://hbimg.huabanimg.com/c46fbc3c9a01db37b8e786cbd7174bbd475e4cda220f4-F1u7MX
+25519376,尺尺寸,https://hbimg.huabanimg.com/ee29ee198efb98f970e3dc2b24c40d89bfb6f911126b6-KGvKes
+21113978,C-CLong,https://hbimg.huabanimg.com/7fa6b2a0d570e67246b34840a87d57c16a875dba9100-SXsSeY
+24674102,szaa,https://hbimg.huabanimg.com/0716687b0df93e8c3a8e0925b6d2e4135449cd27597c4-gWdv24
+30508507,爱起床的小灰灰,https://hbimg.huabanimg.com/4eafdbfa21b2f300a7becd8863f948e5e92ef789b5a5-1ozTKq
+12593664,yokozen,https://hbimg.huabanimg.com/cd07bbaf052b752ed5c287602404ea719d7dd8161321b-cJtHss
+16899164,一阵疯,https://hbimg.huabanimg.com/0940b557b28892658c3bcaf52f5ba8dc8402100e130b2-G966Uz
+847937,卩丬My㊊伴er彎,https://hbimg.huabanimg.com/e2d6bb5bc8498c6f607492a8f96164aa2366b104e7a-kWaH68
+31010628,慢慢即漫漫,https://hbimg.huabanimg.com/c4fb6718907a22f202e8dd14d52f0c369685e59cfea7-82FdsK
+13438168,海贼玩跑跑,https://hbimg.huabanimg.com/1edae3ce6fe0f6e95b67b4f8b57c4cebf19c501b397e-BXwiW6
+28593155,源稚生,https://hbimg.huabanimg.com/626cfd89ca4c10e6f875f3dfe1005331e4c0fd7fd429-9SeJeQ
+28201821,合伙哼哼,https://hbimg.huabanimg.com/f59d4780531aa1892b80e0ec94d4ec78dcba08ff18c416-769X6a
+28255146,漫步AAA,https://hbimg.huabanimg.com/3c034c520594e38353a039d7e7a5fd5e74fb53eb1086-KnpLaL
+30537613,配䦹,https://hbimg.huabanimg.com/efd81d22c1b1a2de77a0e0d8e853282b83b6bbc590fd-y3d4GJ
+22665880,日后必火,https://hbimg.huabanimg.com/69f0f959979a4fada9e9e55f565989544be88164d2b-INWbaF
+16748980,keer521521,https://hbimg.huabanimg.com/654953460733026a7ef6e101404055627ad51784a95c-B6OFs4
+30536510,“西辞”,https://hbimg.huabanimg.com/61cfffca6b2507bf51a507e8319d68a8b8c3a96968f-6IvMSk
+30986577,艺成背锅王,https://hbimg.huabanimg.com/c381ecc43d6c69758a86a30ebf72976906ae6c53291f9-9zroHF
+26409800,CsysADk7,https://hbimg.huabanimg.com/bf1d22092c2070d68ade012c588f2e410caaab1f58051-ahlgLm
+30469116,18啊全阿,https://hbimg.huabanimg.com/654953460733026a7ef6e101404055627ad51784a95c-B6OFs4
+15514336,W/小哥,https://hbimg.huabanimg.com/a30f5967fc0acf81421dd49650397de63c105b9ead1c-nVRrNl
+17473505,椿の花,https://hbimg.huabanimg.com/0e38d810e5a24f91ebb251fd3aaaed8bb37655b14844c-pgNJBP
+19165177,っ思忆゜♪,https://hbimg.huabanimg.com/4815ea0e4905d0f3bb82a654b481811dadbfe5ce2673-vMVr0B
+16059616,格林熊丶,https://hbimg.huabanimg.com/8760a2b08d87e6ed4b7a9715b1a668176dbf84fec5b-jx14tZ
+30734152,sCWVkJDG,https://hbimg.huabanimg.com/f31a5305d1b8717bbfb897723f267d316e58e7b7dc40-GD3e22
+24019677,虚无本心,https://hbimg.huabanimg.com/6fdfa9834abe362e978b517275b06e7f0d5926aa650-N1xCXE
+16670283,Y-雨后天空,https://hbimg.huabanimg.com/a3bbb0045b536fc27a6d2effa64a0d43f9f5193c177f-I2vHaI
+21512483,汤姆2,https://hbimg.huabanimg.com/98cc50a61a7cc9b49a8af754ffb26bd15764a82f1133-AkiU7D
+16441049,笑潇啸逍小鱼,https://hbimg.huabanimg.com/ae8a70cd85aff3a8587ff6578d5cf7620f3691df13e46-lmrIi9
+24795603,⁢⁢⁢⁢⁢v,https://hbimg.huabanimg.com/a7183cc3a933aa129d7b3230bf1378fd8f5857846cc5-3tDtx3
+29819152,妮玛士珍多,https://hbimg.huabanimg.com/ca4ecb573bf1ff0415c7a873d64470dedc465ea1213c6-RAkArS
+19101282,陈勇敢❤,https://hbimg.huabanimg.com/ab6d04ebaff3176e3570139a65155856871241b58bc6-Qklj2E
+28337572,爱意随风散,https://hbimg.huabanimg.com/117ad8b6eeda57a562ac6ab2861111a793ca3d1d5543-SjWlk2
+17342758,幸运instant,https://hbimg.huabanimg.com/72b5f9042ec297ae57b83431123bc1c066cca90fa23-3MoJNj
+18483372,Beau染,https://hbimg.huabanimg.com/077115cb622b1ff3907ec6932e1b575393d5aae720487-d1cdT9
+22127102,栽花的小蜻蜓,https://hbimg.huabanimg.com/6c3cbf9f27e17898083186fc51985e43269018cc1e1df-QfOIBG
+13802024,LoveHsu,https://hbimg.huabanimg.com/f720a15f8b49b86a7c1ee4951263a8dbecfe3e43d2d-GPEauV
+22558931,白驹过隙丶梨花泪う,https://hbimg.huabanimg.com/e49e1341dfe5144da5c71bd15f1052ef07ba7a0e1296b-jfyfDJ
+11762339,cojoy,https://hbimg.huabanimg.com/5b27f876d5d391e7c4889bc5e8ba214419eb72b56822-83gYmB
+30711623,雪碧学长呀,https://hbimg.huabanimg.com/2c288a1535048b05537ba523b3fc9eacc1e81273212d1-nr8M4t
+18906718,西霸王,https://hbimg.huabanimg.com/7b02ad5e01bd8c0a29817e362814666a7800831c154a6-AvBDaG
+31037856,邵阳的小哥哥,https://hbimg.huabanimg.com/654953460733026a7ef6e101404055627ad51784a95c-B6OFs4
+26830711,稳健谭,https://hbimg.huabanimg.com/51547ade3f0aef134e8d268cfd4ad61110925aefec8a-NKPEYX</code></pre>
+<p>代码实现示例</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> requests
+
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'files/movie.csv'</span><span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'r'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> file_object<span class="token punctuation">:</span>
+    file_object<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> file_object<span class="token punctuation">:</span>
+        user_id<span class="token punctuation">,</span> username<span class="token punctuation">,</span> url <span class="token operator">=</span> line<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>username<span class="token punctuation">,</span> url<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 1.根据URL下载图片</span>
+        res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>
+            url<span class="token operator">=</span>url<span class="token punctuation">,</span>
+            headers<span class="token operator">=</span><span class="token punctuation">{</span>
+                <span class="token string">"User-Agent"</span><span class="token punctuation">:</span> <span class="token string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 检查images目录是否存在？不存在，则创建images目录</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span><span class="token string">"images"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 创建images目录</span>
+            os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span><span class="token string">"images"</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># 2.将图片的内容写入到文件</span>
+        <span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"images/{}.png"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> img_object<span class="token punctuation">:</span>
+            img_object<span class="token punctuation">.</span>write<span class="token punctuation">(</span>res<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>练习：请用<code>csv</code>模块对上述示例进行修改。</p>
+<h3 id="二、ini格式文件"><a href="#二、ini格式文件" class="headerlink" title="二、ini格式文件"></a>二、ini格式文件</h3><p>ini文件是Initialization File的缩写，平时用于存储软件的的配置文件。例如：MySQL数据库的配置文件。</p>
+<pre class="line-numbers language-ini"><code class="language-ini"><span class="token selector">[mysqld]</span>
+<span class="token constant">datadir</span><span class="token attr-value"><span class="token punctuation">=</span>/var/lib/mysql</span>
+<span class="token constant">socket</span><span class="token attr-value"><span class="token punctuation">=</span>/var/lib/mysql/mysql.sock</span>
+<span class="token constant">log-bin</span><span class="token attr-value"><span class="token punctuation">=</span>py-mysql-bin</span>
+<span class="token constant">character-set-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8</span>
+<span class="token constant">collation-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8_general_ci</span>
+<span class="token constant">log-error</span><span class="token attr-value"><span class="token punctuation">=</span>/var/log/mysqld.log</span>
+# Disabling symbolic-links is recommended to prevent assorted security risks
+<span class="token constant">symbolic-links</span><span class="token attr-value"><span class="token punctuation">=</span>0</span>
+
+<span class="token selector">[mysqld_safe]</span>
+<span class="token constant">log-error</span><span class="token attr-value"><span class="token punctuation">=</span>/var/log/mariadb/mariadb.log</span>
+<span class="token constant">pid-file</span><span class="token attr-value"><span class="token punctuation">=</span>/var/run/mariadb/mariadb.pid</span>
+
+<span class="token selector">[client]</span>
+<span class="token constant">default-character-set</span><span class="token attr-value"><span class="token punctuation">=</span>utf8</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这种格式是可以直接使用open来出来，考虑到自己处理比较麻烦，所以Python为我们提供了更为方便的方式。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> configparser
+
+config <span class="token operator">=</span> configparser<span class="token punctuation">.</span>ConfigParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'files/my.ini'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># config.read('files/my.ini', encoding='utf-8')</span>
+
+<span class="token comment" spellcheck="true"># 1.获取所有的节点</span>
+<span class="token triple-quoted-string string">"""
+result = config.sections()
+print(result)  # ['mysqld', 'mysqld_safe', 'client']
+"""</span>
+
+<span class="token comment" spellcheck="true"># 2.获取节点下的键值</span>
+<span class="token triple-quoted-string string">"""
+result = config.items("mysqld_safe")
+print(result)  # [('log-error', '/var/log/mariadb/mariadb.log'), ('pid-file', '/var/run/mariadb/mariadb.pid')]
+
+for key, value in config.items("mysqld_safe"):
+    print(key, value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 3.获取某个节点下的键对应的值</span>
+<span class="token triple-quoted-string string">"""
+result = config.get("mysqld","collation-server")
+print(result)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 4.其他</span>
+
+<span class="token comment" spellcheck="true"># 4.1 是否存在节点</span>
+<span class="token comment" spellcheck="true"># v1 = config.has_section("client")</span>
+<span class="token comment" spellcheck="true"># print(v1)</span>
+
+<span class="token comment" spellcheck="true"># 4.2 添加一个节点</span>
+<span class="token comment" spellcheck="true"># config.add_section("group")</span>
+<span class="token comment" spellcheck="true"># config.set('group','name','zhangyafei')</span>
+<span class="token comment" spellcheck="true"># config.set('client','name','zhangyafei')</span>
+<span class="token comment" spellcheck="true"># config.write(open('files/new.ini', mode='w', encoding='utf-8'))</span>
+
+<span class="token comment" spellcheck="true"># 4.3 删除</span>
+<span class="token comment" spellcheck="true"># config.remove_section('client')</span>
+<span class="token comment" spellcheck="true"># config.remove_option("mysqld", "datadir")</span>
+<span class="token comment" spellcheck="true"># config.write(open('files/new.ini', mode='w', encoding='utf-8'))</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>读取所有节点</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> configparser
+
+config <span class="token operator">=</span> configparser<span class="token punctuation">.</span>ConfigParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'files/my.conf'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># config.read('my.conf', encoding='utf-8')</span>
+ret <span class="token operator">=</span> config<span class="token punctuation">.</span>sections<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span> 
+
+<span class="token operator">>></span>输出
+<span class="token punctuation">[</span><span class="token string">'mysqld'</span><span class="token punctuation">,</span> <span class="token string">'mysqld_safe'</span><span class="token punctuation">,</span> <span class="token string">'client'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读取节点下的键值</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> configparser
+
+config <span class="token operator">=</span> configparser<span class="token punctuation">.</span>ConfigParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'files/my.conf'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># config.read('my.conf', encoding='utf-8')</span>
+item_list <span class="token operator">=</span> config<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token string">"mysqld_safe"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>item_list<span class="token punctuation">)</span> 
+
+<span class="token operator">>></span>输出
+<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'log-error'</span><span class="token punctuation">,</span> <span class="token string">'/var/log/mariadb/mariadb.log'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'pid-file'</span><span class="token punctuation">,</span> <span class="token string">'/var/run/mariadb/mariadb.pid'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读取节点下值（根据 节点+键 ）</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> configparser
+
+config <span class="token operator">=</span> configparser<span class="token punctuation">.</span>ConfigParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'files/my.conf'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+
+value <span class="token operator">=</span> config<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'mysqld'</span><span class="token punctuation">,</span> <span class="token string">'log-bin'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+
+<span class="token operator">>></span>输出
+py<span class="token operator">-</span>mysql<span class="token operator">-</span>bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>检查、删除、添加节点</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> configparser
+
+config <span class="token operator">=</span> configparser<span class="token punctuation">.</span>ConfigParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'files/my.conf'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># config.read('my.conf', encoding='utf-8')</span>
+<span class="token comment" spellcheck="true"># 检查</span>
+has_sec <span class="token operator">=</span> config<span class="token punctuation">.</span>has_section<span class="token punctuation">(</span><span class="token string">'mysqld'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>has_sec<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 添加节点</span>
+config<span class="token punctuation">.</span>add_section<span class="token punctuation">(</span><span class="token string">"SEC_1"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 节点中设置键值</span>
+config<span class="token punctuation">.</span>set<span class="token punctuation">(</span><span class="token string">'SEC_1'</span><span class="token punctuation">,</span> <span class="token string">'k10'</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>set<span class="token punctuation">(</span><span class="token string">'SEC_1'</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">"哈哈哈哈哈"</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>add_section<span class="token punctuation">(</span><span class="token string">"SEC_2"</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>set<span class="token punctuation">(</span><span class="token string">'SEC_2'</span><span class="token punctuation">,</span> <span class="token string">'k10'</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 内容写入新文件</span>
+config<span class="token punctuation">.</span>write<span class="token punctuation">(</span>open<span class="token punctuation">(</span><span class="token string">'files/xxoo.conf'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 删除节点</span>
+config<span class="token punctuation">.</span>remove_section<span class="token punctuation">(</span><span class="token string">"SEC_2"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 删除节点中的键值</span>
+config<span class="token punctuation">.</span>remove_option<span class="token punctuation">(</span><span class="token string">'SEC_1'</span><span class="token punctuation">,</span> <span class="token string">'k10'</span><span class="token punctuation">)</span>
+config<span class="token punctuation">.</span>write<span class="token punctuation">(</span>open<span class="token punctuation">(</span><span class="token string">'files/new.conf'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="三、Excel格式文件"><a href="#三、Excel格式文件" class="headerlink" title="三、Excel格式文件"></a>三、Excel格式文件</h3><p>Python内部未提供处理Excel文件的功能，想要在Python中操作Excel需要按照第三方的模块。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">pip install openpyxl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>此模块中集成了Python操作Excel的相关功能，接下来我们就需要去学习该模块提供的相关功能即可。</p>
+<h4 id="1-读Excel"><a href="#1-读Excel" class="headerlink" title="1. 读Excel"></a>1. 读Excel</h4><ul>
+<li><p>读sheet</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">"files/p1.xlsx"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># sheet相关操作</span>
+
+<span class="token comment" spellcheck="true"># 1.获取excel文件中的所有sheet名称</span>
+<span class="token triple-quoted-string string">"""
+print(wb.sheetnames) # ['数据导出', '用户列表', 'Sheet1', 'Sheet2']
+"""</span>
+
+<span class="token comment" spellcheck="true"># 2.选择sheet，基于sheet名称</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb["数据导出"]
+cell = sheet.cell(1, 2)
+print(cell.value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 3.选择sheet，基于索引位置</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb.worksheets[0]
+cell = sheet.cell(1,2)
+print(cell.value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 4.循环所有的sheet</span>
+<span class="token triple-quoted-string string">"""
+for name in wb.sheetnames:
+    sheet = wb[name]
+    cell = sheet.cell(1, 1)
+    print(cell.value)
+"""</span>
+<span class="token triple-quoted-string string">"""
+for sheet in wb.worksheets:
+    cell = sheet.cell(1, 1)
+    print(cell.value)
+"""</span>
+<span class="token triple-quoted-string string">"""
+for sheet in wb:
+    cell = sheet.cell(1, 1)
+    print(cell.value)
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读sheet中单元格的数据</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">"files/p1.xlsx"</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 1.获取第N行第N列的单元格(位置是从1开始）</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(1, 1)
+
+print(cell.value)
+print(cell.style)
+print(cell.font)
+print(cell.alignment)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 2.获取某个单元格</span>
+<span class="token triple-quoted-string string">"""
+c1 = sheet["A2"]
+print(c1.value)
+
+c2 = sheet['D4']
+print(c2.value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 3.第N行所有的单元格</span>
+<span class="token triple-quoted-string string">"""
+for cell in sheet[1]:
+    print(cell.value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 4.所有行的数据（获取某一列数据）</span>
+<span class="token triple-quoted-string string">"""
+for row in sheet.rows:
+    print(row[0].value, row[1].value)
+"""</span>
+
+<span class="token comment" spellcheck="true"># 5.获取所有列的数据</span>
+<span class="token triple-quoted-string string">"""
+for col in sheet.columns:
+    print(col[1].value)
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读合并的单元格</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201218011732755.png"></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">"files/p1.xlsx"</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 获取第N行第N列的单元格(位置是从1开始）</span>
+c1 <span class="token operator">=</span> sheet<span class="token punctuation">.</span>cell<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>c1<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># &lt;Cell 'Sheet1'.A1></span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>c1<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 用户信息</span>
+
+c2 <span class="token operator">=</span> sheet<span class="token punctuation">.</span>cell<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>c2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># &lt;MergedCell 'Sheet1'.B1></span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>c2<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># None</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">'files/p1.xlsx'</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> row <span class="token keyword">in</span> sheet<span class="token punctuation">.</span>rows<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> 输出结果
+<span class="token punctuation">(</span><span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>A1<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>MergedCell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>B1<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>C1<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>A2<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>B2<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>C2<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>A3<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>B3<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>C3<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token operator">&lt;</span>MergedCell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>A4<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>B4<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>C4<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>A5<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>B5<span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>Cell <span class="token string">'Sheet1'</span><span class="token punctuation">.</span>C5<span class="token operator">></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="2-写Excel"><a href="#2-写Excel" class="headerlink" title="2. 写Excel"></a>2. 写Excel</h4><p>在Excel中想要写文件，大致要分为在：</p>
+<ul>
+<li><p>原Excel文件基础上写内容。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">'files/p1.xlsx'</span><span class="token punctuation">)</span>
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 找到单元格，并修改单元格的内容</span>
+cell <span class="token operator">=</span> sheet<span class="token punctuation">.</span>cell<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+cell<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token string">"新的开始"</span>
+
+<span class="token comment" spellcheck="true"># 将excel文件保存到p2.xlsx文件中</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"files/p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>新创建Excel文件写内容。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> workbook
+
+<span class="token comment" spellcheck="true"># 创建excel且默认会创建一个sheet（名称为Sheet）</span>
+wb <span class="token operator">=</span> workbook<span class="token punctuation">.</span>Workbook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 或 sheet = wb["Sheet"]</span>
+
+<span class="token comment" spellcheck="true"># 找到单元格，并修改单元格的内容</span>
+cell <span class="token operator">=</span> sheet<span class="token punctuation">.</span>cell<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+cell<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token string">"新的开始"</span>
+
+<span class="token comment" spellcheck="true"># 将excel文件保存到p2.xlsx文件中</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"files/p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>在了解了如何读取Excel和创建Excel之后，后续对于Excel中的sheet和cell操作基本上都相同。</p>
+<p><strong>表格相关操作</strong></p>
+<ul>
+<li><p>导入模块</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> workbook<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>初始化</p>
+<pre class="line-numbers language-python"><code class="language-python">wb <span class="token operator">=</span> workbook<span class="token punctuation">.</span>Workbook<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># Sheet</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>修改sheet名称</p>
+<pre class="line-numbers language-python"><code class="language-python">sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+sheet<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">"数据集"</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>创建sheet并设置sheet颜色</p>
+<pre class="line-numbers language-python"><code class="language-python">sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>create_sheet<span class="token punctuation">(</span><span class="token string">"工作计划"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+sheet<span class="token punctuation">.</span>sheet_properties<span class="token punctuation">.</span>tabColor <span class="token operator">=</span> <span class="token string">"1072BA"</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>默认打开的sheet</p>
+<pre class="line-numbers language-python"><code class="language-python">wb<span class="token punctuation">.</span>active <span class="token operator">=</span> <span class="token number">0</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>拷贝sheet</p>
+<pre class="line-numbers language-python"><code class="language-python">sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>create_sheet<span class="token punctuation">(</span><span class="token string">"工作计划"</span><span class="token punctuation">)</span>
+sheet<span class="token punctuation">.</span>sheet_properties<span class="token punctuation">.</span>tabColor <span class="token operator">=</span> <span class="token string">"1072BA"</span>
+
+new_sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>copy_worksheet<span class="token punctuation">(</span>wb<span class="token punctuation">[</span><span class="token string">"Sheet"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+new_sheet<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">"新的计划"</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"p2.xlsx"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>删除sheet</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">del</span> wb<span class="token punctuation">[</span><span class="token string">"用户列表"</span><span class="token punctuation">]</span>
+wb<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">'files/p2.xlsx'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p><strong>单元格相关操作</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> openpyxl <span class="token keyword">import</span> load_workbook
+<span class="token keyword">from</span> openpyxl<span class="token punctuation">.</span>styles <span class="token keyword">import</span> Alignment<span class="token punctuation">,</span> Border<span class="token punctuation">,</span> Side<span class="token punctuation">,</span> Font<span class="token punctuation">,</span> PatternFill<span class="token punctuation">,</span> GradientFill
+
+wb <span class="token operator">=</span> load_workbook<span class="token punctuation">(</span><span class="token string">'files/p1.xlsx'</span><span class="token punctuation">)</span>
+
+sheet <span class="token operator">=</span> wb<span class="token punctuation">.</span>worksheets<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 1. 获取某个单元格，修改值</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(1, 1)
+cell.value = "开始"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 2.  获取某个单元格，修改值</span>
+<span class="token triple-quoted-string string">"""
+sheet["B3"] = "james"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 3. 获取某些单元格，修改值</span>
+<span class="token triple-quoted-string string">"""
+cell_list = sheet["B2":"C3"]
+for row in cell_list:
+    for cell in row:
+        cell.value = "新的值"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 4. 对齐方式</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(1, 1)
+
+# horizontal，水平方向对齐方式："general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed"
+# vertical，垂直方向对齐方式："top", "center", "bottom", "justify", "distributed"
+# text_rotation，旋转角度。
+# wrap_text，是否自动换行。
+cell.alignment = Alignment(horizontal='center', vertical='distributed', text_rotation=45, wrap_text=True)
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 5. 边框</span>
+<span class="token comment" spellcheck="true"># side的style有如下：dashDot','dashDotDot', 'dashed','dotted','double','hair', 'medium', 'mediumDashDot', 'mediumDashDotDot','mediumDashed', 'slantDashDot', 'thick', 'thin'</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(9, 2)
+cell.border = Border(
+    top=Side(style="thin", color="FFB6C1"), 
+    bottom=Side(style="dashed", color="FFB6C1"),
+    left=Side(style="dashed", color="FFB6C1"),
+    right=Side(style="dashed", color="9932CC"),
+    diagonal=Side(style="thin", color="483D8B"),  # 对角线
+    diagonalUp=True,  # 左下 ~ 右上
+    diagonalDown=True  # 左上 ~ 右下
+)
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 6.字体</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(5, 1)
+cell.font = Font(name="微软雅黑", size=45, color="ff0000", underline="single")
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 7.背景色</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(5, 3)
+cell.fill = PatternFill("solid", fgColor="99ccff")
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 8.渐变背景色</span>
+<span class="token triple-quoted-string string">"""
+cell = sheet.cell(5, 5)
+cell.fill = GradientFill("linear", stop=("FFFFFF", "99ccff", "000000"))
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 9.宽高（索引从1开始）</span>
+<span class="token triple-quoted-string string">"""
+sheet.row_dimensions[1].height = 50
+sheet.column_dimensions["E"].width = 100
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 10.合并单元格</span>
+<span class="token triple-quoted-string string">"""
+sheet.merge_cells("B2:D8")
+sheet.merge_cells(start_row=15, start_column=3, end_row=18, end_column=8)
+wb.save("p2.xlsx")
+"""</span>
+<span class="token triple-quoted-string string">"""
+sheet.unmerge_cells("B2:D8")
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 11.写入公式</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb.worksheets[3]
+sheet["D1"] = "合计"
+sheet["D2"] = "=B2*C2"
+wb.save("p2.xlsx")
+"""</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb.worksheets[3]
+sheet["D3"] = "=SUM(B3,C3)"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 12.删除</span>
+<span class="token triple-quoted-string string">"""
+# idx，要删除的索引位置
+# amount，从索引位置开始要删除的个数（默认为1）
+sheet.delete_rows(idx=1, amount=20)
+sheet.delete_cols(idx=1, amount=3)
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 13.插入</span>
+<span class="token triple-quoted-string string">"""
+sheet.insert_rows(idx=5, amount=10)
+sheet.insert_cols(idx=3, amount=2)
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 14.循环写内容</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb["Sheet"]
+cell_range = sheet['A1:C2']
+for row in cell_range:
+    for cell in row:
+        cell.value = "xx"
+
+for row in sheet.iter_rows(min_row=5, min_col=1, max_col=7, max_row=10):
+    for cell in row:
+        cell.value = "oo"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 15.移动</span>
+<span class="token triple-quoted-string string">"""
+# 将H2:J10范围的数据，向右移动15个位置、向上移动1个位置
+sheet.move_range("H2:J10",rows=1, cols=15)
+wb.save("p2.xlsx")
+"""</span>
+<span class="token triple-quoted-string string">"""
+sheet = wb.worksheets[3]
+sheet["D1"] = "合计"
+sheet["D2"] = "=B2*C2"
+sheet["D3"] = "=SUM(B3,C3)"
+sheet.move_range("B1:D3",cols=10, translate=True) # 自动翻译公式
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 16.打印区域</span>
+<span class="token triple-quoted-string string">"""
+sheet.print_area = "A1:D200"
+wb.save("p2.xlsx")
+"""</span>
+
+<span class="token comment" spellcheck="true"># 17.打印时，每个页面的固定表头</span>
+<span class="token triple-quoted-string string">"""
+sheet.print_title_cols = "A:D"
+sheet.print_title_rows = "1:3"
+wb.save("p2.xlsx")
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="四、压缩文件"><a href="#四、压缩文件" class="headerlink" title="四、压缩文件"></a>四、压缩文件</h3><p>基于Python内置的<code>shutil</code>模块可以实现对压缩文件的操作。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> shutil
+
+<span class="token comment" spellcheck="true"># 1. 压缩文件</span>
+<span class="token triple-quoted-string string">"""
+# base_name，压缩后的压缩包文件
+# format，压缩的格式，例如："zip", "tar", "gztar", "bztar", or "xztar".
+# root_dir，要压缩的文件夹路径
+"""</span>
+<span class="token comment" spellcheck="true"># shutil.make_archive(base_name='datafile',format='zip',root_dir='files')</span>
+
+
+<span class="token comment" spellcheck="true"># 2. 解压文件</span>
+<span class="token triple-quoted-string string">"""
+# filename，要解压的压缩包文件
+# extract_dir，解压的路径
+# format，压缩文件格式
+"""</span>
+<span class="token comment" spellcheck="true"># shutil.unpack_archive(filename='datafile.zip', extract_dir='xxxxxx/xo', format='zip')</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="五、路径相关"><a href="#五、路径相关" class="headerlink" title="五、路径相关"></a>五、路径相关</h3><h4 id="1-转义"><a href="#1-转义" class="headerlink" title="1. 转义"></a>1. 转义</h4><p>windows路径使用的是\，<code>linux</code>路径使用的是/。</p>
+<p>特别的，在windows系统中如果有这样的一个路径 <code>D:\nxxx\txxx\x1</code>，程序会报错。因为在路径中存在特殊符 <code>\n</code>（换行符）和<code>\t</code>（制表符），Python解释器无法自动区分。</p>
+<p>所以，在windows中编写路径时，一般有两种方式：</p>
+<ul>
+<li>加转义符，例如：<code>"D:\\nxxx\\txxx\\x1"</code></li>
+<li>路径前加r，例如：<code>r"D:\\nxxx\\txxx\\x1"</code></li>
+</ul>
+<h4 id="2-程序当前路径"><a href="#2-程序当前路径" class="headerlink" title="2. 程序当前路径"></a>2. 程序当前路径</h4><p>项目中如果使用了相对路径，那么一定要注意当前所在的位置。</p>
+<p>例如：在<code>G:/学习/Python学习\Python基础/code</code>路径下编写 <code>demo.py</code>文件</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"a1.txt"</span><span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'w'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"你好呀"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>用以下两种方式去运行：</p>
+<ul>
+<li><p>方式1，文件会创建在 <code>G:/学习/Python学习/Python基础/code</code> 目录下。</p>
+<pre><code>cd G:/学习/Python学习/Python基础/code
+python demo.py</code></pre>
+</li>
+<li><p>方式2，文件会创建在 <code>G:/学习</code>目录下。</p>
+<pre class="line-numbers language-python"><code class="language-python">cd G<span class="token punctuation">:</span><span class="token operator">/</span>学习
+python `G<span class="token punctuation">:</span><span class="token operator">/</span>学习<span class="token operator">/</span>Python学习<span class="token operator">/</span>Python基础<span class="token operator">/</span>code<span class="token operator">/</span>demo<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p><strong>实际开发使用示例</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+
+<span class="token triple-quoted-string string">"""
+# 1.获取当前运行的py脚本所在路径
+abs = os.path.abspath(__file__)
+print(abs) # G:\学习\Python学习\Python基础\code\chapter20\路径相关.py
+path = os.path.dirname(abs)
+print(path) # G:\学习\Python学习\Python基础\code\chapter20
+# """</span>
+base_dir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+file_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_dir<span class="token punctuation">,</span> <span class="token string">'files'</span><span class="token punctuation">,</span> <span class="token string">'info.txt'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>file_path<span class="token punctuation">)</span>
+<span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>file_path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    file_object <span class="token operator">=</span> open<span class="token punctuation">(</span>file_path<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'r'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> file_object<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    file_object<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'文件路径不存在'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3-文件和路径相关"><a href="#3-文件和路径相关" class="headerlink" title="3. 文件和路径相关"></a>3. 文件和路径相关</h4><ul>
+<li><p>导入相关模块</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> shutil
+<span class="token keyword">import</span> os<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>获取当前脚本绝对路径</p>
+<pre class="line-numbers language-python"><code class="language-python">abs_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>abs_path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>获取当前文件的上级目录</p>
+<pre class="line-numbers language-python"><code class="language-python">base_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>路径<span class="token punctuation">)</span> ）
+<span class="token keyword">print</span><span class="token punctuation">(</span>base_path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>路径拼接</p>
+<pre class="line-numbers language-python"><code class="language-python">p1 <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>p1<span class="token punctuation">)</span>
+
+p2 <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">,</span> <span class="token string">'oo'</span><span class="token punctuation">,</span> <span class="token string">'a1.png'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>p2<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>判断路径是否存在</p>
+<pre class="line-numbers language-python"><code class="language-python">exists <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>p1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>exists<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>创建文件夹</p>
+<pre class="line-numbers language-python"><code class="language-python">os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>路径<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">,</span> <span class="token string">'oo'</span><span class="token punctuation">,</span> <span class="token string">'uuuu'</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>判断是否是文件夹</p>
+<pre class="line-numbers language-python"><code class="language-python">file_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">,</span> <span class="token string">'oo'</span><span class="token punctuation">,</span> <span class="token string">'uuuu.png'</span><span class="token punctuation">)</span>
+is_dir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>file_path<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>is_dir<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># False</span>
+
+folder_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">,</span> <span class="token string">'oo'</span><span class="token punctuation">,</span> <span class="token string">'uuuu'</span><span class="token punctuation">)</span>
+is_dir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>folder_path<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>is_dir<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>删除文件或文件夹</p>
+<pre class="line-numbers language-python"><code class="language-python">os<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">"文件路径"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_path<span class="token punctuation">,</span> <span class="token string">'xx'</span><span class="token punctuation">)</span>
+shutil<span class="token punctuation">.</span>rmtree<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>拷贝文件夹</p>
+<pre class="line-numbers language-python"><code class="language-python">shutil<span class="token punctuation">.</span>copytree<span class="token punctuation">(</span><span class="token string">"D:/data/files"</span><span class="token punctuation">,</span><span class="token string">"E:/data/files"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>拷贝文件</p>
+<pre class="line-numbers language-python"><code class="language-python">shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token string">"D:/data/xx.png"</span><span class="token punctuation">,</span><span class="token string">"E:/data/"</span><span class="token punctuation">)</span>
+shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token string">"D:/data/xx.png"</span><span class="token punctuation">,</span><span class="token string">"E:/data/yy.png"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>文件或文件夹重命名</p>
+<pre class="line-numbers language-python"><code class="language-python">shutil<span class="token punctuation">.</span>move<span class="token punctuation">(</span><span class="token string">"D:/data/xx.png"</span><span class="token punctuation">,</span><span class="token string">"D:/data/xx2.png"</span><span class="token punctuation">)</span>
+shutil<span class="token punctuation">.</span>move<span class="token punctuation">(</span><span class="token string">"D:/data/files"</span><span class="token punctuation">,</span><span class="token string">"D:/data/images"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="简单的总结"><a href="#简单的总结" class="headerlink" title="简单的总结"></a>简单的总结</h3><p>上一节和本节我们主要围绕着<strong>常见文件相关操作</strong>来展开进行讲解，让大家能够基于Python处理不同格式的文件。由于涉及的知识点比较多，所以这两节的内容学起来会比较耗时，但都比较简单，只需要理解并编写好相关笔记以便后期开发时翻阅。最后再次强调一下文件处理时的注意问题：</p>
+<ol>
+<li><p>文件相对路径，在使用相对路径时可能会执行程序的目录不同，导致路径出问题。所以，如若使用相对路径请务必清楚当前运行程序所在目录。</p>
+</li>
+<li><p>文件绝对路径（推荐），不要将文件路径写死，而是基于 os 模块中的相关功能自动化获取绝对路径，以方便项目移动到其他文件或电脑上。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+base_dir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+file_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>base_dir<span class="token punctuation">,</span> <span class="token string">'files'</span><span class="token punctuation">,</span> <span class="token string">'info.txt'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>路径转义</p>
+<ul>
+<li>手动写路径，需要自己在路径中添加 r 或 加入 \ 来进行处理。</li>
+<li>基于os.path.join拼接，内部自动处理，不需要手动处理。</li>
+</ul>
+</li>
+<li><p>内置函数、内置模块、第三方模块的区别？</p>
+</li>
+<li><p>如何去下载安装第三方模块？</p>
+<pre><code>pip install 模块名称</code></pre>
+<ul>
+<li>requests模块，可以用来发送网络请求。</li>
+<li>openpyxl模块，处理Excel格式的文件。</li>
+</ul>
+</li>
+<li><p>基本文件的读写、打开模式、上下文管理。</p>
+</li>
+<li><p>其他格式：csv、ini、excel格式的处理（无序记忆，做好笔记即可）。</p>
+</li>
+</ol>
+<p>将来如果大家使用Python做数据分析，很有可能会用到名为<code>pandas</code>的三方库，它是Python数据分析的神器之一。它能够轻松处理csv、excel等各种常见格式的数据，完成各种复杂的操作，尤其对于大文件优势更加明显。后期我会出一个<code>pandas</code>系列的文章，到时候可以领略它的神奇。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-21-pian-wen-jian-cao-zuo-kuo-zhan-pian/">https://zhangyafeii.gitee.io/python/base/di-21-pian-wen-jian-cao-zuo-kuo-zhan-pian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                                    <span class="chip bg-color">文件操作</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-22T08-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-22-pian-mian-xiang-dui-xiang-bian-cheng-ru-men/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/22.jpg" class="responsive-img" alt="第22篇：面向对象编程入门">
+                        
+                        <span class="card-title">第22篇：面向对象编程入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：了解面向对象思想，掌握面向对象基础使用方法。
+不知大家是否发现，我们所谓的编程其实是写程序的人按照计算机的工作方式通过代码控制机器完成任务。但是，计算机的工作方式与人类正常的思维模式是不同的，如果编程就必须抛弃人类正常的思维方式去
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-20-pian-wen-jian-cao-zuo/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/%E7%AC%AC20%E7%AF%87.jpg" class="responsive-img" alt="第20篇：文件操作">
+                        
+                        <span class="card-title">第20篇：文件操作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：掌握Python中文件打开、关闭、读取和写入的具体操作方法
+实际开发中常常会遇到对数据进行持久化的场景，所谓持久化是指将数据从无法长久保存数据的存储介质（通常是内存）转移到可以长久保存数据的存储介质（通常是硬盘）中。实现数据持久化
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">文件操作</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

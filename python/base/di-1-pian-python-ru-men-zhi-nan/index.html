@@ -1,0 +1,1588 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第1篇：Python入门指南, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="学习编程已经好些年头了，这当中当然也有许多艰难的时刻，最难的时候大概是一个小问题由于找不到解决方法困扰自己好长时间吧，从最开始一大片一大片的知识盲区，到现在自己脑海中蕴藏的知识越来越多，知识的积累所带来的质变大概是如今心态与之前不同最主要的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第1篇：Python入门指南 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2505758529,219040065&fm=26&gp=0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第1篇：Python入门指南
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">
+                                <span class="chip bg-color">入门指南</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-08
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>学习编程已经好些年头了，这当中当然也有许多艰难的时刻，最难的时候大概是一个小问题由于找不到解决方法困扰自己好长时间吧，从最开始一大片一大片的知识盲区，到现在自己脑海中蕴藏的知识越来越多，知识的积累所带来的质变大概是如今心态与之前不同最主要的原因。当然，了解的越多越感到自己的渺小，越感到自己的无知，不过认识到这种现实存在也许正是一个人持续进步最合理的状态，不过分相信自己，也不过分看轻自己。除了技术之外，我还比较喜欢阅读国学经典，我从中华文化里领悟最深刻的就是<strong>真诚</strong>和<strong>谦</strong>，人一旦真诚就会向善，善是我与别人之间适当关系的实现， 判断适当与否，要参考三点 ：内心感受要真诚 ；对方期许要沟通；社会规范要遵守。一个人如果不真诚，代表他也不期许你真诚。你与他只剩下社会规范了，纯粹公事公办。我去搭车或买票，当然不可能奢望别人礼让。但是轮到我买票时，也不希望别人插队。我下课时去倒水，同学见到我就礼让，那是因为师生之间有真诚的情感；但在社会上，别人会礼让吗？不一定。所以，社会需要法律，大家照规矩行事，不要空谈谁好谁坏，无所谓善良不善良。如果你与一个人有了交情，状况就不一样了，甚至可以为他牺牲生命。这就是儒家思想的适用性。另一个是关于<strong>谦</strong>的认识，谦为易经中第十五卦，卦象为坤上艮下，又名地山谦，谦卦的卦象是山在地下，山作为高大之物反而处在地的下面，以此来象征“谦”的德行；山藏在地下，不露山不显水，表现低调，可以说是谦逊。在《周易》六十四卦中，唯有谦卦是六爻皆吉的卦。老子说：“上善若水，水善利万物而不争，处众人之所恶，故几于道。”这就是“谦道”，谦卑于下，如水流谷底，水流即善流。雄鹰低飞，并非志向不够高远，而是为了把沿途风景看得更为真切、更为明白、更为客观。天道循环，风水轮流转，十年河东，十年河西。<strong>人只有心存敬畏，才能行有所止，才能感知天地、自然的广袤、浩瀚，才能感知命运、天道的神奇、博大；才能感知自身的渺小、卑微，从而唤醒内心的自律和良知，扬善至恶，慎独修心，培养出高尚的人格</strong>。我们每个人都会在人生的某一刻将人生的重心转到开始认识自己，只不过大部分人一直在最美好的年纪认识别人。我前几年一直觉得得到才是幸福，可是近些年来慢慢懂得失去的幸福，Less is more，少就是多，弯路就是直路。希望每个有志向的年轻人都可以用自己的努力获得体面的工作和生活！</p>
+<h2 id="人生苦短，我用Python"><a href="#人生苦短，我用Python" class="headerlink" title="人生苦短，我用Python"></a>人生苦短，我用Python</h2><p>在Python开发领域流传着这样一句话：<strong>人生苦短，我用Python</strong>，这句话出自Bruce Eckel，原文是：Life is short，you need Python。使用过Python语言的程序员，或者从别的语言（比如Java）转换到Python开发的程序员或许对这句话的理解更加深刻。</p>
+<p><strong>例如长期使用过C和Java语言的程序员，在转向Python之后就会发现。采用Python进行机器学习方向的研发确实存在很多方便，主要体现在以下几个方面：</strong></p>
+<ul>
+<li>第一：代码量下降明显。</li>
+</ul>
+<p>以机器学习为例，采用Java和Python完成同一个算法实现时，Python的实现代码量明显少于Java，有的下降幅度甚至超过一半以上。代码量的下降意味着开发周期的缩短，这在一定程度上减轻了程序员的开发负担。程序员可以把节省的时间做更多有意义的事情，比如做算法设计，或者用来学习等。</p>
+<ul>
+<li>第二：开发方便。</li>
+</ul>
+<p>Python语言完成代码实现的过程还是比较方便的，一个重要的原因是Python有丰富的库可以使用，比如在机器学习领域比较常见的库有<code>Numpy</code>、<code>Scipy</code>、<code>matplotlib</code>、<code>pandas</code>等，这些库提供了大量的基础实现，在编码的过程中，可以方便的使用这些库，从而避免了大量代码的编写过程。</p>
+<ul>
+<li>第三：语言生态健全。</li>
+</ul>
+<p>Python语言目前在Web开发、大数据开发、人工智能开发、后端服务开发和嵌入式开发等领域都有广泛的应用，成熟案例非常多，所以采用Python完成代码实现的时候往往具有较小的风险。</p>
+<p>目前，伴随着大数据和人工智能的发展，目前Python语言的上升趋势非常明显，相信未来Python语言在产业互联网阶段会有更加广泛的应用。简而言之，学习Python语言是个不错的选择。那接下来就开始跟着我开始Python学习之路吧 ！</p>
+<p><strong>学习目标</strong>：了解计算机基础知识并完成Python的环境搭建</p>
+<p><strong>内容概要</strong></p>
+<ul>
+<li>计算机基础</li>
+<li>Python简介</li>
+<li>环境搭建</li>
+<li>编码</li>
+<li>编程初体验</li>
+<li>练习</li>
+<li>小结</li>
+</ul>
+<h2 id="一、计算机基础入门"><a href="#一、计算机基础入门" class="headerlink" title="一、计算机基础入门"></a>一、计算机基础入门</h2><h3 id="1-计算机基础"><a href="#1-计算机基础" class="headerlink" title="1. 计算机基础"></a>1. 计算机基础</h3><h4 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h4><ul>
+<li><p>计算机的组成</p>
+<p>计算机是由多个硬件组合组成，常见的硬件有：CPU、硬盘、内存、网卡、显示器、机箱、电源。。。<br>注意事项：机械将零件组合在一起，他们之间是无法进行协作。</p>
+</li>
+<li><p>操作系统</p>
+<p>用于协调计算机的各个硬件，让硬件之间进行协同工作，已完成某个目标。<br>常见的操作系统分类：</p>
+<ul>
+<li><code>windows</code>，优点：生态牛逼、工具多；缺点：略慢、收费。【个人】<ul>
+<li><code>XP</code></li>
+<li><code>win7</code></li>
+<li><code>win8</code></li>
+<li><code>win10</code><br>…</li>
+</ul>
+</li>
+<li><code>linux</code>，优点：资源占用少、免费（很多公司的服务器上安装linux）;缺点：工具少、告别游戏。【企业的服务器】<ul>
+<li><code>centos</code></li>
+<li><code>ubuntu</code></li>
+<li><code>redhat</code><br>…</li>
+</ul>
+</li>
+<li>mac，优点：生态还行、工具差不多都有、用户体验和交互好；缺点：有些软件和游戏不支持。</li>
+</ul>
+</li>
+<li><p>软件（应用程序）</p>
+<p>安装操作系统之后，我们会在自己电脑上安装一些常用的软件，例如：QQ、杀毒、微信…<br>问题来了，这些软件是否谁开发的？是否各大公司的程序员开发的<br>可以把软件理解为一大堆的代码（一篇文章）。</p>
+<p><img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2752990369,274276239&amp;fm=26&amp;gp=0.jpg" alt="计算机体系分层"></p>
+</li>
+</ul>
+<h4 id="1-2-编程语言"><a href="#1-2-编程语言" class="headerlink" title="1.2 编程语言"></a>1.2 编程语言</h4><p>软件，是由程序员使用编程语言开发出来的一大堆代码的集合。全球的编程语言有2500+多种，常见的编程语言：Java、C#、Python、PHP、C…</p>
+<p>作文，是由小学生使用汉语/英语/法语/日语…写出来的一大堆的文字集合。</p>
+<p>学习编程语言就是学习他的语法，根据语法再去编写相应的软件中的功能。</p>
+<ul>
+<li><p><code>Python</code>中的输出语法规则</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'hello python!'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><code>Golang</code>语言中的输出语法规则</p>
+<pre class="line-numbers language-go"><code class="language-go">fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"hello golang!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="1-3-编译器-解释器"><a href="#1-3-编译器-解释器" class="headerlink" title="1.3 编译器/解释器"></a>1.3 编译器/解释器</h4><p>编译器/解释器,就是一个翻译官，将代码翻译成计算机能够识别的命令。</p>
+<pre><code>A使用Pyton开发了一个软件            B使用Golang开发了一个软件
+    Python解释器                    Golang编译器
+                        操作系统
+                CPU    硬盘    网卡    内存    电源    ......</code></pre>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114174634835.png" alt="计算机体系结构"></p>
+<p>为什么有的叫解释器？有的叫编译器？</p>
+<ul>
+<li>解释器，实时翻译。拿到1000行代码之后，解释一句交给操作系统一句。</li>
+<li>编译器，全文翻译。拿到2000行之后会将它饼啊议程一个临时文件（计算机能够识别命令），再把文件交给操作系统去读取。</li>
+</ul>
+<p><code>Python</code>、<code>PHP</code>、<code>javascript</code>、<code>Ruby</code>…一般称为解释型语言</p>
+<p>C、C++、Go、Java…一般称为编译型语言</p>
+<h3 id="2-学习编程的本质"><a href="#2-学习编程的本质" class="headerlink" title="2. 学习编程的本质"></a>2. 学习编程的本质</h3><p>学编程语言本质上就是三件事：</p>
+<ul>
+<li>选择一门编程语言，在自己的电脑上安装此编程语言相关的编译器/解释器。</li>
+<li>学习编程语言的语法规则，根据语法规则 + 业务背景 设计开发你的软件（代码集合）。</li>
+<li>使用编译器/解释器去运行自己写的代码。</li>
+</ul>
+<h3 id="3-语言的分类"><a href="#3-语言的分类" class="headerlink" title="3. 语言的分类"></a>3. 语言的分类</h3><ul>
+<li><p>翻译的维度</p>
+<ul>
+<li>解释型语言：<code>Python</code>、<code>PHP</code>等</li>
+<li>编译型语言：<code>C</code>、<code>Java</code>、<code>Golang</code></li>
+</ul>
+</li>
+<li><p>高低的维度</p>
+<ul>
+<li><p>低级编程语言，写出来的代码可以被计算机识别</p>
+<pre><code>机器语言，101 001 00001 00010 00101100000011100，机器码，交给计算机去执行
+汇编语言，MOV INC，指令，交给计算机去执行</code></pre>
+</li>
+<li><p>高级编程语言，写出来的代码无法直接被计算机识别，但可以通过某种范式将其转换为计算机可以识别的语言</p>
+<pre><code>C C++ Java Python Ruby... 这类编程语言在编写代码是几乎是写英语作文
+交由相关编译器或解释器翻译成机器码，然后再交给计算机去执行。</code></pre>
+</li>
+<li><p>注意：现在基本上都是用高级编程语言</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、Python简介"><a href="#二、Python简介" class="headerlink" title="二、Python简介"></a>二、Python简介</h2><h3 id="1-Python的历史"><a href="#1-Python的历史" class="headerlink" title="1. Python的历史"></a>1. Python的历史</h3><ol>
+<li>1989年圣诞节：Python的创始人为吉多·范罗苏姆（Guido van Rossum），在1989年圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。 Python的名字来自Guido所挚爱的电视剧Monty Python’s Filting Circus。他希望这个新的叫做Python的语言，能符合他的理想：创造一种C和shell之间，功能全面，易学易用、可扩展的语言。Guido von Rossum开始写Python语言的编译器。</li>
+<li>1991年2月：第一个Python编译器（同时也是解释器）诞生，它是用C语言实现的（后面），可以调用C语言的库函数。在最早的版本中，Python已经提供了对“类”，“函数”，“异常处理”等构造块的支持，还有对列表、字典等核心数据类型，同时支持以模块为基础来构造应用程序。</li>
+<li>1994年1月：Python 1.0正式发布。</li>
+<li>2000年10月16日：Python 2.0发布，增加了完整的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8)">垃圾回收</a>，提供了对<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Unicode">Unicode</a>的支持。与此同时，Python的整个开发过程更加透明，社区对开发进度的影响逐渐扩大，生态圈开始慢慢形成。</li>
+<li>2008年12月3日：Python 3.0发布，它并不完全兼容之前的Python代码，不过因为目前还有不少公司在项目和运维中使用Python 2.x版本，所以Python 3.x的很多新特性后来也被移植到Python 2.6/2.7版本中。</li>
+</ol>
+<p>Python的版本号分为三段，形如A.B.C。其中A表示大版本号，一般当整体重写，或出现不向后兼容的改变时，增加A；B表示功能更新，出现新功能时增加B；C表示小的改动（例如：修复了某个Bug），只要有修改就增加C。如果对Python的历史感兴趣，可以阅读名为<a target="_blank" rel="noopener" href="http://www.cnblogs.com/vamei/archive/2013/02/06/2892628.html">《Python简史》</a>的网络文章。</p>
+<h3 id="2-Python的优缺点"><a href="#2-Python的优缺点" class="headerlink" title="2. Python的优缺点"></a>2. Python的优缺点</h3><p>Python的优点很多，简单的可以总结为以下几点。</p>
+<ol>
+<li>简单明了，学习曲线低，比很多编程语言都容易上手。</li>
+<li>开放源代码，拥有强大的社区和生态圈，尤其是在数据分析和机器学习领域。</li>
+<li>解释型语言，天生具有平台可移植性，代码可以工作于不同的操作系统。</li>
+<li>对两种主流的编程范式（面向对象编程和函数式编程）都提供了支持。</li>
+<li>代码规范程度高，可读性强，适合有代码洁癖和强迫症的人群。</li>
+</ol>
+<p>Python的缺点主要集中在以下几点。</p>
+<ol>
+<li>执行效率稍低，对执行效率要求高的部分可以由其他语言（如：C、C++）编写。</li>
+<li>代码无法加密，但是现在很多公司都不销售卖软件而是销售服务，这个问题会被弱化。</li>
+<li>在开发时可以选择的框架太多（如Web框架就有100多个），有选择的地方就有错误。</li>
+</ol>
+<h3 id="3-Python的应用领域"><a href="#3-Python的应用领域" class="headerlink" title="3. Python的应用领域"></a>3. Python的应用领域</h3><p>目前Python在Web应用后端开发、云基础设施建设、DevOps、网络数据采集（爬虫）、自动化测试、数据分析、机器学习等领域都有着广泛的应用。</p>
+<h3 id="4-Python的发展前景"><a href="#4-Python的发展前景" class="headerlink" title="4. Python的发展前景"></a>4. Python的发展前景</h3><ul>
+<li><p>2020 TIOBE排行榜：<a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">https://www.tiobe.com/tiobe-index/</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114180714288.png" alt="2020 Tiobe排行榜"></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114180736657.png" alt="发展趋势图"></p>
+</li>
+</ul>
+<h3 id="5-Python的解释器种类"><a href="#5-Python的解释器种类" class="headerlink" title="5. Python的解释器种类"></a>5. Python的解释器种类</h3><p>想要学一门编程语言：安装Python解释器，学习Python语法并编写代码，使用Python解释器去执行编写好的代码。</p>
+<p>由于Python太火了，所以就有很多公司都开发了Python解释器（用来翻译python代码成为计算机能够识别的命令）。</p>
+<ul>
+<li><code>Cpython</code>：Python的官方版本，使用C语言实现，使用最为广泛，CPython实现会将源文件（py文件）转换成字节码文件（<code>pyc</code>文件），然后运行在Python虚拟机上。</li>
+<li><code>Jyhton</code>：Python的Java实现，<code>Jython</code>会将Python代码动态编译成Java字节码，然后在JVM上运行。</li>
+<li><code>IronPython</code>：Python的C#实现，<code>IronPython</code>将Python代码编译成C#字节码，然后在CLR上运行。（与Jython类似）</li>
+<li><code>PyPy</code>（特殊）：是对Cpython的优化，执行效率提高了。引入编译器的功能，本质上将Python代码进行编译，再去执行编译后的代码。</li>
+<li><code>RubyPython</code>、<code>Brython</code> …</li>
+</ul>
+<p>注意：常说的Python解释器就是指的<code>Cpython</code></p>
+<h2 id="三、环境搭建"><a href="#三、环境搭建" class="headerlink" title="三、环境搭建"></a>三、环境搭建</h2><h3 id="1-安装Python解释器"><a href="#1-安装Python解释器" class="headerlink" title="1. 安装Python解释器"></a>1. 安装Python解释器</h3><p>想要开始Python编程之旅，首先得在自己使用的计算机上安装Python解释器环境，下面将以安装官方的Python解释器为例，讲解如何在不同的操作系统上安装Python环境。官方的Python解释器是用C语言实现的，也是使用最为广泛的Python解释器，通常称之为<code>CPython</code>。除此之外，Python解释器还有Java语言实现的<code>Jython</code>、C#语言实现的<code>IronPython</code>以及<code>PyPy</code>、<code>Brython</code>、<code>Pyston</code>等版本，有兴趣的读者可以自行了解。</p>
+<h4 id="1-1-Windows环境"><a href="#1-1-Windows环境" class="headerlink" title="1.1 Windows环境"></a>1.1 Windows环境</h4><ul>
+<li><p>去Python官网下载Python解释器（3.9.0）</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114164103931.png" alt="Pthon官网"></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114210935801.png" alt="下载页面"></p>
+</li>
+<li><p>淘宝镜像：由于Python官网服务器在国外，在国内下载速度较慢，可以选择国内镜像站点进行下载。</p>
+<p><a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/python">https://npm.taobao.org/mirrors/python</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114211140329.png" alt="淘宝镜像"></p>
+</li>
+<li><p>选择指定版本安装包并下载，按照提示一步一步安装</p>
+<p>安装完成后在安装目录下有一个python.exe文件，就是python解释器的启动文件</p>
+</li>
+<li><p>测试安装是否成功</p>
+</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python">C<span class="token punctuation">:</span>\Users\Administrator<span class="token operator">></span>python
+Python <span class="token number">3.7</span><span class="token punctuation">.</span><span class="token number">8</span> <span class="token punctuation">(</span>tags<span class="token operator">/</span>v3<span class="token number">.7</span><span class="token punctuation">.</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">4b47a5b6ba</span><span class="token punctuation">,</span> Jun <span class="token number">28</span> <span class="token number">2020</span><span class="token punctuation">,</span> <span class="token number">08</span><span class="token punctuation">:</span><span class="token number">53</span><span class="token punctuation">:</span><span class="token number">46</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>MSC v<span class="token number">.1916</span> <span class="token number">64</span> bit <span class="token punctuation">(</span>AMD64<span class="token punctuation">)</span><span class="token punctuation">]</span> on win32
+Type <span class="token string">"help"</span><span class="token punctuation">,</span> <span class="token string">"copyright"</span><span class="token punctuation">,</span> <span class="token string">"credits"</span> <span class="token operator">or</span> <span class="token string">"license"</span> <span class="token keyword">for</span> more information<span class="token punctuation">.</span>
+<span class="token operator">>></span><span class="token operator">></span> exit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+C<span class="token punctuation">:</span>\Users\Administrator<span class="token operator">></span>python <span class="token operator">-</span><span class="token operator">-</span>version
+Python <span class="token number">3.7</span><span class="token punctuation">.</span><span class="token number">8</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>若正确输出以上信息，则说明安装成功。</p>
+<h4 id="1-2-Linux环境"><a href="#1-2-Linux环境" class="headerlink" title="1.2 Linux环境"></a>1.2 Linux环境</h4><p>Linux环境自带了Python 2.x版本，但是如果要更新到3.x的版本，可以在<a target="_blank" rel="noopener" href="https://www.python.org/">Python的官方网站</a>下载Python的源代码并通过源代码构建安装的方式进行安装，具体的步骤如下所示（以CentOS为例）。</p>
+<ol>
+<li>安装依赖库（因为没有这些依赖库可能在源代码构件安装时因为缺失底层依赖库而失败）。</li>
+</ol>
+<pre class="line-numbers language-Shell"><code class="language-Shell">yum -y install wget gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>下载Python源代码并解压缩到指定目录。</li>
+</ol>
+<pre class="line-numbers language-Shell"><code class="language-Shell">wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tar.xz
+xz -d Python-3.7.6.tar.xz
+tar -xvf Python-3.7.6.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>切换至Python源代码目录并执行下面的命令进行配置和安装。</li>
+</ol>
+<pre class="line-numbers language-Shell"><code class="language-Shell">cd Python-3.7.6
+./configure --prefix=/usr/local/python37 --enable-optimizations
+make && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>修改用户主目录下名为.bash_profile的文件，配置PATH环境变量并使其生效。</li>
+</ol>
+<pre class="line-numbers language-Shell"><code class="language-Shell">cd ~
+vim .bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-Shell"><code class="language-Shell"># ... 此处省略上面的代码 ...
+
+export PATH=$PATH:/usr/local/python37/bin
+
+# ... 此处省略下面的代码 ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>激活环境变量。</li>
+</ol>
+<pre class="line-numbers language-Shell"><code class="language-Shell">source .bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="1-3-macOS环境"><a href="#1-3-macOS环境" class="headerlink" title="1.3 macOS环境"></a>1.3 macOS环境</h4><p>macOS也自带了Python 2.x版本，可以通过<a target="_blank" rel="noopener" href="https://www.python.org/">Python的官方网站</a>提供的安装文件（pkg文件）安装Python 3.x的版本。默认安装完成后，可以通过在终端执行<code>python</code>命令来启动2.x版本的Python解释器，启动3.x版本的Python解释器需要执行<code>python3</code>命令。</p>
+<h3 id="2-运行Python程序"><a href="#2-运行Python程序" class="headerlink" title="2. 运行Python程序"></a>2. 运行Python程序</h3><h4 id="2-1-确认Python的版本"><a href="#2-1-确认Python的版本" class="headerlink" title="2.1 确认Python的版本"></a>2.1 确认Python的版本</h4><p>可以Windows的命令行提示符中键入下面的命令。</p>
+<pre class="line-numbers language-Shell"><code class="language-Shell">python --version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在Linux或macOS系统的终端中键入下面的命令。</p>
+<pre class="line-numbers language-Shell"><code class="language-Shell">python3 --version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当然也可以先输入<code>python</code>或<code>python3</code>进入交互式环境，再执行以下的代码检查Python的版本。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">import sys
+
+print(sys.version_info)
+print(sys.version)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-2-编写Python源代码"><a href="#2-2-编写Python源代码" class="headerlink" title="2.2 编写Python源代码"></a>2.2 编写Python源代码</h4><p>可以用文本编辑工具（推荐使用<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">Pycharm</a>、<a target="_blank" rel="noopener" href="https://www.sublimetext.com/">Sublime</a>、<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a>等高级文本编辑工具）编写Python源代码并用py作为后缀名保存该文件，代码内容如下所示。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">print('Hello, Life is short, I use Python!')<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="2-3-运行程序"><a href="#2-3-运行程序" class="headerlink" title="2.3 运行程序"></a>2.3 运行程序</h4><p>切换到源代码所在的目录并执行下面的命令，看看屏幕上是否输出了”Hello, Life is short, I use Python!”。</p>
+<pre class="line-numbers language-Shell"><code class="language-Shell">python hello.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或</p>
+<pre class="line-numbers language-Shell"><code class="language-Shell">python3 hello.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-Python开发工具"><a href="#3-Python开发工具" class="headerlink" title="3. Python开发工具"></a>3. Python开发工具</h3><h4 id="3-1-IDLE"><a href="#3-1-IDLE" class="headerlink" title="3.1 IDLE"></a>3.1 IDLE</h4><p>IDLE是安装Python环境时自带的集成开发工具，如下图所示。但是由于IDLE的用户体验并不是那么好所以很少在实际开发中被采用。</p>
+<p><img src="https://img-blog.csdn.net/20180824134700225?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbnUxNzEwMjUyNjU4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="IDLE"></p>
+<h4 id="3-2-IPython-更好的交互式编程工具"><a href="#3-2-IPython-更好的交互式编程工具" class="headerlink" title="3.2 IPython - 更好的交互式编程工具"></a>3.2 IPython - 更好的交互式编程工具</h4><p><code>IPython</code>是一种基于Python的交互式解释器。相较于原生的Python交互式环境，IPython提供了更为强大的编辑和交互功能。可以通过Python的包管理工具pip安装IPython，具体的操作如下所示。</p>
+<pre class="line-numbers language-python"><code class="language-python">pip install ipython<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或</p>
+<pre class="line-numbers language-python"><code class="language-python">pip3 install ipython<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装成功后，可以通过下面的ipython命令启动IPython，如下图所示。</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201208105437431.png" alt="image-20201208105437431"></p>
+<h4 id="3-3-Sublime-Text-高级文本编辑器"><a href="#3-3-Sublime-Text-高级文本编辑器" class="headerlink" title="3.3 Sublime Text - 高级文本编辑器"></a>3.3 Sublime Text - 高级文本编辑器</h4><p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201208105525140.png" alt="sublime text"></p>
+<ul>
+<li><p>首先可以通过<a target="_blank" rel="noopener" href="https://www.sublimetext.com/">官方网站</a>下载安装程序安装Sublime Text 3或Sublime Text 2。</p>
+</li>
+<li><p>安装包管理工具。</p>
+<ol>
+<li>通过快捷键Ctrl+`或者在View菜单中选择Show Console打开控制台，输入下面的代码。</li>
+</ol>
+<ul>
+<li>Sublime 3</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span>  urllib<span class="token punctuation">.</span>request<span class="token punctuation">,</span>os<span class="token punctuation">;</span>pf<span class="token operator">=</span><span class="token string">'Package Control.sublime-package'</span><span class="token punctuation">;</span>ipp<span class="token operator">=</span>sublime<span class="token punctuation">.</span>installed_packages_path<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span>urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span>urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>ProxyHandler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>open<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>ipp<span class="token punctuation">,</span>pf<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'wb'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>write<span class="token punctuation">(</span>urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>urlopen<span class="token punctuation">(</span><span class="token string">'http://sublime.wbond.net/'</span><span class="token operator">+</span>pf<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span><span class="token string">'%20'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>Sublime 2</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span>  urllib2<span class="token punctuation">,</span>os<span class="token punctuation">;</span>pf<span class="token operator">=</span><span class="token string">'Package Control.sublime-package'</span><span class="token punctuation">;</span>ipp<span class="token operator">=</span>sublime<span class="token punctuation">.</span>installed_packages_path<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>ipp<span class="token punctuation">)</span>ifnotos<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>ipp<span class="token punctuation">)</span>elseNone<span class="token punctuation">;</span>urllib2<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span>urllib2<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span>urllib2<span class="token punctuation">.</span>ProxyHandler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>open<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>ipp<span class="token punctuation">,</span>pf<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'wb'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>write<span class="token punctuation">(</span>urllib2<span class="token punctuation">.</span>urlopen<span class="token punctuation">(</span><span class="token string">'http://sublime.wbond.net/'</span><span class="token operator">+</span>pf<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span><span class="token string">'%20'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Please restart Sublime Text to finish installation'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol>
+<li>在浏览器中输入 [<a target="_blank" rel="noopener" href="https://sublime.wbond.net/Package%20Control.sublime-package]">https://sublime.wbond.net/Package%20Control.sublime-package]</a>(<a target="_blank" rel="noopener" href="https://sublime.wbond.net/Package">https://sublime.wbond.net/Package</a> Control.sublime-package) 下载包管理工具的安装包，并找到安装Sublime目录下名为”Installed Packages”的目录，把刚才下载的文件放到这个文件加下，然后重启Sublime Text就搞定了。</li>
+</ol>
+</li>
+<li><p>安装插件。通过Preference菜单的Package Control或快捷键Ctrl+Shift+P打开命令面板，在面板中输入Install Package就可以找到安装插件的工具，然后再查找需要的插件。我们推荐大家安装以下几个插件：</p>
+<ul>
+<li>SublimeCodeIntel - 代码自动补全工具插件。</li>
+<li>Emmet - 前端开发代码模板插件。</li>
+<li>Git - 版本控制工具插件。</li>
+<li>Python PEP8 Autoformat - PEP8规范自动格式化插件。</li>
+<li>ConvertToUTF8 - 将本地编码转换为UTF-8。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-4-Vscode-宇宙最强插件编辑器"><a href="#3-4-Vscode-宇宙最强插件编辑器" class="headerlink" title="3.4 Vscode - 宇宙最强插件编辑器"></a>3.4 Vscode - 宇宙最强插件编辑器</h4><p>官网：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201208105745968.png" alt="vscode"></p>
+<h4 id="3-5-Pycharm-宇宙最强Python编辑器"><a href="#3-5-Pycharm-宇宙最强Python编辑器" class="headerlink" title="3.5 Pycharm - 宇宙最强Python编辑器"></a>3.5 Pycharm - 宇宙最强Python编辑器</h4><ul>
+<li><p>官网：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">https://www.jetbrains.com/pycharm/</a></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201114212341306.png" alt="pycharm"></p>
+</li>
+<li><p>注意：pycharm分为社区版和专业版，社区版免费，单功能相对于专业版少一些，专业版的收费。</p>
+<p>破解教程：<a target="_blank" rel="noopener" href="https://shimo.im/docs/WY3hd8Jt8KHgvVty/read">https://shimo.im/docs/WY3hd8Jt8KHgvVty/read</a></p>
+</li>
+</ul>
+<h2 id="四、编码（密码本）"><a href="#四、编码（密码本）" class="headerlink" title="四、编码（密码本）"></a>四、编码（密码本）</h2><p>计算机中所有数据本质上都是以0和1的组合来存储</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201116215102141.png" alt="文本"></p>
+<p>在计算机中会将中文内存转换成010101010101…,最终存储到硬盘上。</p>
+<p>在计算机中有这么一个编码的概念（密码本）。</p>
+<pre><code>张 --&gt; 11100101 10111100 10100000
+亚 --&gt; 11100100 10111010 10011010
+飞 --&gt; 11101001 10100011 10011110</code></pre>
+<p>在计算机中有多种编码</p>
+<pre><code>每种编码都有自己的一套密码本， 都维护着自己的一套规则，如：
+    utf-8编码：
+        张 --&gt; 11100101 10111100 10100000
+        亚 --&gt; 11100100 10111010 10011010
+        飞 --&gt; 11101001 10100011 10011110
+    gbk编码：
+        张 --&gt; 0b11010101 0b11000101
+        亚 --&gt; 0b11010001 0b11000111
+        飞 --&gt; 0b10110111 0b11001001    
+ 所以，使用不同的编码保存文件时，硬盘的文件中存储的0/1也是不同的。</code></pre>
+<p>注意事项：以某个编码的形式进行保存文件，以后就要以这种编码去打开这个文件，否则就会出现乱码。</p>
+<pre><code>UTF-8编码去保存一个文件，GBK编码形式去打开，乱码</code></pre>
+<p>乱码的出现因为文件的存储方式和打开方式不一致导致。另外，如果数据丢失也可可能会造成乱码。</p>
+<pre><code>例如：张，对应存储的是：11100101 10111100 10100000，如果文件中的内容丢失只剩下11100101 10111100 101，则读取时候就可能出现乱码。</code></pre>
+<h2 id="五、编程初体验"><a href="#五、编程初体验" class="headerlink" title="五、编程初体验"></a>五、编程初体验</h2><ul>
+<li><p>命令行基础操作</p>
+<pre class="line-numbers language-python"><code class="language-python">切换盘符
+    盘名：
+    例如：D<span class="token punctuation">:</span>
+同一盘符内切换路径
+    cd 路径
+    例如：cd 02_Python快速上手<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>运行Python的两种方式</p>
+<ul>
+<li><p>交互式</p>
+<ul>
+<li><p>方式一：在终端输入python</p>
+<pre class="line-numbers language-python"><code class="language-python">C<span class="token punctuation">:</span>\Users\Administrator<span class="token operator">></span>python
+Python <span class="token number">3.7</span><span class="token punctuation">.</span><span class="token number">8</span> <span class="token punctuation">(</span>tags<span class="token operator">/</span>v3<span class="token number">.7</span><span class="token punctuation">.</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">4b47a5b6ba</span><span class="token punctuation">,</span> Jun <span class="token number">28</span> <span class="token number">2020</span><span class="token punctuation">,</span> <span class="token number">08</span><span class="token punctuation">:</span><span class="token number">53</span><span class="token punctuation">:</span><span class="token number">46</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>MSC v<span class="token number">.1916</span> <span class="token number">64</span> bit <span class="token punctuation">(</span>AMD64<span class="token punctuation">)</span><span class="token punctuation">]</span> on win32
+Type <span class="token string">"help"</span><span class="token punctuation">,</span> <span class="token string">"copyright"</span><span class="token punctuation">,</span> <span class="token string">"credits"</span> <span class="token operator">or</span> <span class="token string">"license"</span> <span class="token keyword">for</span> more information<span class="token punctuation">.</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'交互式'</span><span class="token punctuation">)</span>
+交互式
+<span class="token operator">>></span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>方式二：在终端输入ipython</p>
+<pre class="line-numbers language-python"><code class="language-python">C<span class="token punctuation">:</span>\Users\Administrator<span class="token operator">></span>ipython
+Python <span class="token number">3.7</span><span class="token punctuation">.</span><span class="token number">8</span> <span class="token punctuation">(</span>tags<span class="token operator">/</span>v3<span class="token number">.7</span><span class="token punctuation">.</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">4b47a5b6ba</span><span class="token punctuation">,</span> Jun <span class="token number">28</span> <span class="token number">2020</span><span class="token punctuation">,</span> <span class="token number">08</span><span class="token punctuation">:</span><span class="token number">53</span><span class="token punctuation">:</span><span class="token number">46</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>MSC v<span class="token number">.1916</span> <span class="token number">64</span> bit <span class="token punctuation">(</span>AMD64<span class="token punctuation">)</span><span class="token punctuation">]</span>
+Type <span class="token string">'copyright'</span><span class="token punctuation">,</span> <span class="token string">'credits'</span> <span class="token operator">or</span> <span class="token string">'license'</span> <span class="token keyword">for</span> more information
+IPython <span class="token number">7.19</span><span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">-</span><span class="token operator">-</span> An enhanced Interactive Python<span class="token punctuation">.</span> Type <span class="token string">'?'</span> <span class="token keyword">for</span> help<span class="token punctuation">.</span>
+
+In <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'ipython交互式界面'</span><span class="token punctuation">)</span>
+ipython交互式界面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>方式三：<code>jupyter notebook</code></p>
+</li>
+</ul>
+</li>
+<li><p>脚本式</p>
+<ul>
+<li><p>终端</p>
+<pre class="line-numbers language-python"><code class="language-python">python 程序文件名<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>编辑器</p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201125093207529.png" alt="编辑器运行代码"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>编码必须要保持保存和打开一致，否则会乱码。</p>
+</li>
+<li><p>默认Python解释器是以UTF-8编码形式打开文件，如果想要修改Python的默认解释器编码，可以这样做：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding:gbk -*-</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'编程初体验'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>建议：所有Python代码文件都要以UTF-8编码保存和读取</p>
+</li>
+</ul>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201116220304436.png" alt="编码"></p>
+<p><img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/image-20201116220610128.png" alt="编码"></p>
+<h2 id="六、练习"><a href="#六、练习" class="headerlink" title="六、练习"></a>六、练习</h2><ol>
+<li><p>在Python交互式环境中输入下面的代码并查看结果，请尝试将看到的内容翻译成中文。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> this<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p><strong>说明</strong>：输入上面的代码，在Python的交互式环境中可以看到Tim Peter撰写的<a target="_blank" rel="noopener" href="https://gitee.com/zhangyafeii/Python-100-Days/blob/master/Python%E4%B9%8B%E7%A6%85.md">“Python之禅”</a>，里面讲述的道理不仅仅适用于Python，也适用于其他编程语言。</p>
+</blockquote>
+</li>
+<li><p>学习使用turtle在屏幕上绘制图形。</p>
+<blockquote>
+<p><strong>说明</strong>：turtle是Python内置的一个非常有趣的模块，特别适合对计算机程序设计进行初体验的小伙伴，它最早是Logo语言的一部分，Logo语言是Wally Feurzig和Seymour Papert在1966发明的编程语言。</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> turtle
+
+turtle<span class="token punctuation">.</span>pensize<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>pencolor<span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">)</span>
+
+turtle<span class="token punctuation">.</span>forward<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>right<span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>forward<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>right<span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>forward<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>right<span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>forward<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+
+turtle<span class="token punctuation">.</span>mainloop<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="七、小结"><a href="#七、小结" class="headerlink" title="七、小结"></a>七、小结</h2><ol>
+<li><p>简述硬件 &amp; 操作系统 &amp; 软件（应用系统）之间的关系。</p>
+<pre><code>计算机是由多个硬件组成，例如：CPU、硬盘、内存、网卡、主板等。
+操作系统则是安装在计算机上用于协调各硬件进行配合工作的，它将用户的一些行为转为计算机能够势必的命令，并协调各个硬件配合完成相关命令。
+软件，是由程序员开发并安装在操作系统的程序（本质是一大堆代码）。例如：微信、QQ、金山毒霸等。</code></pre>
+</li>
+<li><p>列举常见的操作系统</p>
+<pre><code>常见的操作系统有三类：
+- win: xp, win7, win8, win10 等
+- linux: centos. ubuntu, redhat 等
+- mac: Catalina, Mojave, Sierra 等</code></pre>
+</li>
+<li><p>简述编译器和解释器的区别和作用</p>
+<pre><code>编译器和解释器的作用是将各编程语言的代码进行翻译，从而使得计算机能够识别并执行。
+编译器，全文翻译，讲代码编译成`临时文件`，再执行临时文件。
+解释器，实时翻译，对代码实行边解释边执行。</code></pre>
+</li>
+<li><p>编程语言进行分类</p>
+<pre><code>解释的角度：编译型和解释型
+高低的角度：高级编程语言和低级编程语言</code></pre>
+</li>
+<li><p>Python解释器的种类有哪些？</p>
+<pre><code>CPython、JPython、IronPython、PyPy等</code></pre>
+</li>
+<li><p>系统环境变量的作用是什么？</p>
+<pre><code>在将某个目录添加到环境变量前，如果在终端想要取运行此目录下的文件，则只需要输入文件名即可（无需再写后缀），胸会自动读取环境变量中的路径并自动拼接。</code></pre>
+</li>
+<li><p>Python和Pycharm的区别是什么？</p>
+<pre><code>Python是解释器，用于将Python解释称计算机能够识别的命令
+Pycharm是IDE，用于方便快捷的编写Python代码并实现运行Python代码的一个工具。</code></pre>
+</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-1-pian-python-ru-men-zhi-nan/">https://zhangyafeii.gitee.io/python/base/di-1-pian-python-ru-men-zhi-nan/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">
+                                    <span class="chip bg-color">入门指南</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-08T08-08-08',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/base/di-2-pian-pyhon-kuai-su-shang-shou/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2827234272,3310749199&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第2篇：Python快速上手">
+                        
+                        <span class="card-title">第2篇：Python快速上手</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本节目标：学习Python最基础的语法知识，可以用代码快速实现一些简单的功能
+内容概要：
+
+输入和输出
+初识数据类型
+变量
+注释
+运算符
+格式化输出
+
+1. 输入和输出1.1 输出——printprint(self, *args, sep=
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">
+                        <span class="chip bg-color">快速上手</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-1-pian-python-ru-men-zhi-nan/">
+                    <div class="card-image">
+                        
+                        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2505758529,219040065&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="第1篇：Python入门指南">
+                        
+                        <span class="card-title">第1篇：Python入门指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            在Python开发领域流传着这样一句话：人生苦短，我用Python! 这句话出自Bruce Eckel，原文是：Life is short，you need Python。使用过Python语言的程序员，或者从别的语言（比如Java）转换到Python开发的程序员或许对这句话的理解更加深刻。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">
+                        <span class="chip bg-color">入门指南</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1659 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="第25篇：面向对象编程应用, 张亚飞,飞凡空间,国学,Python,Go">
+    <meta name="description" content="面向对象编程对初学者来说不难理解但很难应用，虽然我们为大家总结过面向对象的三步走方法（定义类、创建对象、给对象发消息），但是说起来容易做起来难。大量的编程练习和阅读优质的代码可能是这个阶段最能够帮助到大家的两件事情。接下来我们还是通过经典的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="baidu-site-verification" content="code-w2ezfaoXE0" />
+    <title>第25篇：面向对象编程应用 | 飞凡空间</title>
+    <link rel="icon" type="image/png" href="/medias/my-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="飞凡空间" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my-logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">飞凡空间</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my-logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">飞凡空间</div>
+        <div class="logo-desc">
+            
+            诚者，天之道也；诚之者，人之道也。诚者，不勉而中，不思而得。从容中道，圣人也；诚之者，择善而固执者也。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/25.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        第25篇：面向对象编程应用
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">Python之路</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BA%94%E7%94%A8/">
+                                <span class="chip bg-color">应用</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                <span class="chip bg-color">面向对象</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                            <a href="/categories/Python/base/" class="post-category">
+                                base
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-25
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    16 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>面向对象编程对初学者来说不难理解但很难应用，虽然我们为大家总结过面向对象的三步走方法（定义类、创建对象、给对象发消息），但是说起来容易做起来难。<strong>大量的编程练习</strong>和<strong>阅读优质的代码</strong>可能是这个阶段最能够帮助到大家的两件事情。接下来我们还是通过经典的案例来剖析面向对象编程的知识，同时也通过这些案例为大家讲解如何运用之前学过的Python知识。</p>
+<h3 id="经典案例"><a href="#经典案例" class="headerlink" title="经典案例"></a>经典案例</h3><h4 id="案例1：扑克游戏。"><a href="#案例1：扑克游戏。" class="headerlink" title="案例1：扑克游戏。"></a>案例1：扑克游戏。</h4><blockquote>
+<p><strong>说明</strong>：简单起见，我们的扑克只有52张牌（没有大小王），游戏需要将52张牌发到4个玩家的手上，每个玩家手上有13张牌，按照黑桃、红心、草花、方块的顺序和点数从小到大排列，暂时不实现其他的功能。</p>
+</blockquote>
+<p>使用面向对象编程方法，首先需要从问题的需求中找到对象并抽象出对应的类，此外还要找到对象的属性和行为。当然，这件事情并不是特别困难，我们可以从需求的描述中找出名词和动词，名词通常就是对象或者是对象的属性，而动词通常是对象的行为。扑克游戏中至少应该有三类对象，分别是牌、扑克和玩家，牌、扑克、玩家三个类也并不是孤立的。类和类之间的关系可以粗略的分为<strong>is-a关系（继承）</strong>、<strong>has-a关系（关联）</strong>和<strong>use-a关系（依赖）</strong>。很显然扑克和牌是has-a关系，因为一副扑克有（has-a）52张牌；玩家和牌之间不仅有关联关系还有依赖关系，因为玩家手上有（has-a）牌而且玩家使用了（use-a）牌。</p>
+<p>牌的属性显而易见，有花色和点数。我们可以用0到3的四个数字来代表四种不同的花色，但是这样的代码可读性会非常糟糕，因为我们并不知道黑桃、红心、草花、方块跟0到3的数字的对应关系。如果一个变量的取值只有有限多个选项，我们可以使用枚举。与C、Java等语言不同的是，Python中没有声明枚举类型的关键字，但是可以通过继承<code>enum</code>模块的<code>Enum</code>类来创建枚举类型，代码如下所示。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">from enum import Enum
+
+
+class Suite(Enum):
+    """花色(枚举)"""
+    SPADE, HEART, CLUB, DIAMOND = range(4)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上面的代码可以看出，定义枚举类型其实就是定义符号常量，如<code>SPADE</code>、<code>HEART</code>等。每个符号常量都有与之对应的值，这样表示黑桃就可以不用数字<code>0</code>，而是用<code>Suite.SPADE</code>；同理，表示方块可以不用数字<code>3</code>， 而是用<code>Suite.DIAMOND</code>。注意，使用符号常量肯定是优于使用字面常量的，因为能够读懂英文就能理解符号常量的含义，代码的可读性会提升很多。Python中的枚举类型是可迭代类型，简单的说就是可以将枚举类型放到<code>for-in</code>循环中，依次取出每一个符号常量及其对应的值，如下所示。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">for suite in Suite:
+    print(f'{suite}: {suite.value}')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>接下来我们可以定义牌类。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Card:
+    """牌"""
+
+    def __init__(self, suite, face):
+        self.suite = suite
+        self.face = face
+
+    def __repr__(self):
+        suites = '♠♥♣♦'
+        faces = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+        # 根据牌的花色和点数取到对应的字符
+        return f'{suites[self.suite.value]}{faces[self.face]}'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以通过下面的代码来测试下<code>Card</code>类。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">card1 = Card(Suite.SPADE, 5)
+card2 = Card(Suite.HEART, 13)
+print(card1, card2)    # ♠5 ♥K<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>接下来我们定义扑克类。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">import random
+
+
+class Poker:
+    """扑克"""
+
+    def __init__(self):
+        # 通过列表的生成式语法创建一个装52张牌的列表
+        self.cards = [Card(suite, face) for suite in Suite
+                      for face in range(1, 14)]
+        # current属性表示发牌的位置
+        self.current = 0
+
+    def shuffle(self):
+        """洗牌"""
+        self.current = 0
+        # 通过random模块的shuffle函数实现列表的随机乱序
+        random.shuffle(self.cards)
+
+    def deal(self):
+        """发牌"""
+        card = self.cards[self.current]
+        self.current += 1
+        return card
+
+    @property
+    def has_next(self):
+        """还有没有牌可以发"""
+        return self.current < len(self.cards)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以通过下面的代码来测试下<code>Poker</code>类。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">poker = Poker()
+poker.shuffle()
+print(poker.cards)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>定义玩家类。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Player:
+    """玩家"""
+
+    def __init__(self, name):
+        self.name = name
+        self.cards = []
+
+    def get_one(self, card):
+        """摸牌"""
+        self.cards.append(card)
+
+    def arrange(self):
+        self.cards.sort()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建四个玩家并将牌发到玩家的手上。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">poker = Poker()
+poker.shuffle()
+players = [Player('东邪'), Player('西毒'), Player('南帝'), Player('北丐')]
+for _ in range(13):
+    for player in players:
+        player.get_one(poker.deal())
+for player in players:
+    player.arrange()
+    print(f'{player.name}: ', end='')
+    print(player.cards)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的代码会在<code>player.arrange()</code>那里出现异常，因为<code>Player</code>的<code>arrange</code>方法使用了列表的<code>sort</code>对玩家手上的牌进行排序，排序需要比较两个<code>Card</code>对象的大小，而<code>&lt;</code>运算符又不能直接作用于<code>Card</code>类型，所以就出现了<code>TypeError</code>异常，异常消息为：<code>'&lt;' not supported between instances of 'Card' and 'Card'</code>。</p>
+<p>为了解决这个问题，我们可以对<code>Card</code>类的代码稍作修改，使得两个<code>Card</code>对象可以直接用<code>&lt;</code>进行大小的比较。这里用到技术叫<strong>运算符重载</strong>，Python中要实现对<code>&lt;</code>运算符的重载，需要在类中添加一个名为<code>__lt__</code>的魔术方法。很显然，魔术方法<code>__lt__</code>中的<code>lt</code>是英文单词“less than”的缩写，以此类推，魔术方法<code>__gt__</code>对应<code>&gt;</code>运算符，魔术方法<code>__le__</code>对应<code>&lt;=</code>运算符，<code>__ge__</code>对应<code>&gt;=</code>运算符，<code>__eq__</code>对应<code>==</code>运算符，<code>__ne__</code>对应<code>!=</code>运算符。</p>
+<p>修改后的<code>Card</code>类代码如下所示。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Card:
+    """牌"""
+
+    def __init__(self, suite, face):
+        self.suite = suite
+        self.face = face
+
+    def __repr__(self):
+        suites = '♠♥♣♦'
+        faces = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+        # 根据牌的花色和点数取到对应的字符
+        return f'{suites[self.suite.value]}{faces[self.face]}'
+
+    def __lt__(self, other):
+        # 花色相同比较点数的大小
+        if self.suite == other.suite:
+            return self.face < other.face
+        # 花色不同比较花色对应的值
+        return self.suite.value < other.suite.value<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>说明：</strong> 大家可以尝试在上面代码的基础上写一个简单的扑克游戏，如21点游戏（Black Jack），游戏的规则可以自己在网上找一找。</p>
+</blockquote>
+<h4 id="案例2：工资结算系统。"><a href="#案例2：工资结算系统。" class="headerlink" title="案例2：工资结算系统。"></a>案例2：工资结算系统。</h4><blockquote>
+<p><strong>要求</strong>：某公司有三种类型的员工，分别是部门经理、程序员和销售员。需要设计一个工资结算系统，根据提供的员工信息来计算员工的月薪。其中，部门经理的月薪是固定15000元；程序员按工作时间（以小时为单位）支付月薪，每小时200元；销售员的月薪由1800元底薪加上销售额5%的提成两部分构成。</p>
+</blockquote>
+<p>通过对上述需求的分析，可以看出部门经理、程序员、销售员都是员工，有相同的属性和行为，那么我们可以先设计一个名为<code>Employee</code>的父类，再通过继承的方式从这个父类派生出部门经理、程序员和销售员三个子类。很显然，后续的代码不会创建<code>Employee</code> 类的对象，因为我们需要的是具体的员工对象，所以这个类可以设计成专门用于继承的抽象类。Python中没有定义抽象类的关键字，但是可以通过<code>abc</code>模块中名为<code>ABCMeta</code> 的元类来定义抽象类。关于元类的知识，后面的课程中会有专门的讲解，这里不用太纠结这个概念，记住用法即可。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">from abc import ABCMeta, abstractmethod
+
+
+class Employee(metaclass=ABCMeta):
+    """员工"""
+
+    def __init__(self, name):
+        self.name = name
+
+    @abstractmethod
+    def get_salary(self):
+        """结算月薪"""
+        pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上面的员工类中，有一个名为<code>get_salary</code>的方法用于结算月薪，但是由于还没有确定是哪一类员工，所以结算月薪虽然是员工的公共行为但这里却没有办法实现。对于暂时无法实现的方法，我们可以使用<code>abstractmethod</code>装饰器将其声明为抽象方法，所谓<strong>抽象方法就是只有声明没有实现的方法</strong>，<strong>声明这个方法是为了让子类去重写这个方法</strong>。接下来的代码展示了如何从员工类派生出部门经理、程序员、销售员这三个子类以及子类如何重写父类的抽象方法。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Manager(Employee):
+    """部门经理"""
+
+    def get_salary(self):
+        return 15000.0
+
+
+class Programmer(Employee):
+    """程序员"""
+
+    def __init__(self, name, working_hour=0):
+        super().__init__(name)
+        self.working_hour = working_hour
+
+    def get_salary(self):
+        return 200 * self.working_hour
+
+
+class Salesman(Employee):
+    """销售员"""
+
+    def __init__(self, name, sales=0):
+        super().__init__(name)
+        self.sales = sales
+
+    def get_salary(self):
+        return 1800 + self.sales * 0.05<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的<code>Manager</code>、<code>Programmer</code>、<code>Salesman</code>三个类都继承自<code>Employee</code>，三个类都分别重写了<code>get_salary</code>方法。<strong>重写就是子类对父类已有的方法重新做出实现</strong>。相信大家已经注意到了，三个子类中的<code>get_salary</code>各不相同，所以这个方法在程序运行时会产生<strong>多态行为</strong>，多态简单的说就是<strong>调用相同的方法</strong>，<strong>不同的子类对象做不同的事情</strong>。</p>
+<p>我们通过下面的代码来完成这个工资结算系统，由于程序员和销售员需要分别录入本月的工作时间和销售额，所以在下面的代码中我们使用了Python内置的<code>isinstance</code>函数来判断员工对象的类型。我们之前讲过的<code>type</code>函数也能识别对象的类型，但是<code>isinstance</code>函数更加强大，因为它可以判断出一个对象是不是某个继承结构下的子类型，你可以简答的理解为<code>type</code>函数是对对象类型的精准匹配，而<code>isinstance</code>函数是对对象类型的模糊匹配。</p>
+<pre class="line-numbers language-Python"><code class="language-Python">emps = [
+    Manager('刘备'), Programmer('诸葛亮'), Manager('曹操'), 
+    Programmer('荀彧'), Salesman('吕布'), Programmer('张辽'),
+]
+for emp in emps:
+    if isinstance(emp, Programmer):
+        emp.working_hour = int(input(f'请输入{emp.name}本月工作时间: '))
+    elif isinstance(emp, Salesman):
+        emp.sales = float(input(f'请输入{emp.name}本月销售额: '))
+    print(f'{emp.name}本月工资为: ￥{emp.get_salary():.2f}元')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="最佳练习"><a href="#最佳练习" class="headerlink" title="最佳练习"></a>最佳练习</h3><h4 id="练习1：奥特曼打小怪兽"><a href="#练习1：奥特曼打小怪兽" class="headerlink" title="练习1：奥特曼打小怪兽"></a>练习1：奥特曼打小怪兽</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+<span class="token keyword">from</span> random <span class="token keyword">import</span> randint<span class="token punctuation">,</span> randrange
+
+
+<span class="token keyword">class</span> <span class="token class-name">Fighter</span><span class="token punctuation">(</span>object<span class="token punctuation">,</span> metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""战斗者"""</span>
+
+    <span class="token comment" spellcheck="true"># 通过__slots__魔法限定对象可以绑定的成员变量</span>
+    __slots__ <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'_name'</span><span class="token punctuation">,</span> <span class="token string">'_hp'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> hp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""初始化方法
+
+        :param name: 名字
+        :param hp: 生命值
+        """</span>
+        self<span class="token punctuation">.</span>_name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>_hp <span class="token operator">=</span> hp
+
+    @property
+    <span class="token keyword">def</span> <span class="token function">name</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_name
+
+    @property
+    <span class="token keyword">def</span> <span class="token function">hp</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_hp
+
+    @hp<span class="token punctuation">.</span>setter
+    <span class="token keyword">def</span> <span class="token function">hp</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> hp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_hp <span class="token operator">=</span> hp <span class="token keyword">if</span> hp <span class="token operator">>=</span> <span class="token number">0</span> <span class="token keyword">else</span> <span class="token number">0</span>
+
+    @property
+    <span class="token keyword">def</span> <span class="token function">alive</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_hp <span class="token operator">></span> <span class="token number">0</span>
+
+    @abstractmethod
+    <span class="token keyword">def</span> <span class="token function">attack</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""攻击
+
+        :param other: 被攻击的对象
+        """</span>
+        <span class="token keyword">pass</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Ultraman</span><span class="token punctuation">(</span>Fighter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""奥特曼"""</span>
+
+    __slots__ <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'_name'</span><span class="token punctuation">,</span> <span class="token string">'_hp'</span><span class="token punctuation">,</span> <span class="token string">'_mp'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> hp<span class="token punctuation">,</span> mp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""初始化方法
+
+        :param name: 名字
+        :param hp: 生命值
+        :param mp: 魔法值
+        """</span>
+        super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>name<span class="token punctuation">,</span> hp<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>_mp <span class="token operator">=</span> mp
+
+    <span class="token keyword">def</span> <span class="token function">attack</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        other<span class="token punctuation">.</span>hp <span class="token operator">-=</span> randint<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">huge_attack</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""究极必杀技(打掉对方至少50点或四分之三的血)
+
+        :param other: 被攻击的对象
+
+        :return: 使用成功返回True否则返回False
+        """</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_mp <span class="token operator">>=</span> <span class="token number">50</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>_mp <span class="token operator">-=</span> <span class="token number">50</span>
+            injury <span class="token operator">=</span> other<span class="token punctuation">.</span>hp <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">//</span> <span class="token number">4</span>
+            injury <span class="token operator">=</span> injury <span class="token keyword">if</span> injury <span class="token operator">>=</span> <span class="token number">50</span> <span class="token keyword">else</span> <span class="token number">50</span>
+            other<span class="token punctuation">.</span>hp <span class="token operator">-=</span> injury
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>attack<span class="token punctuation">(</span>other<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+    <span class="token keyword">def</span> <span class="token function">magic_attack</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> others<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""魔法攻击
+
+        :param others: 被攻击的群体
+
+        :return: 使用魔法成功返回True否则返回False
+        """</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_mp <span class="token operator">>=</span> <span class="token number">20</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>_mp <span class="token operator">-=</span> <span class="token number">20</span>
+            <span class="token keyword">for</span> temp <span class="token keyword">in</span> others<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> temp<span class="token punctuation">.</span>alive<span class="token punctuation">:</span>
+                    temp<span class="token punctuation">.</span>hp <span class="token operator">-=</span> randint<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+    <span class="token keyword">def</span> <span class="token function">resume</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""恢复魔法值"""</span>
+        incr_point <span class="token operator">=</span> randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>_mp <span class="token operator">+=</span> incr_point
+        <span class="token keyword">return</span> incr_point
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'~~~%s奥特曼~~~\n'</span> <span class="token operator">%</span> self<span class="token punctuation">.</span>_name <span class="token operator">+</span> \
+            <span class="token string">'生命值: %d\n'</span> <span class="token operator">%</span> self<span class="token punctuation">.</span>_hp <span class="token operator">+</span> \
+            <span class="token string">'魔法值: %d\n'</span> <span class="token operator">%</span> self<span class="token punctuation">.</span>_mp
+
+
+<span class="token keyword">class</span> <span class="token class-name">Monster</span><span class="token punctuation">(</span>Fighter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""小怪兽"""</span>
+
+    __slots__ <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'_name'</span><span class="token punctuation">,</span> <span class="token string">'_hp'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">attack</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        other<span class="token punctuation">.</span>hp <span class="token operator">-=</span> randint<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'~~~%s小怪兽~~~\n'</span> <span class="token operator">%</span> self<span class="token punctuation">.</span>_name <span class="token operator">+</span> \
+            <span class="token string">'生命值: %d\n'</span> <span class="token operator">%</span> self<span class="token punctuation">.</span>_hp
+
+
+<span class="token keyword">def</span> <span class="token function">is_any_alive</span><span class="token punctuation">(</span>monsters<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""判断有没有小怪兽是活着的"""</span>
+    <span class="token keyword">for</span> monster <span class="token keyword">in</span> monsters<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> monster<span class="token punctuation">.</span>alive <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+    <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+
+<span class="token keyword">def</span> <span class="token function">select_alive_one</span><span class="token punctuation">(</span>monsters<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""选中一只活着的小怪兽"""</span>
+    monsters_len <span class="token operator">=</span> len<span class="token punctuation">(</span>monsters<span class="token punctuation">)</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        index <span class="token operator">=</span> randrange<span class="token punctuation">(</span>monsters_len<span class="token punctuation">)</span>
+        monster <span class="token operator">=</span> monsters<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> monster<span class="token punctuation">.</span>alive <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> monster
+
+
+<span class="token keyword">def</span> <span class="token function">display_info</span><span class="token punctuation">(</span>ultraman<span class="token punctuation">,</span> monsters<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""显示奥特曼和小怪兽的信息"""</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>ultraman<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> monster <span class="token keyword">in</span> monsters<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>monster<span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    u <span class="token operator">=</span> Ultraman<span class="token punctuation">(</span><span class="token string">'骆昊'</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span>
+    m1 <span class="token operator">=</span> Monster<span class="token punctuation">(</span><span class="token string">'狄仁杰'</span><span class="token punctuation">,</span> <span class="token number">250</span><span class="token punctuation">)</span>
+    m2 <span class="token operator">=</span> Monster<span class="token punctuation">(</span><span class="token string">'白元芳'</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span>
+    m3 <span class="token operator">=</span> Monster<span class="token punctuation">(</span><span class="token string">'王大锤'</span><span class="token punctuation">,</span> <span class="token number">750</span><span class="token punctuation">)</span>
+    ms <span class="token operator">=</span> <span class="token punctuation">[</span>m1<span class="token punctuation">,</span> m2<span class="token punctuation">,</span> m3<span class="token punctuation">]</span>
+    fight_round <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">while</span> u<span class="token punctuation">.</span>alive <span class="token operator">and</span> is_any_alive<span class="token punctuation">(</span>ms<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'========第%02d回合========'</span> <span class="token operator">%</span> fight_round<span class="token punctuation">)</span>
+        m <span class="token operator">=</span> select_alive_one<span class="token punctuation">(</span>ms<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 选中一只小怪兽</span>
+        skill <span class="token operator">=</span> randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 通过随机数选择使用哪种技能</span>
+        <span class="token keyword">if</span> skill <span class="token operator">&lt;=</span> <span class="token number">6</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 60%的概率使用普通攻击</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s使用普通攻击打了%s.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>u<span class="token punctuation">.</span>name<span class="token punctuation">,</span> m<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            u<span class="token punctuation">.</span>attack<span class="token punctuation">(</span>m<span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s的魔法值恢复了%d点.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>u<span class="token punctuation">.</span>name<span class="token punctuation">,</span> u<span class="token punctuation">.</span>resume<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> skill <span class="token operator">&lt;=</span> <span class="token number">9</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 30%的概率使用魔法攻击(可能因魔法值不足而失败)</span>
+            <span class="token keyword">if</span> u<span class="token punctuation">.</span>magic_attack<span class="token punctuation">(</span>ms<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s使用了魔法攻击.'</span> <span class="token operator">%</span> u<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s使用魔法失败.'</span> <span class="token operator">%</span> u<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 10%的概率使用究极必杀技(如果魔法值不足则使用普通攻击)</span>
+            <span class="token keyword">if</span> u<span class="token punctuation">.</span>huge_attack<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s使用究极必杀技虐了%s.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>u<span class="token punctuation">.</span>name<span class="token punctuation">,</span> m<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s使用普通攻击打了%s.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>u<span class="token punctuation">.</span>name<span class="token punctuation">,</span> m<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s的魔法值恢复了%d点.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>u<span class="token punctuation">.</span>name<span class="token punctuation">,</span> u<span class="token punctuation">.</span>resume<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> m<span class="token punctuation">.</span>alive <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 如果选中的小怪兽没有死就回击奥特曼</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s回击了%s.'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>m<span class="token punctuation">.</span>name<span class="token punctuation">,</span> u<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            m<span class="token punctuation">.</span>attack<span class="token punctuation">(</span>u<span class="token punctuation">)</span>
+        display_info<span class="token punctuation">(</span>u<span class="token punctuation">,</span> ms<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 每个回合结束后显示奥特曼和小怪兽的信息</span>
+        fight_round <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'\n========战斗结束!========\n'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> u<span class="token punctuation">.</span>alive <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s奥特曼胜利!'</span> <span class="token operator">%</span> u<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'小怪兽胜利!'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="练习2：图书管理系统"><a href="#练习2：图书管理系统" class="headerlink" title="练习2：图书管理系统"></a>练习2：图书管理系统</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+
+<span class="token triple-quoted-string string">"""
+DateTime   : 2020/12/06 9:43
+Author     : ZhangYafei
+Description:
+图书管理系统
+    1.查询图书
+    2.增加图书
+    3.借阅图书
+    4.归还图书
+    5.退出系统
+"""</span>
+<span class="token comment" spellcheck="true">#书：书名、作者、状态、位置</span>
+<span class="token triple-quoted-string string">"""
+c        谭浩强   未借出  ISO9001
+python   guido   未借出   NFS8102
+java     westos  未借出  PKI7844
+"""</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Book</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>name<span class="token punctuation">,</span>author<span class="token punctuation">,</span>status<span class="token punctuation">,</span>bookindex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>author <span class="token operator">=</span> author
+        self<span class="token punctuation">.</span>status <span class="token operator">=</span> status
+        self<span class="token punctuation">.</span>bookindex <span class="token operator">=</span> bookindex
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            stats <span class="token operator">=</span> <span class="token string">'未借出'</span>
+        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            stats <span class="token operator">=</span> <span class="token string">'已借出'</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            stats <span class="token operator">=</span> <span class="token string">'未知状态'</span>
+        <span class="token keyword">return</span> <span class="token string">'书名:《%s》 作者: %s 状态: &lt;%s> 位置: %s'</span> \
+        <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span>self<span class="token punctuation">.</span>author<span class="token punctuation">,</span>stats<span class="token punctuation">,</span>self<span class="token punctuation">.</span>bookindex<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">BooKManager</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    books <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">Start</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>books<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Book<span class="token punctuation">(</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'谭浩强'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'ISO9001'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>books<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Book<span class="token punctuation">(</span><span class="token string">'python'</span><span class="token punctuation">,</span><span class="token string">'guido'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'NFS8102'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>books<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Book<span class="token punctuation">(</span><span class="token string">'java'</span><span class="token punctuation">,</span><span class="token string">'westos'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'PKI7844'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">Menu</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>Start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token triple-quoted-string string">"""图书管理系统\n\t1.查询图书\n\t2.增加图书\n\t3.借阅图书\n\t4.归还图书\n\t5.退出系统"""</span><span class="token punctuation">)</span>
+
+            choice <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'输入您的选择: '</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> choice <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>ShowAllBook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'2'</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>AddBook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'3'</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>BorrowBook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'4'</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>ReturnBook<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'5'</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'欢迎下次使用...'</span><span class="token punctuation">)</span>
+                exit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'请输入正确选择！'</span><span class="token punctuation">)</span>
+                <span class="token keyword">continue</span>
+
+    <span class="token keyword">def</span> <span class="token function">CheckBook</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> book <span class="token keyword">in</span> self<span class="token punctuation">.</span>books<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> book<span class="token punctuation">.</span>name <span class="token operator">==</span> name<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> book
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+
+    <span class="token keyword">def</span> <span class="token function">ShowAllBook</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> book <span class="token keyword">in</span> self<span class="token punctuation">.</span>books<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>book<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">AddBook</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        name <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'图书名称: '</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>books<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Book<span class="token punctuation">(</span>name<span class="token punctuation">,</span>input<span class="token punctuation">(</span><span class="token string">'作者:'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span>input<span class="token punctuation">(</span><span class="token string">'存储位置:'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'图书《%s》增加成功'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">BorrowBook</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        name <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'借阅图书名称: '</span><span class="token punctuation">)</span>
+        ret <span class="token operator">=</span> self<span class="token punctuation">.</span>CheckBook<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> ret <span class="token operator">!=</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> ret<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》已经借出'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                ret<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token number">0</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》借阅成功'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》不存在'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">ReturnBook</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        name <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">'归还图书名称: '</span><span class="token punctuation">)</span>
+        ret <span class="token operator">=</span> self<span class="token punctuation">.</span>CheckBook<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> ret <span class="token operator">!=</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> ret<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                ret<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token number">1</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》归还成功'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》未借出'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'书籍《%s》不存在'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
+
+manage <span class="token operator">=</span> BooKManager<span class="token punctuation">(</span><span class="token punctuation">)</span>
+manage<span class="token punctuation">.</span>Menu<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="简单的总结"><a href="#简单的总结" class="headerlink" title="简单的总结"></a>简单的总结</h3><p>面向对象的编程思想非常的好，也符合人类的正常思维习惯，但是要想灵活运用面向对象编程中的抽象、封装、继承、多态需要长时间的积累和沉淀，这件事情并非一夕之功，也无法一蹴而就。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangyafeii.gitee.io/python/base/di-25-pian-mian-xiang-dui-xiang-bian-cheng-ying-yong/">https://zhangyafeii.gitee.io/python/base/di-25-pian-mian-xiang-dui-xiang-bian-cheng-ying-yong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">Python之路</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BA%94%E7%94%A8/">
+                                    <span class="chip bg-color">应用</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                    <span class="chip bg-color">面向对象</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9bf0e29501275f4f23c',
+        clientSecret: '1c56bc88fdb7b23ee3712916a38e5e8d1311823a',
+        repo: 'github.io',
+        owner: 'zhangyafeii',
+        admin: "zhangyafeii",
+        id: '2020-12-25T10-00-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/go/go-xue-xi-zhi-nan/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Go/blog/Go%E4%B9%8B%E8%B7%AF.jpg" class="responsive-img" alt="Go学习指南">
+                        
+                        <span class="card-title">Go学习指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Go学习指南
+
+Go基础
+第1篇：Go入门及环境搭建
+第2篇：Go快速上手
+第3篇：条件语句和循环语句
+第4篇：基础数据类型
+第5篇：复合数据类型之数组
+第6篇：引用数据类型之切片
+第7篇：切片的底层实现
+第8篇：引用数据类型之指针
+第9篇
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%9B%AE%E5%BD%95/">
+                        <span class="chip bg-color">目录</span>
+                    </a>
+                    
+                    <a href="/tags/Go%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Go之路</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/python/base/di-24-pian-mian-xiang-dui-xiang-mo-fa-fang-fa/">
+                    <div class="card-image">
+                        
+                        <img src="https://zhangyafei-1258643511.cos.ap-nanjing.myqcloud.com/Python%E6%96%87%E6%A1%A3/assets/24.jpg" class="responsive-img" alt="第24篇：面向对象魔法方法">
+                        
+                        <span class="card-title">第24篇：面向对象魔法方法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习目标：了解Python中魔法方法的作用，掌握常用魔法方法的概念和应用场景。
+之前我们说过Python面向对象中以双下划线开头和结尾的方法为特殊方法，也称魔法方法，是Python中最优美的特性之一。什么是魔法方法呢？它们在面向对象的Pyt
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            <a href="/categories/Python/base/" class="post-category">
+                                    base
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">Python之路</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 飞凡空间<br />'
+            + '文章作者: 张亚飞<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">344.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "12";
+                    var startDate = "18";
+                    var startHour = "12";
+                    var startMinute = "12";
+                    var startSecond = "12";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="https://gitee.com/zhangyafeii" class="tooltipped" target="_blank" data-tooltip="访问我的Gitee" data-position="top" data-delay="50">
+        <i class="fab fa-google-plus"></i>
+    </a>
+
+
+
+    <a href="mailto:zhangyafeii@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1271570224" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1271570224" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/cursor.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
