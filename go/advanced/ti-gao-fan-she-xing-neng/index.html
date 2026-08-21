@@ -477,7 +477,7 @@ Go 语言标准库以及很多开源软件中都使用了 Go 语言的反射能�
 <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token boolean">_</span> <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">"CONFIG_SERVER_NAME"</span><span class="token punctuation">,</span> <span class="token string">"global_server"</span><span class="token punctuation">)</span>
     <span class="token boolean">_</span> <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">"CONFIG_SERVER_IP"</span><span class="token punctuation">,</span> <span class="token string">"10.0.0.1"</span><span class="token punctuation">)</span>
-    <span class="token boolean">_</span> <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">"CONFIG_SERVER_URL"</span><span class="token punctuation">,</span> <span class="token string">"zhangyafeii.gitee.io"</span><span class="token punctuation">)</span>
+    <span class="token boolean">_</span> <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">"CONFIG_SERVER_URL"</span><span class="token punctuation">,</span> <span class="token string">"zhangyafeii.github.io"</span><span class="token punctuation">)</span>
     c <span class="token operator">:=</span> <span class="token function">readConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%+v"</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -487,7 +487,7 @@ Go 语言标准库以及很多开源软件中都使用了 Go 语言的反射能�
 <li>查看该环境变量是否存在，如果存在，则将环境变量的值赋值给该字段。</li>
 </ul>
 <p>运行该程序，输出为：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">&{Name:global_server IP:10.0.0.1 URL:zhangyafeii.gitee.io Timeout:}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">&{Name:global_server IP:10.0.0.1 URL:zhangyafeii.github.io Timeout:}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以看到，环境变量中设置的三个配置项已经生效。之后无论结构体 <code>Config</code> 内部的字段发生任何改变，这部分代码无需任何修改即可完美的适配，出错概率也极大地降低。</p>
 <h2 id="三、反射的性能"><a href="#三、反射的性能" class="headerlink" title="三、反射的性能"></a>三、反射的性能</h2><p>毫无疑问的是，反射会增加额外的代码指令，对性能肯定会产生影响的。具体影响有多大，我们可以使用 Benchmark 来测试一番。</p>
 <h3 id="1-创建对象"><a href="#1-创建对象" class="headerlink" title="1. 创建对象"></a>1. 创建对象</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">BenchmarkNew</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -658,7 +658,7 @@ ok      example/reflect_perforance     4.280s<span aria-hidden="true" class="lin
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zhangyafeii.gitee.io" rel="external nofollow noreferrer">张亚飞</a>
+                    <a href="https://zhangyafeii.github.io" rel="external nofollow noreferrer">张亚飞</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -668,7 +668,7 @@ ok      example/reflect_perforance     4.280s<span aria-hidden="true" class="lin
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zhangyafeii.gitee.io/go/advanced/ti-gao-fan-she-xing-neng/">https://zhangyafeii.gitee.io/go/advanced/ti-gao-fan-she-xing-neng/</a>
+                    <a href="https://zhangyafeii.github.io/go/advanced/ti-gao-fan-she-xing-neng/">https://zhangyafeii.github.io/go/advanced/ti-gao-fan-she-xing-neng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -681,7 +681,7 @@ ok      example/reflect_perforance     4.280s<span aria-hidden="true" class="lin
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+                    <a href="https://zhangyafeii.github.io" target="_blank">张亚飞</a>
                     !
                 </span>
             </div>
@@ -1216,7 +1216,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">年份</span>
-            <a href="https://zhangyafeii.gitee.io" target="_blank">张亚飞</a>
+            <a href="https://zhangyafeii.github.io" target="_blank">张亚飞</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
